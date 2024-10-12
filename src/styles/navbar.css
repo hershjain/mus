@@ -1,0 +1,35 @@
+nav {
+    position: fixed;        /* Fixes the position of the navbar */
+    bottom: 0;              /* Positions it at the bottom of the screen */
+    left: 0;                /* Aligns it to the left edge of the screen */
+    width: 100%;            /* Makes the navbar span the full width of the screen */
+    background-color: #ececec; /* Background color for the navbar */
+    padding: 1em 0em;
+    z-index: 1000;          /* Ensures the navbar stays on top of other elements */
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around; /* Distributes the list items evenly */
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.25 em;
+  }
+  
+  nav ul li a:hover {
+    color: #3daeff; /* Changes link color when hovered */
+  }
+
+  .svg-inline--fa {
+    height: 1.75em !important;
+  }
