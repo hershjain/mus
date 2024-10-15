@@ -1,0 +1,25 @@
+.playlist-card {
+    width: 150px;
+    /* margin-right: 10px; */
+  }
+  
+  .playlist-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+  
+  .playlist-title {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1em;
+    color: #333;
+  }
+
+  .playlist-curator {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: #333;
+  }

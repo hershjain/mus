@@ -3,9 +3,11 @@ import React from "react";
 
 const Profile = () => {
     return (
-        <div>
-            <h1>Profile</h1>
-        </div>
+        <body>
+            <div>
+                <h1>Profile</h1>
+            </div>
+        </body>
     );
 };
 

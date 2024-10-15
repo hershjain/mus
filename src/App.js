@@ -14,13 +14,15 @@ function App() {
     <Router>
       <Header />
       <Navbar />
-      <Routes>
-        <Route exact path="/" element={<Login />} />
-        <Route path="/discovery" element={<Discovery />} />
-        <Route path="/library" element={<Library />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/create-playlist' element={<CreatePlaylist />} />
-      </Routes>
+      <div className='main-content'>
+        <Routes>
+          <Route exact path="/" element={<Login />} />
+          <Route path="/discovery" element={<Discovery />} />
+          <Route path="/library" element={<Library />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/create-playlist' element={<CreatePlaylist />} />
+        </Routes>
+      </div>
     </Router>
   );
 }

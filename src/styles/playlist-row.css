@@ -1,0 +1,27 @@
+.playlist-row {
+    margin-bottom: 10px;
+  }
+  
+  .category-title {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    margin-top: 0px;
+    margin-left: 20px;
+    color: #000;
+  }
+  
+  .playlist-carousel {
+    padding-left: 20px;
+    padding-right: 20px;
+    display: grid;
+    grid-auto-flow: column; /* Forces grid items to flow in a single row */
+    grid-auto-columns: 150px; /* Sets a fixed width for each card */
+    gap: 10px;               /* Adds space between the grid items */
+    overflow-x: auto;        /* Enables horizontal scrolling */ 
+    scroll-snap-type: x mandatory; /* Optional: Enables snap scrolling for a smooth experience */
+  }
+  
+  .playlist-carousel::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for better UX */
+  }
+  
