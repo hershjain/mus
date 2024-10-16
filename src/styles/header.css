@@ -1,7 +1,9 @@
 header{
     width: 100%;
     display: flex;
-    background-color: #ececec;
+    backdrop-filter: blur(4px) invert(1);
+    /* background-color: #ececec; */
+    background: linear-gradient(0deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.9) 100%);
     position: fixed;
     z-index: 1000;
     top: 0;
