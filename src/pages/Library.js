@@ -1,11 +1,54 @@
-import React from "react";
+import React, {useState} from "react";
+import PlaylistGrid from '../components/playlist-grid';
+import placeholder from '../assets/images/playlist-test-cover.jpg';
+import '../styles/Library.css';
 
 
 const Library = () => {
+    const savedPlaylists = [
+        { title: 'Pop Hits', imageUrl: placeholder , curator: 'mheydude123', category: 'Saved' },
+        { title: 'Hip Hop Vibes', imageUrl: placeholder , curator: 'hxrsh', category: 'Yours' },
+        { title: 'Rock Classics', imageUrl: placeholder, curator: 'ptpampadam', category: 'Saved' },
+        { title: 'Juicy Joints', imageUrl: placeholder, curator: 'mheydude123', category: 'Saved' },
+        { title: 'Sundae Blues', imageUrl: placeholder, curator: 'hxrsh', category: 'Yours' },
+        { title: 'Big Booms', imageUrl: placeholder, curator: 'ptpampadam', category: 'Saved' },      
+    ];
+
+    const [selectedCategories, setSelectedCategories] = useState([]); // Track selected categories
+
+    const categories = [ 'Yours', 'Saved']; // List of all categories
+
+
+    const toggleCategory = (category) => {
+        if (selectedCategories.includes(category)) {
+        setSelectedCategories(selectedCategories.filter(c => c !== category)); // Remove category if it's already selected
+        } else {
+        setSelectedCategories([...selectedCategories, category]); // Add category if it's not selected
+        }
+    };
+
+    const filteredPlaylists = selectedCategories.length > 0
+    ? savedPlaylists.filter(playlist => selectedCategories.includes(playlist.category))
+    : savedPlaylists; // If no category is selected, display all playlists
+
     return (
         <body>
-            <div>
-                <h1>Library</h1>
+            <div className="library-content">
+                <h1>Your Library</h1>
+                <div className="filter-buttons">
+                    {categories.map(category => (
+                    <button
+                        key={category}
+                        onClick={() => toggleCategory(category)}
+                        className={selectedCategories.includes(category) ? 'active' : ''}
+                    >
+                        {category}
+                    </button>
+                    ))}
+                </div>
+            </div>
+            <div className="library-grid">
+                <PlaylistGrid playlists={filteredPlaylists} />
             </div>
         </body>
     );

@@ -15,3 +15,7 @@ header div{
     align-items: center;
     flex-direction: row;
 }
+
+header div svg{
+    height: 1.5em;
+}

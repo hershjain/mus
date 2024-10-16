@@ -7,9 +7,9 @@ const Header = () => {
     return (
         <header>
             <div>
-                <FontAwesomeIcon icon={faSearch} size="35px" color='black' /> 
+                <FontAwesomeIcon icon={faSearch} size="25px" color='black' /> 
                 <h1>müs</h1>
-                <FontAwesomeIcon icon={faBell} size="35px" color='black' /> 
+                <FontAwesomeIcon icon={faBell} size="25px" color='black' /> 
             </div>
         </header>
     );

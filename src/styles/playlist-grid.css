@@ -1,0 +1,15 @@
+
+  .playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px; /* Adjust the gap between cards */
+    padding: 20px;
+    padding-bottom: 60px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .playlist-carousel::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for better UX */
+  }
+  
