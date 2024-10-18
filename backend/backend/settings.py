@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # Your custom app
-    'api',
+    'spotify',
 ]
 
 MIDDLEWARE = [
