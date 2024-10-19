@@ -6,6 +6,12 @@ import { faBell, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 const Header = () => {
     const [searchVisible, setSearchVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    const [notificationsVisible, setNotificationsVisible] = useState(false);
+    const [notifications, setNotifications] = useState([
+        "New playlist from user123",
+        "Your playlist was liked by user456",
+        "New follower: user789"
+      ]);
   
     const toggleSearch = () => {
       setSearchVisible(!searchVisible);
@@ -14,6 +20,11 @@ const Header = () => {
     const handleSearchChange = (e) => {
       setSearchQuery(e.target.value);
     };
+
+    const toggleNotifications = () => {
+      setNotificationsVisible(!notificationsVisible);
+    };
+    
     
     return (
         <header>
@@ -38,7 +49,26 @@ const Header = () => {
                     </div>
                 )}
                 <h1>müs</h1>
-                <FontAwesomeIcon icon={faBell} size="25px" color='black' /> 
+                {/* <div className="header-icons"> */}
+                <button onClick={toggleNotifications} className="notification-btn">
+                <FontAwesomeIcon icon={faBell} size="25px" color="black" />
+                </button>
+
+                {notificationsVisible && (
+                <div className="notifications-dropdown">
+                    {/* <h3>Notifications</h3> */}
+                    {notifications.length > 0 ? (
+                    <ul>
+                        {notifications.map((notification, index) => (
+                        <li key={index}>{notification}</li>
+                        ))}
+                    </ul>
+                    ) : (
+                    <p>No new notifications</p>
+                    )}
+                </div>
+                )}
+                {/* </div>  */}
             </div>
         </header>
     );

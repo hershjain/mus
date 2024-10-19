@@ -79,3 +79,69 @@ header div svg{
       transform: translateY(0);
     }
   }
+
+  .header-icons {
+    position: relative;
+    display: block;
+    width: auto;
+  }
+  
+  .notification-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .notification-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+  }
+  
+  .notifications-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px 0px;
+    z-index: 10;
+    animation: slideDown 0.3s ease;
+  }
+  
+  .notifications-dropdown h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+  }
+  
+  .notifications-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .notifications-dropdown li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* .notifications-dropdown li:last-child {
+    border-bottom: none;
+  } */
+  
+  .notifications-dropdown p {
+    text-align: center;
+    margin: 0;
+    padding: 20px 0;
+    font-size: 14px;
+    color: #666;
+  }
+  
