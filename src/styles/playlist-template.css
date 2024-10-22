@@ -1,0 +1,95 @@
+.playlist-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .playlist-info {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .playlist-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+  
+  .playlist-details h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .playlist-details p {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+  
+  .song-list h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .song-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .song-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+  }
+  
+  .song-list li.current-song {
+    background-color: #e0e0e0;
+    font-weight: bold;
+  }
+  
+  .song-player {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .player-controls button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .player-controls button:hover {
+    background-color: #555;
+  }
+
+  .save-playlist-button {
+    display: block;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #1db954;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .save-playlist-button:hover {
+    background-color: #1ed760;
+  }
+  
+  .save-playlist-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

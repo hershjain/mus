@@ -1,11 +1,12 @@
 import React from "react";
+import PlaylistTemplate from "../components/playlist-template";
 
 
 const CreatePlaylist = () => {
     return (
         <body>
             <div>
-                <h1>Create Playlist</h1>
+                <PlaylistTemplate />
             </div>
         </body>
     );
