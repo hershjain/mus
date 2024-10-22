@@ -92,4 +92,31 @@
     background-color: #ccc;
     cursor: not-allowed;
   }
+
+  .player-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .play-pause-button,
+  .previous-button,
+  .next-button {
+    padding: 10px;
+    background-color: #1db954;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 18px;
+  }
+  
+  .play-pause-button:hover,
+  .previous-button:hover,
+  .next-button:hover {
+    background-color: #1ed760;
+  }
+  
   

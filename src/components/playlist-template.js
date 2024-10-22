@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "../styles/playlist-template.css";
 import placeholder from '../assets/images/playlist-test-cover.jpg';
 import SongItem from "./song-item";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave, faPlay, faPause, faStepForward, faStepBackward } from "@fortawesome/free-solid-svg-icons";
+
 
 const PlaylistTemplate = () => {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
@@ -78,7 +81,7 @@ const PlaylistTemplate = () => {
         onClick={handleSavePlaylist}
         disabled={isSaved} // Disable if already saved
       >
-        {isSaved ? "Playlist Saved" : "Save Playlist to Library"}
+        <FontAwesomeIcon icon={faSave} style={{ marginRight: "5px" }} />
       </button>
 
       <SongList songs={playlist.songs} currentSongIndex={currentSongIndex} />
@@ -119,9 +122,15 @@ const SongPlayer = ({ isPlaying, onPlayPause, onNextSong, onPreviousSong, curren
     <div className="song-player">
       <h3>Now Playing: {currentSong.name} by {currentSong.artist}</h3>
       <div className="player-controls">
-        <button onClick={onPreviousSong}>Previous</button>
-        <button onClick={onPlayPause}>{isPlaying ? "Pause" : "Play"}</button>
-        <button onClick={onNextSong}>Next</button>
+        <button onClick={onPreviousSong}>
+            <FontAwesomeIcon icon={faStepBackward} />
+        </button>
+        <button onClick={onPlayPause}>
+            <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
+        </button>
+        <button onClick={onNextSong}>
+            <FontAwesomeIcon icon={faStepForward} />
+        </button>
       </div>
     </div>
   );
