@@ -3,6 +3,7 @@ import "../styles/Profile.css";
 import testpic1 from "../assets/images/testpic1.png";
 import placeholder from '../assets/images/playlist-test-cover.jpg';
 import PlaylistRow from "../components/playlist-row";
+import SpotifyAuthButton from '../components/spotify-auth-button';
 
 const Profile = () => {
   const user = {
@@ -25,9 +26,11 @@ const Profile = () => {
         <div className="profile-header">
             <img src={user.profilePic} alt="Profile Pic" className="profile-pic" />
             <div className="profile-details">
-            <h2 className="username">{user.username}</h2>
-            <p className="bio">{user.bio}</p>
+                <h2 className="username">{user.username}</h2>
+                <p className="bio">{user.bio}</p>
+                <SpotifyAuthButton />
             </div>
+            
         </div>
         <div className="followers">
             <span>{user.followers} Followers</span>

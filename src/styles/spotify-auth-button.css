@@ -1,0 +1,21 @@
+.spotify-auth-button {
+    display: flex;
+    align-items: center;
+    background-color: #1db954;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .spotify-auth-button:hover {
+    background-color: #1ed760;
+  }
+  
+  .spotify-auth-button .fa-spotify {
+    margin-right: 8px;
+  }
+  

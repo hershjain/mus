@@ -7,7 +7,9 @@ import Profile from './pages/Profile';
 import CreatePlaylist from './pages/CreatePlaylist';
 import Header from './components/header';
 import Navbar from './components/navbar';
+import SpotifyCallback from './components/spotify-callback';
 import './styles/App.css';
+
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           <Route path="/discovery" element={<Discovery />} />
           <Route path="/library" element={<Library />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path="/callback" component={SpotifyCallback} />
           <Route path='/create-playlist' element={<CreatePlaylist />} />
         </Routes>
       </div>
