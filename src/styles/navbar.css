@@ -3,8 +3,8 @@ nav {
     bottom: 0;              /* Positions it at the bottom of the screen */
     left: 0;                /* Aligns it to the left edge of the screen */
     width: 100%;            /* Makes the navbar span the full width of the screen */
-    backdrop-filter: blur(4px) invert(1);
-    background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.9) 100%);
+    backdrop-filter: blur(3px);
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,1) 70%);
     padding: 1em 0em;
     z-index: 1000;          /* Ensures the navbar stays on top of other elements */
   }

@@ -14,12 +14,14 @@
     text-align: center;
     margin-top: 10px;
     font-size: 1em;
+    padding-bottom: 0px;
+    margin-bottom: 12px;
     color: #333;
   }
 
   .playlist-curator {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 0px;
     font-size: 0.8em;
     color: #333;
   }
