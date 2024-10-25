@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import '../styles/header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBell as faBellSolid, faSearch, faTimes, } from '@fortawesome/free-solid-svg-icons';
+import { faBell as faBellRegular } from '@fortawesome/free-regular-svg-icons';
 
 const Header = () => {
     const [searchVisible, setSearchVisible] = useState(false);
@@ -51,7 +52,11 @@ const Header = () => {
                 <h1>müs</h1>
                 {/* <div className="header-icons"> */}
                 <button onClick={toggleNotifications} className="notification-btn">
-                <FontAwesomeIcon icon={faBell} size="25px" color="black" />
+                {notificationsVisible ? (
+                    <FontAwesomeIcon icon={faBellSolid} size="25px" color="black" />
+                    ) : (
+                    <FontAwesomeIcon icon={faBellRegular} size="25px" color="black" />
+                    )}
                 </button>
 
                 {notificationsVisible && (

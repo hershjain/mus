@@ -4,7 +4,7 @@ nav {
     left: 0;                /* Aligns it to the left edge of the screen */
     width: 100%;            /* Makes the navbar span the full width of the screen */
     backdrop-filter: blur(3px);
-    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,1) 70%);
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 25%, rgb(255, 255, 255) 80%, #fab88b 100%);
     padding: 1em 0em;
     z-index: 1000;          /* Ensures the navbar stays on top of other elements */
   }
@@ -12,7 +12,7 @@ nav {
   nav ul {
     list-style: none;
     display: flex;
-    justify-content: space-around; /* Distributes the list items evenly */
+    justify-content: space-evenly; /* Distributes the list items evenly */
     margin: 0;
     padding: 0;
   }
@@ -20,17 +20,24 @@ nav {
   nav ul li a {
     color: rgb(0, 0, 0);
     text-decoration: none;
-    font-size: 0.8em;
+    font-size: 0.9em;
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 0.25 em;
+    box-shadow: 0px 40px 20px 0px #ff9045;
+    border-radius: 30px;
+    background: none;
+    padding-top: 2px;
+    transition: all 0.3s ease-in-out;
   }
   
   nav ul li a:hover {
     color: #3daeff; /* Changes link color when hovered */
+    box-shadow: 0px 0px 20px #ff904581;
+    background: radial-gradient(#ff904582 0%, #ffffff00 100%);
   }
 
   .svg-inline--fa {
-    height: 1.5em !important;
+    height: 1.75em;
   }

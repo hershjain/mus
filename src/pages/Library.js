@@ -1,7 +1,11 @@
 import React, {useState} from "react";
+import {Link} from 'react-router-dom';
 import PlaylistGrid from '../components/playlist-grid';
 import placeholder from '../assets/images/playlist-test-cover.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Library.css';
+
 
 
 const Library = () => {
@@ -34,7 +38,13 @@ const Library = () => {
     return (
         <body>
             <div className="library-content">
-                <h1>Your Library</h1>
+                <div className="library-header">
+                    <h1>Your Library</h1>
+                    <Link to="/create-playlist"> 
+                        <FontAwesomeIcon className="create-playlist-button" icon={faPlusCircle} size="50px" color='black' />
+                    </Link>
+                    
+                </div>
                 <div className="filter-buttons">
                     {categories.map(category => (
                     <button
