@@ -20,13 +20,16 @@ p, a {
 
 
 .App {
-  background: linear-gradient(to bottom, #ffffff, #def7ff);
+  
   height: 100%;
 }
 
 .main-content {
-  margin-top: 60px;
-
+  padding-top: 60px;
+  background: linear-gradient(to bottom, #ffffff, #def7ff);
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {

@@ -32,21 +32,23 @@ const Header = () => {
             <div>
                 <button onClick={toggleSearch} className="search-btn">
                     {searchVisible ? (
-                    <FontAwesomeIcon icon={faTimes} size="25px" color="black" />
+                    <FontAwesomeIcon className="x-icon" icon={faTimes} size="25px" color="black" />
                     ) : (
                     <FontAwesomeIcon icon={faSearch} size="25px" color="black" />
                     )}
                 </button>
 
                 {searchVisible && (
-                    <div className="search-bar">
-                    <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={handleSearchChange}
-                        placeholder="Search playlists..."
-                    />
-                    <button type="submit">Search</button>
+                    <div className="search-bar-div">
+                        <div className="search-bar">
+                            <input
+                                type="text"
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                                placeholder="Search playlists..."
+                            />
+                            <button type="submit">Search</button>
+                        </div>
                     </div>
                 )}
                 <h1>müs</h1>
