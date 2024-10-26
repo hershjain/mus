@@ -1,12 +1,13 @@
 import React, {useState} from "react";
 import '../styles/header.css';
+import SearchBar from "./search-bar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell as faBellSolid, faSearch, faTimes, } from '@fortawesome/free-solid-svg-icons';
 import { faBell as faBellRegular } from '@fortawesome/free-regular-svg-icons';
 
-const Header = () => {
-    const [searchVisible, setSearchVisible] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("");
+const Header = ({ searchVisible, searchQuery, handleSearchChange, toggleSearch }) => {
+    // const [searchVisible, setSearchVisible] = useState(false);
+    // const [searchQuery, setSearchQuery] = useState("");
     const [notificationsVisible, setNotificationsVisible] = useState(false);
     const [notifications, setNotifications] = useState([
         "New playlist from user123",
@@ -14,13 +15,13 @@ const Header = () => {
         "New follower: user789"
       ]);
   
-    const toggleSearch = () => {
-      setSearchVisible(!searchVisible);
-    };
+    // const toggleSearch = () => {
+    //   setSearchVisible(!searchVisible);
+    // };
   
-    const handleSearchChange = (e) => {
-      setSearchQuery(e.target.value);
-    };
+    // const handleSearchChange = (e) => {
+    //   setSearchQuery(e.target.value);
+    // };
 
     const toggleNotifications = () => {
       setNotificationsVisible(!notificationsVisible);
@@ -28,6 +29,7 @@ const Header = () => {
     
     
     return (
+        <div>
         <header>
             <div>
                 <button onClick={toggleSearch} className="search-btn">
@@ -37,20 +39,6 @@ const Header = () => {
                     <FontAwesomeIcon icon={faSearch} size="25px" color="black" />
                     )}
                 </button>
-
-                {searchVisible && (
-                    <div className="search-bar-div">
-                        <div className="search-bar">
-                            <input
-                                type="text"
-                                value={searchQuery}
-                                onChange={handleSearchChange}
-                                placeholder="Search playlists..."
-                            />
-                            <button type="submit">Search</button>
-                        </div>
-                    </div>
-                )}
                 <h1>müs</h1>
                 {/* <div className="header-icons"> */}
                 <button onClick={toggleNotifications} className="notification-btn">
@@ -78,6 +66,12 @@ const Header = () => {
                 {/* </div>  */}
             </div>
         </header>
+            <SearchBar 
+                searchVisible={searchVisible} 
+                searchQuery={searchQuery} 
+                handleSearchChange={handleSearchChange} 
+            />
+        </div>
     );
 };
 
