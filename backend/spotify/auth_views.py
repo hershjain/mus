@@ -68,3 +68,12 @@ def spotify_callback(request):
     
     request.session['token_info'] = token_info
     return HttpResponseRedirect('http://localhost:3000/profile')
+
+def get_playlists(request):
+    token_info = request.session.get('token_info', None)
+    if token_info:
+        sp = spotipy.Spotify(auth=token_info['access_token'])
+        playlists = sp.current_user_playlists(limit=10)
+        return JsonResponse(playlists)
+    return JsonResponse({"error": "Not authenticated"}, status=401)
+
