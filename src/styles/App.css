@@ -3,23 +3,33 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
+button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
 h1, h2, h3 {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600; /* Customize the weight (e.g., 400, 500, 600) */
 }
 
-p {
+p, a {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 400; /* Normal weight for paragraphs */
 }
 
 
+
 .App {
-  text-align: center;
+  
+  height: 100%;
 }
 
 .main-content {
-  margin-top: 60px;
+  padding-top: 60px;
+  background: linear-gradient(to bottom, #ffffff, #def7ff);
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
