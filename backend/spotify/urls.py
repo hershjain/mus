@@ -1,8 +1,8 @@
 from django.urls import path
-from .auth_views import spotify_login
+from .auth_views import spotify_login, spotify_callback
 
 urlpatterns = [
-    path('login/', spotify_login, name='spotify_login'),
-    #path('auth/callback/', SpotifyCallback.as_view(), name='spotify-callback'),
+    path('auth/login', spotify_login, name='spotify_login'),
+    path('auth/callback', spotify_callback, name='spotify_callback')
     # Add other endpoints
 ]   
