@@ -14,7 +14,7 @@ const SpotifyAuthButton = () => {
     //const authURL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=${RESPONSE_TYPE}&scope=user-read-private user-read-email`;
     
     // Redirect to Spotify login
-    window.location.href = 'http://localhost:3000/spotify/login/' ;
+    window.location.href = 'http://localhost:8000/spotify/login/' ;
   };
 
   return (
