@@ -20,6 +20,9 @@ const PlaylistComponent = () => {
           <li key={playlist.id}>
             <img src={playlist.images[0].url} alt={playlist.name} width={100} />
             <p>{playlist.name}</p>
+            <script>
+              console.log("Here baby! Playlist");
+            </script>
           </li>
         ))}
       </ul>

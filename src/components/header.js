@@ -34,18 +34,18 @@ const Header = ({ searchVisible, searchQuery, handleSearchChange, toggleSearch }
             <div>
                 <button onClick={toggleSearch} className="search-btn">
                     {searchVisible ? (
-                    <FontAwesomeIcon className="x-icon" icon={faTimes} size="25px" color="black" />
+                    <FontAwesomeIcon className="x-icon" icon={faTimes} color="black" />
                     ) : (
-                    <FontAwesomeIcon icon={faSearch} size="25px" color="black" />
+                    <FontAwesomeIcon icon={faSearch} color="black" />
                     )}
                 </button>
                 <h1>müs</h1>
                 {/* <div className="header-icons"> */}
                 <button onClick={toggleNotifications} className="notification-btn">
                 {notificationsVisible ? (
-                    <FontAwesomeIcon icon={faBellSolid} size="25px" color="black" />
+                    <FontAwesomeIcon icon={faBellSolid} color="black" />
                     ) : (
-                    <FontAwesomeIcon icon={faBellRegular} size="25px" color="black" />
+                    <FontAwesomeIcon icon={faBellRegular} color="black" />
                     )}
                 </button>
 

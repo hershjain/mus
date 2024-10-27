@@ -73,6 +73,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React frontend during development
     "http://localhost:8000",
@@ -81,12 +83,12 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 # If we use cookies/authentication headers in the frontend
-#CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 
 # If headers are needed
-#CORS_ALLOW_HEADERS = list(default_headers) + [
-#    'access-control-allow-origin',
-#]
+CORS_ALLOW_HEADERS = [
+   'access-control-allow-origin',
+]
 
 # Need to review this eventually for how we want the rest framework to be. 
 REST_FRAMEWORK = {
