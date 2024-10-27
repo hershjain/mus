@@ -4,7 +4,7 @@ const PlaylistComponent = () => {
   const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/playlists/', {
+    fetch('http://localhost:8000/spotify/playlists', {
       credentials: 'include' // To include cookies for session handling
     })
       .then(response => response.json())

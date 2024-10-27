@@ -70,12 +70,15 @@
 .search-bar-visible {
     /* max-height: 100vh; */
     opacity: 1;
+    visibility: visible;
+
 }
 
 /* Class for hidden state */
 .search-bar-hidden {
     /* max-height: 0; */
     opacity: 0;
+    visibility: hidden;
 }
 
 .search-filters{

@@ -4,6 +4,7 @@ import testpic1 from "../assets/images/testpic1.png";
 import placeholder from '../assets/images/playlist-test-cover.jpg';
 import PlaylistRow from "../components/playlist-row";
 import SpotifyAuthButton from '../components/spotify-auth-button';
+import PlaylistComponent from "../components/playlist-component";
 
 const Profile = () => {
   const user = {
@@ -44,6 +45,10 @@ const Profile = () => {
             <div className="badges">
 
             </div>
+            <div className="test">
+              <PlaylistComponent />
+            </div>
+
         </div>
     </div>
   );
