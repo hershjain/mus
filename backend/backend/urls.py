@@ -20,4 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('spotify/', include('spotify.urls')),
+    path('api/auth/', include('djoser.urls')),  # For user registration
+    path('api/auth/', include('djoser.urls.jwt')),  # For login, token handling
 ]

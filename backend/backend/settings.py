@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 import environ
 from pathlib import Path
+from datetime import timedelta
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -57,6 +58,8 @@ INSTALLED_APPS = [
     # Third-party apps
     'rest_framework',
     'corsheaders',
+    'djoser',
+    'rest_framework.authtoken',
 
     # Your custom app
     'spotify',
@@ -88,6 +91,15 @@ CORS_ALLOW_CREDENTIALS = True
 # If headers are needed
 CORS_ALLOW_HEADERS = [
    'access-control-allow-origin',
+   "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
 ]
 
 # Need to review this eventually for how we want the rest framework to be. 
@@ -95,8 +107,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',  # For session-based auth
         'rest_framework.authentication.TokenAuthentication',    # If using token-based auth
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -220,3 +234,19 @@ SESSION_COOKIE_AGE = 3600  # The session will persist for 1 hour (in seconds)
 SESSION_SAVE_EVERY_REQUEST = True  # This refreshes the session expiration on every request
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Optional: Keep the session after the browser is closed
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'  # You can use DB-based sessions too
+
+#SimpleJWT auth stuff
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+#djoser settings to enable endpoints for user registration and login.
+DJOSER = {
+    'LOGIN_FIELD': 'email',  # or 'email', if you use email for login
+    'USER_CREATE_PASSWORD_RETYPE': True,  # Require password confirmation on registration
+    'SERIALIZERS': {
+        'user': 'djoser.serializers.UserSerializer',
+    },
+}
