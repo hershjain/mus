@@ -9,19 +9,19 @@ const Navbar = () => {
         <nav className='navbar'>
             <ul>
                 <li>
-                    <Link to="/discovery"> 
+                    <Link to="/app/discovery"> 
                         <FontAwesomeIcon icon={faHome} color='black' /> 
                         {/* <a> Discovery </a> */}
                     </Link>
                 </li>
                 <li>
-                    <Link to="/library">
+                    <Link to="/app/library">
                         <FontAwesomeIcon icon={faMusic} color='black'/> 
                         {/* <a>Library</a> */}
                     </Link>
                 </li>
                 <li>
-                    <Link to="/profile">
+                    <Link to="/app/profile">
                         <FontAwesomeIcon icon={faUser} color='black'/> 
                         {/* <a>Profile </a> */}
                     </Link>

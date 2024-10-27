@@ -23,7 +23,7 @@ const SearchBar = ({ searchVisible, searchQuery, handleSearchChange }) => {
                     type="text"
                     value={searchQuery}
                     onChange={handleSearchChange}
-                    placeholder="Search playlists..."
+                    placeholder="Search playlists, profiles, genres..."
                 />
                 {/* <button type="submit">Search</button> */}
             </div>

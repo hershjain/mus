@@ -1,0 +1,14 @@
+/* Basic styles for the landing page */
+.landing-page header {
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.hero {
+    /* background: url('hero-image.jpg') no-repeat center center/cover; */
+    color: #fff;
+    padding: 60px 20px;
+    text-align: center;
+}

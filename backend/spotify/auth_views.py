@@ -38,7 +38,7 @@ def spotify_callback(request):
         if token_info:
             # Store the token info in the session
             request.session['token_info'] = token_info
-            return HttpResponseRedirect('http://localhost:3000/profile')
+            return HttpResponseRedirect('http://localhost:3000/app/profile')
         else:
             return JsonResponse({"error": "Failed to retrieve token info"}, status=401)
     

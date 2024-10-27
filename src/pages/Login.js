@@ -24,7 +24,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)} 
           placeholder="Password" 
         />
-        <button type="submit">Login</button>
+        <button type="submit" onClick={() => window.location.href = "/app/discovery"}>Login</button>
       </form>
     </div>
   );

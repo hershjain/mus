@@ -1,65 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
-import Discovery from './pages/Discovery';
-import Library from './pages/Library';
-import Profile from './pages/Profile';
-import CreatePlaylist from './pages/CreatePlaylist';
-import Header from './components/header';
-import Navbar from './components/navbar';
-import SpotifyCallback from './components/spotify-callback';
-import './styles/App.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+import Login from "./pages/Login";
+import MainApp from "./MainApp";
 
 function App() {
-  const [searchVisible, setSearchVisible] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearchChange = (event) => {
-      setSearchQuery(event.target.value);
-  };
-
-  const toggleSearch = () => {
-      setSearchVisible(!searchVisible);
-  };
-
-  const [userPlaylists, setUserPlaylists] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:8000/spotify/playlists', {
-      credentials: 'include' // To include cookies for session handling
-    })
-      .then(response => response.json())
-      .then(data => setUserPlaylists(data.items || []))
-      .catch(error => console.error('Error fetching playlists:', error));
-  }, []);
-
-
-  return (
-    <div className='App'>
-    <Router>
-      <Header 
-        searchVisible={searchVisible} 
-        searchQuery={searchQuery} 
-        handleSearchChange={handleSearchChange} 
-        toggleSearch={toggleSearch}
-      />
-      <Navbar />
-      <div className='main-content'>
-        <Routes>
-          <Route exact path="/" element={<Login />} />
-          <Route path="/discovery" element={<Discovery />} />
-          <Route path="/library" element={<Library userPlaylists={userPlaylists}/>} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path="/callback" component={SpotifyCallback} />
-          <Route path='/create-playlist' element={<CreatePlaylist />} />
-        </Routes>
-      </div>
-    </Router>
-    </div>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/app/*" element={<MainApp />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
