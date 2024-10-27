@@ -75,6 +75,8 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React frontend during development
+    "http://localhost:8000",
+    "https://accounts.spotify.com"
     # "https://your-production-domain.com",  # Replace with your production domain
 ]
 
@@ -209,3 +211,10 @@ LOGGING = {
         'level': 'INFO',
     },
 }
+
+#token session settings for tokens to be stored and accessed:
+
+SESSION_COOKIE_AGE = 3600  # The session will persist for 1 hour (in seconds)
+SESSION_SAVE_EVERY_REQUEST = True  # This refreshes the session expiration on every request
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Optional: Keep the session after the browser is closed
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'  # You can use DB-based sessions too
