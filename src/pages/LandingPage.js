@@ -9,7 +9,7 @@ const LandingPage = () => {
                 <nav className="landing-nav">
                     <a href="#features">Features</a>
                     <a href="#about">About</a>
-                    <a href="/login">Get Started</a> {/* Link to main app */}
+                    <a href="/register">Get Started</a> {/* Link to main app */}
                 </nav>
             </header>
             
@@ -17,7 +17,7 @@ const LandingPage = () => {
                 <div className="hero-content">
                     <h2>Discover, Share, and Create Playlists</h2>
                     <p>Find playlists curated by others or create your own and share with the world.</p>
-                    <button onClick={() => window.location.href = "/login"}>Get Started</button>
+                    <button onClick={() => window.location.href = "/register"}>Get Started</button>
                 </div>
             </section>
 
