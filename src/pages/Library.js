@@ -8,7 +8,7 @@ import '../styles/Library.css';
 
 
 
-const Library = () => {
+const Library = ({userPlaylists}) => {
     const savedPlaylists = [
         { title: 'Pop Hits', imageUrl: placeholder , curator: 'mheydude123', category: 'Saved' },
         { title: 'Hip Hop Vibes', imageUrl: placeholder , curator: 'hxrsh', category: 'Yours' },
@@ -58,7 +58,7 @@ const Library = () => {
                 </div>
             </div>
             <div className="library-grid">
-                <PlaylistGrid playlists={filteredPlaylists} />
+                <PlaylistGrid playlists={userPlaylists} />
             </div>
         </body>
     );

@@ -51,7 +51,7 @@ def get_playlists(request):
     token_info = request.session.get('token_info', None)
     if token_info:
         sp = spotipy.Spotify(auth=token_info['access_token'])
-        playlists = sp.current_user_playlists(limit=3)
+        playlists = sp.current_user_playlists(limit=10)
         print(playlists)
         return JsonResponse(playlists)
     return JsonResponse({"error": "Not authenticated"}, status=401)

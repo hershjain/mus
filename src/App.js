@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import Discovery from './pages/Discovery';
@@ -25,6 +25,18 @@ function App() {
       setSearchVisible(!searchVisible);
   };
 
+  const [userPlaylists, setUserPlaylists] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/spotify/playlists', {
+      credentials: 'include' // To include cookies for session handling
+    })
+      .then(response => response.json())
+      .then(data => setUserPlaylists(data.items || []))
+      .catch(error => console.error('Error fetching playlists:', error));
+  }, []);
+
+
   return (
     <div className='App'>
     <Router>
@@ -39,7 +51,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route path="/discovery" element={<Discovery />} />
-          <Route path="/library" element={<Library />} />
+          <Route path="/library" element={<Library userPlaylists={userPlaylists}/>} />
           <Route path='/profile' element={<Profile />} />
           <Route path="/callback" component={SpotifyCallback} />
           <Route path='/create-playlist' element={<CreatePlaylist />} />
