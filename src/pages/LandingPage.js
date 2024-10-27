@@ -4,9 +4,9 @@ import "../styles/LandingPage.css";
 const LandingPage = () => {
     return (
         <div className="landing-page">
-            <header>
-                <h1>PlaylistShare</h1>
-                <nav>
+            <header className="landing-header">
+                <h1>müs</h1>
+                <nav className="landing-nav">
                     <a href="#features">Features</a>
                     <a href="#about">About</a>
                     <a href="/login">Get Started</a> {/* Link to main app */}
@@ -31,12 +31,12 @@ const LandingPage = () => {
             </section>
 
             <section id="about">
-                <h3>About PlaylistShare</h3>
-                <p>PlaylistShare is a platform built for music lovers. Share your musical tastes, explore new genres, and connect with others who share your passion.</p>
+                <h3>About müs</h3>
+                <p>müs is a platform built for music lovers. Share your musical tastes, explore new genres, and connect with others who share your passion.</p>
             </section>
 
             <footer>
-                <p>&copy; 2024 PlaylistShare. All rights reserved.</p>
+                <p>&copy; 2024 müs. All rights reserved.</p>
                 <a href="#signup">Sign Up</a> | <a href="#contact">Contact</a>
             </footer>
         </div>

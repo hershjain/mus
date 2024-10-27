@@ -1,4 +1,4 @@
-header{
+.app-header {
     width: 100%;
     display: flex;
     /* backdrop-filter: blur(4px) invert(1); */
@@ -10,7 +10,7 @@ header{
     height: 80px;
 }
 
-header div{
+.app-header div{
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -18,7 +18,7 @@ header div{
     flex-direction: row;
 }
 
-header div svg{
+.app-header div svg{
     height: 1.5em;
 }
 

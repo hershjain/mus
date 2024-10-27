@@ -30,7 +30,7 @@ const Header = ({ searchVisible, searchQuery, handleSearchChange, toggleSearch }
     
     return (
         <div>
-        <header>
+        <header className="app-header">
             <div>
                 <button onClick={toggleSearch} className="search-btn">
                     {searchVisible ? (

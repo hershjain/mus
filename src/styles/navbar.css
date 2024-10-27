@@ -1,4 +1,4 @@
-nav {
+.navbar {
     position: fixed;        /* Fixes the position of the navbar */
     bottom: 0;              /* Positions it at the bottom of the screen */
     left: 0;                /* Aligns it to the left edge of the screen */
@@ -13,7 +13,7 @@ nav {
     justify-content: center;
   }
   
-  nav ul {
+  .navbar ul {
     list-style: none;
     display: flex;
     justify-content: space-evenly; /* Distributes the list items evenly */
@@ -22,7 +22,7 @@ nav {
     width: 100%;
   }
   
-  nav ul li a {
+  .navbar ul li a {
     color: rgb(0, 0, 0);
     text-decoration: none;
     font-size: 0.9em;
@@ -37,7 +37,7 @@ nav {
     transition: all 0.3s ease-in-out;
   }
   
-  nav ul li a:hover {
+  .navbar ul li a:hover {
     color: #3daeff; /* Changes link color when hovered */
     box-shadow: 0px 10px 30px 10px #ff904581 ,inset 0px 0px 30px #ff904581;
     /* background: radial-gradient(#ff904582 0%, #ff955875 100%); */
