@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SketchPicker } from 'react-color'; // For color picking (you'll need to install react-color)
 import '../styles/playlist-questions.css'; // CSS for the overlay
 
-const PlaylistQuestions = ({ onClose }) => {
+const PlaylistQuestions = ({ onClose, playlistId, onSubmit }) => {
   const [playlistDescription, setPlaylistDescription] = useState('');
   const [primaryColor, setPrimaryColor] = useState('#ffffff');
   const [secondaryColor, setSecondaryColor] = useState('#ffffff');
@@ -30,9 +30,12 @@ const PlaylistQuestions = ({ onClose }) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+
     // You can handle the submission of the form here
     const playlistData = {
+      id: playlistId, // Include the playlist ID
       description: playlistDescription,
       primaryColor,
       secondaryColor,
@@ -41,6 +44,12 @@ const PlaylistQuestions = ({ onClose }) => {
     };
 
     console.log('Playlist Data:', playlistData);
+    
+    // Call the onSubmit prop function to handle the submission
+    if (onSubmit) {
+      onSubmit(playlistData);
+    }
+
     onClose(); // Close the overlay after submission
   };
 
@@ -53,68 +62,69 @@ const PlaylistQuestions = ({ onClose }) => {
 
         <h2>Import Playlist</h2>
 
-        {/* Playlist Description Input */}
-        <label>Playlist Description:</label>
-        <input
-          type="text"
-          value={playlistDescription}
-          onChange={(e) => setPlaylistDescription(e.target.value)}
-          placeholder="Enter playlist description"
-        />
-
-        {/* Color Picker for Primary and Secondary Colors */}
-        <div className="color-picker">
-        <div className='color-column'>
-          <label>Primary Color:</label>
-          <SketchPicker
-            color={primaryColor} 
-            style={'width:150px;'}
-            onChangeComplete={(color) => setPrimaryColor(color.hex)}
+        <form onSubmit={handleSubmit}> {/* Use form element to handle submission */}
+          {/* Playlist Description Input */}
+          <label>Playlist Description:</label>
+          <input
+            type="text"
+            value={playlistDescription}
+            onChange={(e) => setPlaylistDescription(e.target.value)}
+            placeholder="Enter playlist description"
+            required
           />
-        </div>
-        <div className='color-column'>
-          <label>Secondary Color:</label>
-          <SketchPicker
-            color={secondaryColor}
-            style={'width:150px;'}
-            onChangeComplete={(color) => setSecondaryColor(color.hex)}
-          />
-        </div>
-        </div>
 
-        {/* Genre Selection */}
-        <div className="multiple-selection">
-          <label>Genres:</label>
-          <div className="checkbox-grid">
-            {genres.map((genre) => (
+          {/* Color Picker for Primary and Secondary Colors */}
+          <div className="color-picker">
+            <div className='color-column'>
+              <label>Primary Color:</label>
+              <SketchPicker
+                color={primaryColor} 
+                onChangeComplete={(color) => setPrimaryColor(color.hex)}
+              />
+            </div>
+            <div className='color-column'>
+              <label>Secondary Color:</label>
+              <SketchPicker
+                color={secondaryColor}
+                onChangeComplete={(color) => setSecondaryColor(color.hex)}
+              />
+            </div>
+          </div>
+
+          {/* Genre Selection */}
+          <div className="multiple-selection">
+            <label>Genres:</label>
+            <div className="checkbox-grid">
+              {genres.map((genre) => (
                 <div key={genre}>
-                <input
+                  <input
                     type="checkbox"
                     value={genre}
                     onChange={handleGenreChange}
-                />
-                <label>{genre}</label>
+                  />
+                  <label>{genre}</label>
                 </div>
-          ))}
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Mood Selection */}
-        <div className="multiple-selection">
-          <label>Moods:</label>
-          <div className='checkbox-grid'>
-            {moods.map((mood) => (
+          {/* Mood Selection */}
+          <div className="multiple-selection">
+            <label>Moods:</label>
+            <div className='checkbox-grid'>
+              {moods.map((mood) => (
                 <div key={mood}>
-                <input type="checkbox" value={mood} onChange={handleMoodChange} />
-                <label>{mood}</label>
+                  <input type="checkbox" value={mood} onChange={handleMoodChange} />
+                  <label>{mood}</label>
                 </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
 
-        <button className="submit-playlist" onClick={handleSubmit}>
-          Submit Playlist
-        </button>
+          <button type="submit" className="submit-playlist">
+            Submit Playlist
+          </button>
+        </form>
       </div>
     </div>
   );

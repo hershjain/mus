@@ -1,0 +1,38 @@
+.playlist-card-horizontal {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    /* margin-right: 10px; */
+  }
+  
+  .playlist-image-small {
+    width: 20%;
+    height: 20%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .playlist-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 0px 0px 0px 20px;
+  }
+  
+  .playlist-title {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1em;
+    padding-bottom: 0px;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .playlist-curator {
+    text-align: center;
+    margin-top: 0px;
+    font-size: 0.8em;
+    color: #333;
+  }

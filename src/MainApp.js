@@ -51,7 +51,7 @@ function MainApp() {
           <Route path='profile' element={<Profile />} />
           <Route path='profile/edit' element={<EditProfile />} />
           <Route path="callback" component={SpotifyCallback} />
-          <Route path='create-playlist' element={<CreatePlaylist />} />
+          <Route path='create-playlist' element={<CreatePlaylist userPlaylists={userPlaylists}/>} />
         </Routes>
       </div>
     </div>
