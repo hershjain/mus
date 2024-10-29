@@ -8,6 +8,7 @@ class Profile(models.Model):
     refresh_token = models.CharField(max_length=255, blank=True, null=True)
     profile_picture = models.URLField(blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
+    email = models.EmailField(unique=True)  # Ensure email uniqueness
     followers = models.ManyToManyField("self", symmetrical=False, related_name="following", blank=True)
     
     def __str__(self):

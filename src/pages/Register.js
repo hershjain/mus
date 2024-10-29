@@ -1,44 +1,114 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Register = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle login logic (e.g., call an API)
-  };
+    const validateForm = () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!username.trim()) {
+            setError("Username is required");
+            return false;
+        }
+        if (!email || !emailRegex.test(email)) {
+            setError("A valid email is required");
+            return false;
+        }
+        if (password.length < 8) {
+            setError("Password must be at least 8 characters long");
+            return false;
+        }
+        if (password !== confirmPassword) {
+            setError("Passwords do not match");
+            return false;
+        }
+        return true;
+    };
 
-  return (
-    <div className="register-container">
-      <form onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
-          placeholder="Username" 
-        />
-        <input 
-          type="text" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          placeholder="Email" 
-        />
-        <input 
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          placeholder="Password" 
-        />
-        <button type="submit">Register</button>
-      </form>
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        setError('');
+        setSuccess('');
+
+        if (!validateForm()) return;
+
+        try {
+            const response = await axios.post('http://localhost:8000/api/auth/users/', {
+                username: username,
+                email: email,
+                password: password,
+                re_password: confirmPassword,
+            });
+
+            setSuccess("Account created successfully. Please log in.");
+            setUsername('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
+        } catch (err) {
+            if (err.response && err.response.data) {
+                // Display specific error messages from the backend
+                const serverErrors = err.response.data;
+                if (serverErrors.username) {
+                    setError("Username is already taken.");
+                } else if (serverErrors.email) {
+                    setError("Email is already registered.");
+                } else if (serverErrors.password) {
+                    setError("Password does not meet requirements.\n"+JSON.stringify(err.response.data));
+                } else if (serverErrors.re_password) {
+                    setError("Password confirmation does not match.");
+                } else {
+                    setError("Error creating account. Please try again.");
+                }
+            } else {
+                setError("An unexpected error occurred. Please try again.");
+            }
+        }
+    };
+
+    return (
         <div>
-            <p>Already have an account? Login here: </p>
-            <button onClick={() => window.location.href = "/login"}>Login</button>
+            <h2>Register</h2>
+            <form onSubmit={handleRegister}>
+                <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                />
+                <button type="submit">Create Account</button>
+            </form>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {success && <p style={{ color: 'green' }}>{success}</p>}
         </div>
-    </div>
-  );
+    );
 };
 
 export default Register;

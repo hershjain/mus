@@ -17,7 +17,7 @@ const LandingPage = () => {
                 <div className="hero-content">
                     <h2>Discover, Share, and Create Playlists</h2>
                     <p>Find playlists curated by others or create your own and share with the world.</p>
-                    <button onClick={() => window.location.href = "/register"}>Get Started</button>
+                    <button onClick={() => window.location.href = "/login"}>Login</button>
                 </div>
             </section>
 
@@ -37,7 +37,7 @@ const LandingPage = () => {
 
             <footer>
                 <p>&copy; 2024 müs. All rights reserved.</p>
-                <a href="#signup">Sign Up</a> | <a href="#contact">Contact</a>
+                <a href="/register">Sign Up</a> | <a href="#contact">Contact</a>
             </footer>
         </div>
     );
