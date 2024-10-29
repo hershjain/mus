@@ -6,7 +6,7 @@
     height: 100vh;
     background: linear-gradient(0deg, #ffffffc0 0%, #ffffff48 100%);
     backdrop-filter: blur(20px);
-
+    -webkit-backdrop-filter: blur(20px);
     z-index: 900;
     overflow: visible;
     display: block;

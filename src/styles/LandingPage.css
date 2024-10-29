@@ -1,15 +1,72 @@
 /* Basic styles for the landing page */
 .landing-header {
-    background-color: none;
+    background-color: white;
     color: rgb(0, 0, 0);
-    padding: 20px;
+    padding: 10px 20px;
     text-align: center;
     height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.landing-nav {
+    display: flex;
+    width: 70%;
+    justify-content: space-evenly;
+}
+
+.landing-nav a {
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+section {
+    color: black;
+    padding: 20px 20px;
+    text-align: left;
 }
 
 .hero {
-    /* background: url('hero-image.jpg') no-repeat center center/cover; */
+    background: linear-gradient(180deg, #fff 0%, #c7f2ff 100%);
     color: #000000;
-    padding: 60px 20px;
-    text-align: center;
+    padding: 20px 20px 40px 20px;
+    text-align: left;
+    border-bottom: 5px solid #24ccff;
+}
+
+.hero-content button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: rgb(255, 255, 255);
+    color: black;
+    border: 3px solid #24ccff;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+#features {
+    background: linear-gradient(0deg, #c7f2ff 0%, #c7f2ff 100%);
+    border-bottom: 5px solid #24ccff;
+}
+
+#about {
+    background: linear-gradient(0deg, #fff 0%, #c7f2ff 100%);
+    border-bottom: 5px solid #24ccff;
+}
+
+footer {
+    color: black;
+    padding: 20px 20px;
+    text-align: left;
+}
+
+footer p {
+    font-size: 0.75em;
+}
+
+footer a {
+    font-size: 0.75em;
 }
