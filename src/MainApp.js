@@ -8,6 +8,7 @@ import Header from './components/header';
 import Navbar from './components/navbar';
 import SpotifyCallback from './components/spotify-callback';
 import './styles/MainApp.css';
+import EditProfile from './pages/EditProfile';
 
 
 function MainApp() {
@@ -48,6 +49,7 @@ function MainApp() {
           <Route path="discovery" element={<Discovery />} />
           <Route path="library" element={<Library userPlaylists={userPlaylists}/>} />
           <Route path='profile' element={<Profile />} />
+          <Route path='profile/edit' element={<EditProfile />} />
           <Route path="callback" component={SpotifyCallback} />
           <Route path='create-playlist' element={<CreatePlaylist />} />
         </Routes>
