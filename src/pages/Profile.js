@@ -3,6 +3,7 @@ import "../styles/Profile.css";
 import testpic1 from "../assets/images/testpic1.png";
 import placeholder from '../assets/images/playlist-test-cover.jpg';
 import PlaylistRow from "../components/playlist-row";
+import Logout from "../components/logout";
 import SpotifyAuthButton from '../components/spotify-auth-button';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
@@ -67,7 +68,7 @@ const Profile = () => {
                             <i className="fas fa-sliders-h"></i> Preferences
                         </div>
                         <div className="dropdown-item">
-                            <i className="fas fa-sign-out-alt"></i> Logout
+                            <Logout />
                         </div>
                       </div>
                     </div>
