@@ -1,72 +1,180 @@
-/* Basic styles for the landing page */
-.landing-header {
-    background-color: white;
-    color: rgb(0, 0, 0);
-    padding: 10px 20px;
-    text-align: center;
-    height: 60px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+/* Reset styles */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.landing-nav {
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Landing Page Container */
+.landing-page {
     display: flex;
-    width: 70%;
-    justify-content: space-evenly;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.landing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #1d1d1d;
+    color: #f0f0f0;
+}
+
+.landing-header h1 {
+    font-size: 1.8rem;
+    color: #167fff;
+    cursor: pointer;
 }
 
 .landing-nav a {
-    color: black;
+    margin: 0 1rem;
+    color: #f0f0f0;
     text-decoration: none;
-    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s;
 }
 
-section {
-    color: black;
-    padding: 20px 20px;
-    text-align: left;
+.landing-nav a:hover {
+    color: #167fff;
 }
 
+/* Hero Section */
 .hero {
-    background: linear-gradient(180deg, #fff 0%, #c7f2ff 100%);
-    color: #000000;
-    padding: 20px 20px 40px 20px;
-    text-align: left;
-    border-bottom: 5px solid #24ccff;
+    background: linear-gradient(120deg, #93b5ff, #ff91d1);
+    color: #fff;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.hero-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
 }
 
 .hero-content button {
-    padding: 10px 20px;
-    border-radius: 20px;
-    background: rgb(255, 255, 255);
-    color: black;
-    border: 3px solid #24ccff;
-    font-size: 1em;
-    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
+.hero-content button:hover {
+    background: #167fff;
+}
+
+/* Features Section */
 #features {
-    background: linear-gradient(0deg, #c7f2ff 0%, #c7f2ff 100%);
-    border-bottom: 5px solid #24ccff;
+    padding: 3rem 2rem;
+    background-color: #f5f5f5;
+    text-align: center;
 }
 
-#about {
-    background: linear-gradient(0deg, #fff 0%, #c7f2ff 100%);
-    border-bottom: 5px solid #24ccff;
+#features h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
 }
 
-footer {
-    color: black;
-    padding: 20px 20px;
+#features ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
     text-align: left;
 }
 
+#features li {
+    font-size: 1.1rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+#features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #167fff;
+    font-weight: bold;
+}
+
+/* About Section */
+#about {
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+#about h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+#about p {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* Footer */
+footer {
+    background-color: #1d1d1d;
+    color: #f0f0f0;
+    text-align: center;
+    padding: 1.5rem 2rem;
+    margin-top: auto;
+    font-size: 0.9rem;
+}
+
 footer p {
-    font-size: 0.75em;
+    margin-bottom: 0.5rem;
 }
 
 footer a {
-    font-size: 0.75em;
+    color: #167fff;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: #f67e7d;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+    .hero-content h2 {
+        font-size: 3rem;
+    }
+
+    .hero-content p {
+        font-size: 1.3rem;
+    }
+
+    #features ul {
+        flex-direction: row;
+        justify-content: space-around;
+    }
 }

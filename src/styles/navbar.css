@@ -2,7 +2,7 @@
     position: fixed;        /* Fixes the position of the navbar */
     bottom: 0;              /* Positions it at the bottom of the screen */
     left: 0;                /* Aligns it to the left edge of the screen */
-    height: 40px;
+    height: 70px;
     width: 100%;            /* Makes the navbar span the full width of the screen */
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
