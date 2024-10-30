@@ -48,8 +48,16 @@ const Profile = () => {
       useEffect(() => {
         const fetchProfileData = async () => {
             try {
+
+                const token = localStorage.getItem('access');
+
                 // Replace '/api/profile/' with your actual endpoint for fetching user profile
-                const response = await axios.get('http://localhost:8000/spotify/profile/');
+                //const response = await axios.get('http://localhost:8000/spotify/profile/');
+                const response = await axios.get('http://localhost:8000/spotify/profile/', {
+                  headers: {
+                      Authorization: `Bearer ${token}`, // Add the token to the request headers
+                  },
+              });
                 
                 // Assuming response.data has the profile data in the expected structure
                 setProfilePic(response.data.profile_picture);
