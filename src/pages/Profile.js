@@ -8,15 +8,21 @@ import SpotifyAuthButton from '../components/spotify-auth-button';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 const Profile = () => {
   const user = {
     profilePic: testpic1, // Placeholder for profile picture URL
-    username: "kartiscontacts",
-    bio: "help it's stuck oh nooo",
+  //  username: "kartiscontacts",
+  //  bio: "help it's stuck oh nooo",
     followers: 20000000,
     madePlaylists: 69,
   };
+
+  const [profilePic, setProfilePic] = useState('');
+  const [username, setUsername] = useState('');
+  const [bio, setBio] = useState('');
+  const [followers, setFollowers] = useState([]);
 
   const samplePlaylists = [
     { title: 'Pop Hits', imageUrl: placeholder , curator: 'mheydude123' },
@@ -38,6 +44,27 @@ const Profile = () => {
               setIsOpen(false);
           }
       };
+
+      useEffect(() => {
+        const fetchProfileData = async () => {
+            try {
+                // Replace '/api/profile/' with your actual endpoint for fetching user profile
+                const response = await axios.get('http://localhost:8000/spotify/profile/');
+                
+                // Assuming response.data has the profile data in the expected structure
+                setProfilePic(response.data.profile_picture);
+                setUsername(response.data.user.username); // Assuming user object is nested
+                setBio(response.data.bio);
+                setFollowers(response.data.followers); // Adjust if the structure is different
+
+            } catch (error) {
+                console.error("Error fetching profile data:", error);
+            }
+        };
+
+        fetchProfileData();
+    }, []); // Empty dependency array means this runs once when the component mounts
+
   
       // Listen for clicks outside the dropdown
       React.useEffect(() => {
@@ -55,7 +82,7 @@ const Profile = () => {
             <img src={user.profilePic} alt="Profile Pic" className="profile-pic" />
             <div className="profile-details">
                 <div className="profile-div">
-                  <h2 className="username">{user.username}</h2>
+                  <h2 className="username">{username}</h2>
                     <div class="profile-settings">
                       <FontAwesomeIcon class="fas fa-cog" id="settings-icon" icon={faCog} color="black" onClick={toggleDropdown}/>
                       <div className={`dropdown ${isOpen ? 'open' : ''}`}>
@@ -73,7 +100,7 @@ const Profile = () => {
                       </div>
                     </div>
                 </div>
-                <p className="bio">{user.bio}</p>
+                <p className="bio">{bio}</p>
                 <SpotifyAuthButton />
             </div>
             

@@ -30,3 +30,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+class ProfileSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source="user.username", read_only=True)  # user.username from Profile
+
+    class Meta:
+        model = Profile
+        fields = ['username', 'bio', 'profile_picture']  # Include relevant fields

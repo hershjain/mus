@@ -1,5 +1,12 @@
 from django.contrib import admin
 from .models import Follow, Notification, Tag, Playlist
+from .models import Profile
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'spotify_id', 'email', 'profile_picture', 'bio')
+    search_fields = ('user__username', 'email')
+    list_filter = ('followers',)
 
 # Register Follow model
 @admin.register(Follow)
