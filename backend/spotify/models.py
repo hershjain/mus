@@ -81,14 +81,5 @@ class Notification(models.Model):
         self.is_read = True
         self.save()
 
-# Signals to automatically create a Profile for each new User
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()   
 
 
