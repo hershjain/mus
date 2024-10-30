@@ -21,8 +21,8 @@ const Login = () => {
         localStorage.setItem('refresh', response.data.refresh);
 
         // Redirect or do something after login
-        navigate('/app/discovery')
         alert("Login successful");
+        navigate('/app/discovery')
     } catch (err) {
         setError('Invalid username or password');
     }
