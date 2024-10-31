@@ -61,7 +61,7 @@ const Profile = () => {
                 
                 // Assuming response.data has the profile data in the expected structure
                 setProfilePic(response.data.profile_picture);
-                setUsername(response.data.user.username); // Assuming user object is nested
+                setUsername(response.data.username); // Assuming user object is nested
                 setBio(response.data.bio);
                 setFollowers(response.data.followers); // Adjust if the structure is different
 
