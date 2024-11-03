@@ -9,19 +9,51 @@ import Navbar from './components/navbar';
 import SpotifyCallback from './components/spotify-callback';
 import './styles/MainApp.css';
 import EditProfile from './pages/EditProfile';
+import SearchResultsPage from "./components/search-results-page";
 
 
 function MainApp() {
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearchChange = (event) => {
-      setSearchQuery(event.target.value);
-  };
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    // Perform a search fetch here and update searchResults with the response
+    // For example:
+    fetch(`/api/search?q=${query}`)
+        .then((res) => res.json())
+        .then((data) => setSearchResults(data.results))
+        .catch((error) => console.error('Error fetching search results:', error));
+};
+
 
   const toggleSearch = () => {
       setSearchVisible(!searchVisible);
   };
+
+  const [user, setUser] = useState({
+    username: 'currentUsername', 
+    profilePicture: 'currentProfilePicURL',
+    bio: 'currentBio',
+    email: 'currentEmail',
+});
+
+// Handle user data update on save
+const handleSaveProfile = (updatedData) => {
+    // Here, make an API call to update the profile in the backend
+    fetch('/api/update-profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedData),
+    })
+    .then(response => response.json())
+    .then(data => setUser(data)) // Update user state with new data
+    .catch(error => console.error('Error updating profile:', error));
+};
+
 
   const [userPlaylists, setUserPlaylists] = useState([]);
 
@@ -42,6 +74,7 @@ function MainApp() {
         searchQuery={searchQuery} 
         handleSearchChange={handleSearchChange} 
         toggleSearch={toggleSearch}
+        searchResults={searchResults}
       />
       <Navbar />
       <div className='main-content'>
@@ -49,9 +82,10 @@ function MainApp() {
           <Route path="discovery" element={<Discovery />} />
           <Route path="library" element={<Library userPlaylists={userPlaylists}/>} />
           <Route path='profile' element={<Profile />} />
-          <Route path='profile/edit' element={<EditProfile />} />
+          <Route path='profile/edit' element={<EditProfile user={user} onSave={handleSaveProfile} />} />
           <Route path="callback" component={SpotifyCallback} />
           <Route path='create-playlist' element={<CreatePlaylist userPlaylists={userPlaylists}/>} />
+          <Route path="/search-results/:query" element={<SearchResultsPage />} />
         </Routes>
       </div>
     </div>

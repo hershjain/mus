@@ -2,11 +2,13 @@
   .playlist-list {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Adjust the gap between cards */
-    padding: 20px 0px;
+    gap: 10px; /* Adjust the gap between cards */
+    padding: 10px 0px;
     padding-bottom: 60px;
+    margin-top: 20px;
     width: 100%;
     box-sizing: border-box;
     justify-items: center;
+    border-top: 2px solid #e5e5e5;
   }
   

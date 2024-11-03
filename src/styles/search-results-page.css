@@ -1,0 +1,19 @@
+.search-results-page {
+    padding: 20px;
+    text-align: center;
+}
+
+.results-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.see-all-results {
+    display: block;
+    text-align: center;
+    color: blue;
+    margin-top: 10px;
+    cursor: pointer;
+}

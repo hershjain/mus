@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
+import SearchResults from './search-results';
 import '../styles/search-bar.css';
 
-const SearchBar = ({ searchVisible, searchQuery, handleSearchChange }) => {
+const SearchBar = ({ searchVisible, searchQuery, handleSearchChange, searchResults }) => {
     const [selectedCategories, setSelectedCategories] = useState([]); // Track selected categories
 
     const categories = [ 'Created', 'Saved', 'Profiles']; // List of all categories
@@ -40,6 +41,11 @@ const SearchBar = ({ searchVisible, searchQuery, handleSearchChange }) => {
                         ))}
                 </div>
             </div>
+
+            {searchQuery && searchResults.length > 0 && (
+                <SearchResults query={searchQuery} results={searchResults} />
+            )}
+
         </div>
     );
 };

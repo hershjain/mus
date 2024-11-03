@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell as faBellSolid, faSearch, faTimes, } from '@fortawesome/free-solid-svg-icons';
 import { faBell as faBellRegular } from '@fortawesome/free-regular-svg-icons';
 
-const Header = ({ searchVisible, searchQuery, handleSearchChange, toggleSearch }) => {
+const Header = ({ searchVisible, searchQuery, handleSearchChange, toggleSearch, searchResults }) => {
     // const [searchVisible, setSearchVisible] = useState(false);
     // const [searchQuery, setSearchQuery] = useState("");
     const [notificationsVisible, setNotificationsVisible] = useState(false);
@@ -69,7 +69,8 @@ const Header = ({ searchVisible, searchQuery, handleSearchChange, toggleSearch }
             <SearchBar 
                 searchVisible={searchVisible} 
                 searchQuery={searchQuery} 
-                handleSearchChange={handleSearchChange} 
+                handleSearchChange={handleSearchChange}
+                searchResults={searchResults} 
             />
         </div>
     );
