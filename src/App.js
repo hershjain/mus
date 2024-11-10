@@ -5,6 +5,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MainApp from "./MainApp";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SpotifyCallback from './components/spotify-callback';
+
 
 function App() {
     const isAuthenticated = !!localStorage.getItem('access');
@@ -15,9 +17,12 @@ function App() {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path='/register' element={<Register />} />
+                <Route path="/spotify/callback" element={<SpotifyCallback />} />
+
                 {/* Protect routes by nesting them under ProtectedRoute */}
                 <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
                     <Route path="/app/*" element={<MainApp />} />
+                 
                     {/* Add more protected routes as needed */}
                 </Route>
             </Routes>

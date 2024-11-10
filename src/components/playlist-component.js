@@ -1,15 +1,36 @@
 import React, { useState, useEffect } from 'react';
 
+import React, { useEffect, useState } from 'react';
+
 const PlaylistComponent = () => {
   const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/spotify/playlists', {
-      credentials: 'include' // To include cookies for session handling
-    })
-      .then(response => response.json())
-      .then(data => setPlaylists(data.items || []))
-      .catch(error => console.error('Error fetching playlists:', error));
+    const fetchPlaylists = async () => {
+      try {
+        // Get the JWT token from localStorage (or your preferred storage)
+        const token = localStorage.getItem("access");
+
+        const response = await fetch('http://localhost:8000/spotify/playlists/', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch playlists');
+        }
+
+        const data = await response.json();
+        setPlaylists(data.items || []);
+      } catch (error) {
+        console.error('Error fetching playlists:', error);
+      }
+    };
+
+    fetchPlaylists();
   }, []);
 
   return (
@@ -20,9 +41,6 @@ const PlaylistComponent = () => {
           <li key={playlist.id}>
             <img src={playlist.images[0].url} alt={playlist.name} width={100} />
             <p>{playlist.name}</p>
-            <script>
-              console.log("Here baby! Playlist");
-            </script>
           </li>
         ))}
       </ul>
