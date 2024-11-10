@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -12,9 +13,16 @@ class Profile(models.Model):
     bio = models.TextField(blank=True, null=True)
     email = models.EmailField(unique=True)  # Ensure email uniqueness
     followers = models.ManyToManyField("self", symmetrical=False, related_name="following", blank=True)
+    access_token_expires_at = models.DateTimeField(null=True, blank=True)  # Field to store the expiration time
     
     def __str__(self):
         return self.user.username
+    
+    def access_token_is_expired(self):
+        """Check if the access token is expired."""
+        if self.access_token_expires_at and timezone.now() >= self.access_token_expires_at:
+            return True
+        return False
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
