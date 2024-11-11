@@ -100,16 +100,16 @@ const Profile = () => {
                           </Link>
                         </div>
                         <div className="dropdown-item">
-                            <p className="profile-link">Preferences</p>
+                          <SpotifyAuthButton />
                         </div>
                         <div className="dropdown-item">
-                            <Logout />
+                          <Logout />
                         </div>
                       </div>
                     </div>
                 </div>
                 <p className="bio">{bio}</p>
-                <SpotifyAuthButton />
+                
             </div>
             
         </div>

@@ -34,7 +34,6 @@ const SpotifyAuthButton = () => {
   return (
     <button className="spotify-auth-button" onClick={handleSpotifyLogin}>
       <FontAwesomeIcon icon={faSpotify} style={{ marginRight: "5px" }} />
-      Connect to Spotify
     </button>
   );
 };

@@ -21,7 +21,7 @@
     height: 100px;
     border-radius: 50%;
     margin-right: 15px;
-    border: 2px solid #424242;
+    border: 3px solid #4dffc1;
   }
   
   .profile-details {
@@ -47,7 +47,7 @@
     color: #e7e7e7;
     font-weight: bold;
     padding-top: 10px;
-    border-top: 1px solid #424242;
+    border-top: 2px solid #4dffc1;
     display: flex;
     justify-content: space-around;
   }
@@ -93,7 +93,8 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+  width: 100%;
 }
 
 .dropdown-item i {

@@ -13,6 +13,8 @@
 
 #musLogo {
   width: 20%;
+  max-width: 75px;
+  padding-bottom: 5px;
 }
 
 .app-header div{
