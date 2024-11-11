@@ -55,7 +55,7 @@ useEffect(() => {
         });
           
           // Assuming response.data has the profile data in the expected structure
-          setProfilePic(response.data.profilePic);
+          // setProfilePic(response.data.profilePic);
           setUsername(response.data.username); // Assuming user object is nested
           setBio(response.data.bio);
           setFollowers(response.data.followers); // Adjust if the structure is different
@@ -68,7 +68,35 @@ useEffect(() => {
   fetchProfileData();
 }, []); // Empty dependency array means this runs once when the component mounts
 
+useEffect(() => {
+  const fetchSPF = async () => {
+    try {
+    // Get the JWT token from localStorage (or your preferred storage)
+    const token = localStorage.getItem("access");
+    console.log('this is the auth token being passed in the header: '+token)
 
+    const response = await fetch('http://localhost:8000/spotify/getspf/', {
+      method: 'GET',
+      headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch user info');
+    }
+
+    const data = await response.json();
+    console.log(data);
+    setProfilePic(data || []);
+    } catch (error) {
+      console.error('Error fetching user info:', error);
+    }
+  };
+
+fetchSPF();
+}, []);
 
 
   const [userPlaylists, setUserPlaylists] = useState([]);
