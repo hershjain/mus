@@ -42,7 +42,7 @@ const Library = ({userPlaylists}) => {
                 <div className="library-header">
                     <h1>Your Library</h1>
                     <Link to="/app/create-playlist"> 
-                        <FontAwesomeIcon className="create-playlist-button" icon={faPlusCircle} size="50px" color='black' />
+                        <FontAwesomeIcon className="create-playlist-button" icon={faPlusCircle} size="50px" color='white' />
                     </Link>
                     
                 </div>

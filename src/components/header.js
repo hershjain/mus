@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import '../styles/header.css';
 import SearchBar from "./search-bar";
+import MusLogo from "../assets/images/mus-logo.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell as faBellSolid, faSearch, faTimes, } from '@fortawesome/free-solid-svg-icons';
 import { faBell as faBellRegular } from '@fortawesome/free-regular-svg-icons';
@@ -34,18 +35,18 @@ const Header = ({ searchVisible, searchQuery, handleSearchChange, toggleSearch, 
             <div>
                 <button onClick={toggleSearch} className="search-btn">
                     {searchVisible ? (
-                    <FontAwesomeIcon className="x-icon" icon={faTimes} color="black" />
+                    <FontAwesomeIcon className="x-icon" icon={faTimes} color="white" />
                     ) : (
-                    <FontAwesomeIcon icon={faSearch} color="black" />
+                    <FontAwesomeIcon icon={faSearch} color="white" />
                     )}
                 </button>
-                <h1>müs</h1>
+                <img src={MusLogo} alt="Mus Logo" id="musLogo"/>
                 {/* <div className="header-icons"> */}
                 <button onClick={toggleNotifications} className="notification-btn">
                 {notificationsVisible ? (
-                    <FontAwesomeIcon icon={faBellSolid} color="black" />
+                    <FontAwesomeIcon icon={faBellSolid} color="white" />
                     ) : (
-                    <FontAwesomeIcon icon={faBellRegular} color="black" />
+                    <FontAwesomeIcon icon={faBellRegular} color="white" />
                     )}
                 </button>
 

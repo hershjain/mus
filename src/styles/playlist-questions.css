@@ -9,10 +9,12 @@
     justify-content: center;
     align-items: center;
     z-index: 999;
+    backdrop-filter: blur(3px);
   }
   
   .overlay-content {
-    background-color: #fff;
+    background-color: #222222a0;
+    
     padding: 20px;
     width: 100%;
     border-radius: 10px;
@@ -20,7 +22,7 @@
   }
   
   .close-overlay {
-    position: absolute;
+    position: relative;
     top: 20px;
     right: 20px;
     background: none;
@@ -33,6 +35,10 @@
     width: 100%;
     padding: 10px;
     margin: 10px 0;
+  }
+
+  label {
+    color: #e7e7e7;
   }
   
   .color-picker {
@@ -51,14 +57,50 @@
   }
   
   .multiple-selection {
-    margin: 20px 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .checkbox-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  
+  .checkbox-wrapper {
+    display: inline-flex;
+    align-items: center;
   }
 
-  .checkbox-grid{
-    display: flex;
-    /* padding: 10px 20px; */
-    flex-wrap: wrap;
+  .checkbox-wrapper input{
+    border-radius: 10px;
   }
+  
+  /* Hide the default checkbox */
+  .custom-checkbox {
+    display: none;
+    border-radius: 10px;
+  }
+  
+  /* Style the label to look like a button */
+  .checkbox-label {
+    padding: 8px 16px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  /* Style when checkbox is selected */
+  .custom-checkbox:checked + .checkbox-label {
+    background-color: #4CAF50; /* Change this color to your desired active color */
+    color: #fff;
+    border-color: #4CAF50;
+  }
+  
   
   .submit-playlist {
     background-color: #4caf50;

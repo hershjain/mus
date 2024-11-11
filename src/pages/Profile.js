@@ -92,15 +92,15 @@ const Profile = () => {
                 <div className="profile-div">
                   <h2 className="username">{username}</h2>
                     <div class="profile-settings">
-                      <FontAwesomeIcon class="fas fa-cog" id="settings-icon" icon={faCog} color="black" onClick={toggleDropdown}/>
+                      <FontAwesomeIcon class="fas fa-cog" id="settings-icon" icon={faCog} color="#e7e7e7" onClick={toggleDropdown}/>
                       <div className={`dropdown ${isOpen ? 'open' : ''}`}>
                         <div className="dropdown-item">
                           <Link to="/app/profile/edit">
-                            <i className="fas fa-user"></i> Edit Profile
+                            <p className="profile-link">Edit Profile</p>
                           </Link>
                         </div>
                         <div className="dropdown-item">
-                            <i className="fas fa-sliders-h"></i> Preferences
+                            <p className="profile-link">Preferences</p>
                         </div>
                         <div className="dropdown-item">
                             <Logout />

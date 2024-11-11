@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/Login.css';
+import MusLogo from '../assets/images/mus-logo.png';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -30,8 +32,10 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <form onSubmit={handleLogin}>
+      <img src={MusLogo} alt="Mus Logo" id="musLogo"/>
+      <form className="login-form" onSubmit={handleLogin}>
             <input
+                className='login-input'
                 type="text"
                 placeholder="Username"
                 value={username}
@@ -39,13 +43,14 @@ const Login = () => {
                 required
             />
             <input
+                className='login-input'
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
             />
-            <button type="submit">Login</button>
+            <button className='login-button' type="submit">Login</button>
         </form>
         {error && <p>{error}</p>}
     </div>

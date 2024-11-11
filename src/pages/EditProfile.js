@@ -22,7 +22,7 @@ const EditProfile = ({ user, onSave }) => {
     return (
         <div className="edit-profile">
             <h2>Edit Profile</h2>
-            <form onSubmit={handleSave}>
+            <form className="edit-form" onSubmit={handleSave}>
                 <label>
                     Username:
                     <input
@@ -33,7 +33,7 @@ const EditProfile = ({ user, onSave }) => {
                     />
                 </label>
 
-                <label>
+                {/* <label>
                     Profile Picture URL:
                     <input
                         type="text"
@@ -41,7 +41,7 @@ const EditProfile = ({ user, onSave }) => {
                         value={formData.profilePicture}
                         onChange={handleChange}
                     />
-                </label>
+                </label> */}
 
                 <label>
                     Bio:
@@ -52,7 +52,7 @@ const EditProfile = ({ user, onSave }) => {
                     />
                 </label>
 
-                <label>
+                {/* <label>
                     Email:
                     <input
                         type="email"
@@ -60,7 +60,7 @@ const EditProfile = ({ user, onSave }) => {
                         value={formData.email}
                         onChange={handleChange}
                     />
-                </label>
+                </label> */}
 
                 <button type="submit">Save Changes</button>
             </form>

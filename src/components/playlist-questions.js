@@ -1,33 +1,30 @@
 import React, { useState } from 'react';
-import { SketchPicker } from 'react-color'; // For color picking (you'll need to install react-color)
+import ColorPicker from './color-picker';
 import '../styles/playlist-questions.css'; // CSS for the overlay
 
 const PlaylistQuestions = ({ onClose, playlistId, onSubmit }) => {
   const [playlistDescription, setPlaylistDescription] = useState('');
-  const [primaryColor, setPrimaryColor] = useState('#ffffff');
-  const [secondaryColor, setSecondaryColor] = useState('#ffffff');
+  const [primaryColor, setPrimaryColor] = useState('#ff0000');
+  const [secondaryColor, setSecondaryColor] = useState('#0000ff');
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedMoods, setSelectedMoods] = useState([]);
+
 
   const genres = ['Rock', 'Pop', 'Jazz', 'Hip-Hop', 'Classical'];
   const moods = ['Happy', 'Sad', 'Energetic', 'Calm', 'Romantic'];
 
   const handleGenreChange = (event) => {
     const { value, checked } = event.target;
-    if (checked) {
-      setSelectedGenres([...selectedGenres, value]);
-    } else {
-      setSelectedGenres(selectedGenres.filter((genre) => genre !== value));
-    }
+    setSelectedGenres((prev) =>
+      checked ? [...prev, value] : prev.filter((genre) => genre !== value)
+    );
   };
 
   const handleMoodChange = (event) => {
     const { value, checked } = event.target;
-    if (checked) {
-      setSelectedMoods([...selectedMoods, value]);
-    } else {
-      setSelectedMoods(selectedMoods.filter((mood) => mood !== value));
-    }
+    setSelectedMoods((prev) =>
+      checked ? [...prev, value] : prev.filter((mood) => mood !== value)
+    );
   };
 
   const handleSubmit = (e) => {
@@ -77,17 +74,11 @@ const PlaylistQuestions = ({ onClose, playlistId, onSubmit }) => {
           <div className="color-picker">
             <div className='color-column'>
               <label>Primary Color:</label>
-              <SketchPicker
-                color={primaryColor} 
-                onChangeComplete={(color) => setPrimaryColor(color.hex)}
-              />
+              <ColorPicker color={primaryColor} onChange={setPrimaryColor} />
             </div>
             <div className='color-column'>
               <label>Secondary Color:</label>
-              <SketchPicker
-                color={secondaryColor}
-                onChangeComplete={(color) => setSecondaryColor(color.hex)}
-              />
+              <ColorPicker color={secondaryColor} onChange={setSecondaryColor} />
             </div>
           </div>
 
@@ -96,13 +87,17 @@ const PlaylistQuestions = ({ onClose, playlistId, onSubmit }) => {
             <label>Genres:</label>
             <div className="checkbox-grid">
               {genres.map((genre) => (
-                <div key={genre}>
+                <div key={genre} className="checkbox-wrapper">
                   <input
                     type="checkbox"
+                    id={genre}
                     value={genre}
                     onChange={handleGenreChange}
+                    className="custom-checkbox"
                   />
-                  <label>{genre}</label>
+                  <label htmlFor={genre} className="checkbox-label">
+                    {genre}
+                  </label>
                 </div>
               ))}
             </div>
@@ -111,11 +106,19 @@ const PlaylistQuestions = ({ onClose, playlistId, onSubmit }) => {
           {/* Mood Selection */}
           <div className="multiple-selection">
             <label>Moods:</label>
-            <div className='checkbox-grid'>
+            <div className="checkbox-grid">
               {moods.map((mood) => (
-                <div key={mood}>
-                  <input type="checkbox" value={mood} onChange={handleMoodChange} />
-                  <label>{mood}</label>
+                <div key={mood} className="checkbox-wrapper">
+                  <input
+                    type="checkbox"
+                    id={mood}
+                    value={mood}
+                    onChange={handleMoodChange}
+                    className="custom-checkbox"
+                  />
+                  <label htmlFor={mood} className="checkbox-label">
+                    {mood}
+                  </label>
                 </div>
               ))}
             </div>
