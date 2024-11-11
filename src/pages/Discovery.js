@@ -34,7 +34,8 @@ const Discovery = () => {
             }
     
             const data = await response.json();
-            setCategories(data.items || []);
+            console.log(data[0].name)
+            setCategories(data || []);
           } catch (error) {
             console.error('Error fetching categories:', error);
           }
@@ -51,9 +52,7 @@ const Discovery = () => {
                 <PlaylistRow categoryTitle="Trending Playlists" playlists={samplePlaylists} />
                 <PlaylistRow categoryTitle="Chill Vibes" playlists={samplePlaylists} />
                 {categories.map((category) => (
-                    
                     <p>{category.name}</p>
-
                 ))}
             </div>
         </body>
