@@ -10,6 +10,7 @@ import SpotifyCallback from './components/spotify-callback';
 import './styles/MainApp.css';
 import EditProfile from './pages/EditProfile';
 import SearchResultsPage from "./components/search-results-page";
+import axios from 'axios';
 
 
 function MainApp() {
@@ -34,25 +35,40 @@ function MainApp() {
       setSearchVisible(!searchVisible);
   };
 
-  const [user, setUser] = useState({
-    username: 'currentUsername', 
-    profilePicture: 'currentProfilePicURL',
-    bio: 'currentBio',
-    email: 'currentEmail',
-});
+  const [profilePic, setProfilePic] = useState('');
+  const [username, setUsername] = useState('');
+  const [bio, setBio] = useState('');
+  const [followers, setFollowers] = useState([]);
 
-// Handle user data update on save
-const handleSaveProfile = (updatedData) => {
-    // Here, make an API call to update the profile in the backend
-    fetch('/api/update-profile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedData),
-    })
-    .then(response => response.json())
-    .then(data => setUser(data)) // Update user state with new data
-    .catch(error => console.error('Error updating profile:', error));
-};
+useEffect(() => {
+  const fetchProfileData = async () => {
+      try {
+
+          const token = localStorage.getItem('access');
+
+          // Replace '/api/profile/' with your actual endpoint for fetching user profile
+          //const response = await axios.get('http://localhost:8000/spotify/profile/');
+          const response = await axios.get('http://localhost:8000/spotify/profile/', {
+            headers: {
+                Authorization: `Bearer ${token}`, // Add the token to the request headers
+            },
+        });
+          
+          // Assuming response.data has the profile data in the expected structure
+          setProfilePic(response.data.profilePic);
+          setUsername(response.data.username); // Assuming user object is nested
+          setBio(response.data.bio);
+          setFollowers(response.data.followers); // Adjust if the structure is different
+
+      } catch (error) {
+          console.error("Error fetching profile data:", error);
+      }
+  };
+
+  fetchProfileData();
+}, []); // Empty dependency array means this runs once when the component mounts
+
+
 
 
   const [userPlaylists, setUserPlaylists] = useState([]);
@@ -132,8 +148,8 @@ const handleSaveProfile = (updatedData) => {
         <Routes>
           <Route path="discovery" element={<Discovery categories={catTitle} />} />
           <Route path="library" element={<Library userPlaylists={userPlaylists}/>} />
-          <Route path='profile' element={<Profile />} />
-          <Route path='profile/edit' element={<EditProfile user={user} onSave={handleSaveProfile} />} />
+          <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} />} />
+          <Route path='profile/edit' element={<EditProfile username={username} bio={bio}/>} />
           <Route path="callback" component={SpotifyCallback} />
           <Route path='create-playlist' element={<CreatePlaylist userPlaylists={userPlaylists}/>} />
           <Route path="/search-results/:query" element={<SearchResultsPage />} />

@@ -1,113 +1,95 @@
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import '../styles/EditProfile.css';
 
-const EditProfile = ({ user, onSave }) => {
+const EditProfile = ({ username, bio }) => {
     const [formData, setFormData] = useState({
-        username: user.username || '',
-        profilePicture: user.profilePicture || '',
-        bio: user.bio || '',
-        email: user.email || '',
+        username: username || '',
+        bio: bio || '',
     });
 
+    const navigate = useNavigate();  // Initialize useNavigate
+
+    // Populate form with user data when fetched
+    useEffect(() => {
+        setFormData({
+            username: username || '',
+            bio: bio || ''
+        });
+    }, [username, bio]);
+
+    // Handle input changes for form fields
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSave = (e) => {
+    // Handle form submission
+    const handleSave = async (e) => {
         e.preventDefault();
-        onSave(formData); // Call parent function to save changes
+        
+        if (formData.username !== username) {
+            await updateUsername(formData.username);
+        }
+        
+        if (formData.bio !== bio) {
+            await updateBio(formData.bio);
+        }
+
+        // Redirect to profile and refresh
+        navigate('/app/profile', { replace: true });
+        window.location.reload();
     };
 
+    // Function to update username in the backend
     const updateUsername = async (newUsername) => {
         try {
-          const token = localStorage.getItem("access");
-          console.log('this is the auth token being passed in the header:', token);
-      
-          const response = await fetch('http://localhost:8000/spotify/set-username/', {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username: newUsername })
-          });
-      
-          if (!response.ok) {
-            throw new Error('Failed to update username');
-          }
-      
-          const data = await response.json();
-          console.log('Username update success:', data.message); // Handle success message
+            const token = localStorage.getItem("access");
+            const response = await fetch('http://localhost:8000/spotify/set-username/', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username: newUsername }),
+            });
+
+            if (!response.ok) throw new Error('Failed to update username');
+            const data = await response.json();
+            console.log('Username update success:', data.message);
         } catch (error) {
-          console.error('Error updating username:', error);
+            console.error('Error updating username:', error);
         }
-      };
-      
+    };
+
+    // Function to update bio in the backend
     const updateBio = async (newBio) => {
         try {
-          const token = localStorage.getItem("access");
-          console.log('this is the auth token being passed in the header:', token);
-      
-          const response = await fetch('http://localhost:8000/spotify/set-bio/', {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ bio: newBio })
-          });
-      
-          if (!response.ok) {
-            throw new Error('Failed to update bio');
-          }
-      
-          const data = await response.json();
-          console.log('Bio update success:', data.message); // Handle success message
-        } catch (error) {
-          console.error('Error updating bio:', error);
-        }
-      };
-
-    const [userInfo, setUserInfo] = useState([]);
-
-    useEffect(() => {
-        const fetchSPF = async () => {
-          try {
-            // Get the JWT token from localStorage (or your preferred storage)
             const token = localStorage.getItem("access");
-            console.log('this is the auth token being passed in the header: '+token)
-    
-            const response = await fetch('http://localhost:8000/spotify/getspf/', {
-              method: 'GET',
-              headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-              }
+            const response = await fetch('http://localhost:8000/spotify/set-bio/', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ bio: newBio || '' }), // Send empty string if bio is blank
             });
-    
-            if (!response.ok) {
-              throw new Error('Failed to fetch user info');
-            }
-    
+
+            if (!response.ok) throw new Error('Failed to update bio');
             const data = await response.json();
-            setUserInfo(data || []);
-          } catch (error) {
-            console.error('Error fetching user info:', error);
-          }
-        };
-    
-        fetchSPF();
-      }, []);  
+            console.log('Bio update success:', data.message);
+        } catch (error) {
+            console.error('Error updating bio:', error);
+        }
+    };
 
     return (
         <div className="edit-profile">
-            <div className='edit-header'> 
-                <Link to="/app/profile"> 
-                    <FontAwesomeIcon className="back-button" icon={faChevronLeft} size="xs" color='white' />
+            <div className="edit-header">
+                <Link to="/app/profile">
+                    <FontAwesomeIcon className="back-button" icon={faChevronLeft} size="xs" color="white" />
                 </Link>
                 <h2>Edit Profile</h2>
             </div>
@@ -122,16 +104,6 @@ const EditProfile = ({ user, onSave }) => {
                     />
                 </label>
 
-                {/* <label>
-                    Profile Picture URL:
-                    <input
-                        type="text"
-                        name="profilePicture"
-                        value={formData.profilePicture}
-                        onChange={handleChange}
-                    />
-                </label> */}
-
                 <label>
                     Bio:
                     <textarea
@@ -140,16 +112,6 @@ const EditProfile = ({ user, onSave }) => {
                         onChange={handleChange}
                     />
                 </label>
-
-                {/* <label>
-                    Email:
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                </label> */}
 
                 <button type="submit">Save Changes</button>
             </form>
