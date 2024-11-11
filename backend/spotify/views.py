@@ -6,7 +6,9 @@ from django.contrib.auth.decorators import login_required
 from .serializers import ProfileSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import AllowAny  
+from rest_framework.permissions import AllowAny
+from .models import Profile
+
 
 @api_view(['GET'])
 @login_required
@@ -16,6 +18,41 @@ def user_profile(request):
     serializer = ProfileSerializer(profile)
     return Response(serializer.data)
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def set_username(request):
+    try:
+        new_username = request.data.get("username")
+        if not new_username:
+            return Response({"error": "Username is required"}, status=400)
+
+        # Update the username on the User model
+        user = request.user
+        user.username = new_username
+        user.save()
+        return Response({"message": "Username updated successfully"}, status=200)
+
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def set_bio(request):
+    try:
+        new_bio = request.data.get("bio")
+        if not new_bio:
+            return Response({"error": "Bio is required"}, status=400)
+
+        # Update the bio in the Profile model
+        profile = Profile.objects.get(user=request.user)
+        profile.bio = new_bio
+        profile.save()
+        return Response({"message": "Bio updated successfully"}, status=200)
+
+    except Profile.DoesNotExist:
+        return Response({"error": "Profile not found"}, status=404)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])  # Allow access without authentication
@@ -38,4 +75,5 @@ def login_view(request):
         })
     return Response({"error": "Invalid credentials"}, status=400)
 # Create your views here.
+
 
