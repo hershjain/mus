@@ -50,11 +50,15 @@ const Discovery = () => {
                 <PlaylistRow categoryTitle="Top Picks for You" playlists={samplePlaylists} />
                 <PlaylistRow categoryTitle="Trending Playlists" playlists={samplePlaylists} />
                 <PlaylistRow categoryTitle="Chill Vibes" playlists={samplePlaylists} />
-                {categories.map((category) => (
-                    
-                    <p>{category.name}</p>
-
-                ))}
+                <div className='category-test'>
+                    <p>Hello Gello</p>
+                    {categories.map((category) => (   
+                        <li key={category.id}>
+                            <p>{category.name}</p>
+                            <p>Hello Test</p>
+                        </li>
+                    ))}
+                </div>
             </div>
         </body>
     );
