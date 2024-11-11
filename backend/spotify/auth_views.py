@@ -143,72 +143,32 @@ def get_playlists(request):
         return JsonResponse({'error': 'Profile not found.'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
-    
-    
-'''
-    print("in get_playlists")
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_categories(request):
+    # Authenticate the JWT token and retrieve the user
+    jwt_authenticator = JWTAuthentication()
     try:
-        # Retrieve the user's profile
-        profile = Profile.objects.get(user=request.user)
-        print(str(profile))
-        # Check if the user has connected their Spotify account
-        if not profile.access_token:
-            return JsonResponse({'error': 'User has not connected Spotify account'}, status=400)
+        # Extract and validate the JWT token from the header
+        user, _ = jwt_authenticator.authenticate(request)
+        profile = Profile.objects.get(user=user)
+
+        # Check if the Spotify access token is expired
+        if profile.access_token_is_expired():  # Assuming access_token_is_expired() is defined
+            refresh_spotify_token(profile)  # Refresh the token if needed
+
+        # Use the Spotify access token to fetch playlists
+        sp = Spotify(auth=profile.access_token)
+        results = sp.categories()
+        categories = results['categories']['items']
         
-        # Check if the access token is expired and refresh it if necessary
-        if timezone.now() >= profile.access_token_expires_at:
-            sp_oauth = SpotifyOAuth(client_id=SPOTIFY_CLIENT_ID,
-                                     client_secret=SPOTIFY_CLIENT_SECRET,
-                                     redirect_uri=SPOTIFY_REDIRECT_URI)
 
-            token_info = sp_oauth.refresh_access_token(profile.refresh_token)
-            access_token = token_info['access_token']
-            profile.access_token = access_token
-            profile.access_token_expires_at = timezone.now() + timedelta(seconds=token_info['expires_in'])  # Update expiration time
-            profile.save()
-
-        # Use the (possibly refreshed) access token to fetch the user's Spotify playlists
-        sp = spotipy.Spotify(auth=profile.access_token)
-        playlists = sp.current_user_playlists(limit=10)  # You can adjust the limit as needed
-        return JsonResponse(playlists)
+        return JsonResponse(categories, safe=False)
 
     except Profile.DoesNotExist:
         return JsonResponse({'error': 'Profile not found.'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
-'''
-    
-
-
-
-'''
-    print('calling playlist func')
-    profile = Profile.objects.get(user=request.user)
-
-    # Check if the access token is expired (you might want to implement your own logic here)
-    # Assuming you set an expiration time for the access token somewhere
-    if profile.access_token_is_expired():  # Implement this method based on your expiration logic
-        refresh_spotify_token(profile)
-
-    # Now you can make API requests using the updated access token
-
-    token_info = profile.access_token
-    if token_info:
-        sp = spotipy.Spotify(auth=token_info['access_token'])
-        playlists = sp.current_user_playlists(limit=10)
-        print(playlists)
-        return JsonResponse(playlists)
-    headers = {
-        'Authorization': f'Bearer {profile.access_token}',
-    }
-    response = requests.get('https://api.spotify.com/v1/me/playlists', headers=headers)
-    if response.status_code == 200:
-        return Response(response.json())
-    else:
-        return Response({"error": "Failed to fetch playlists"}, status=response.status_code)
- '''   
-    
-    
-    
     
 

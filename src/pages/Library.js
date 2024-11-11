@@ -18,6 +18,7 @@ const Library = ({userPlaylists}) => {
         { title: 'Big Booms', imageUrl: placeholder, curator: 'ptpampadam', category: 'Saved' },      
     ];
 
+
     const [selectedCategories, setSelectedCategories] = useState([]); // Track selected categories
 
     const categories = [ 'Yours', 'Saved']; // List of all categories
