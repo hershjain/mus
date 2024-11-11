@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import '../styles/EditProfile.css';
 
 const EditProfile = ({ user, onSave }) => {
@@ -21,7 +24,12 @@ const EditProfile = ({ user, onSave }) => {
 
     return (
         <div className="edit-profile">
-            <h2>Edit Profile</h2>
+            <div className='edit-header'> 
+                <Link to="/app/profile"> 
+                    <FontAwesomeIcon className="back-button" icon={faChevronLeft} size="xs" color='white' />
+                </Link>
+                <h2>Edit Profile</h2>
+            </div>
             <form className="edit-form" onSubmit={handleSave}>
                 <label>
                     Username:

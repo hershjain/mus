@@ -8,13 +8,14 @@
     height: 100vh;
     display: flex;
     align-items: center;
-    background: #1d1d1d;
+    background: radial-gradient(#4dffc12f 0%, #1d1d1d00 100%);
     flex-direction: column;
+    justify-content: center;
 }
 
-#musLogo{
+#musLogoLogin{
     padding: 20px;
-    width: 50%;
+    width: 60%;
 }
 
 .login-form{
@@ -40,7 +41,7 @@
     padding: 10px;
     margin: 10px;
     border-radius: 20px;
-    background: radial-gradient(#ffd7f6 0%, #ffffff 100%);
+    background: white;
     color: black;
     font-size: 1em;
     font-weight: 600;

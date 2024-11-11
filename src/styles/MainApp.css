@@ -1,7 +1,7 @@
 
 :root {
-  background-color: #202020;
   color: #dedede;
+   background: linear-gradient(to bottom, #202020, #171717);
   /* box-shadow: inset 0px 0px 20px 5px var(--glow-color); */
 }
 
@@ -33,7 +33,7 @@ p, a {
 .main-content {
   padding-top: 80px;
   padding-bottom: 50px;
-  /* background: linear-gradient(to bottom, #ffffff, #def7ff); */
+  background: radial-gradient(#4dffc12f 0%, #1d1d1d00 100%);
   min-height: 95vh;
   height: 100%;
   display: flex;

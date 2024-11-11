@@ -1,12 +1,24 @@
 .edit-profile{
     padding: 30px;
     display: flex;
-    background: #1d1d1d;
+    /* background: #1d1d1d; */
     flex-direction: column;
 }
 
 .edit-profile h2{
     color: #e7e7e7;
+    margin-bottom: 10px;
+}
+
+.edit-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.edit-header h2 {
+    padding-left: 10px;
 }
 
 .edit-form{
@@ -17,7 +29,21 @@
     width: 100%;
 }
 
+.edit-form label {
+    width: 100%;
+}
+
 .edit-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 20px;
+    background-color: #8585852f;
+    color: white;
+    font-size: 1em;
+}
+
+.edit-form textarea {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -32,7 +58,7 @@
     padding: 10px;
     margin: 10px;
     border-radius: 20px;
-    background: radial-gradient(#ffd7f6 0%, #ffffff 100%);
+    background: radial-gradient(#ffffff 0%, #ffffff 100%);
     color: black;
     font-size: 1em;
     font-weight: 600;

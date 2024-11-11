@@ -12,7 +12,7 @@
 }
 
 #musLogo {
-  width: 30%;
+  width: 20%;
 }
 
 .app-header div{
@@ -22,7 +22,7 @@
     align-items: center;
     flex-direction: row;
     /* border-radius: 60px 60px 0px 0px; */
-    background: linear-gradient(0deg, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 0.6) 25%, rgb(20, 20, 20) 80%, #0c2f47 100%);
+    background: linear-gradient(0deg, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 0.6) 25%, rgb(20, 20, 20) 80%, #175942 100%);
 }
 
 .app-header div svg{
@@ -38,7 +38,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 30px;
-    box-shadow: 0px -40px 20px 0px #3daeff8e;
+    box-shadow: 0px -40px 20px 0px #4dffc172;
     transition: all 0.3s ease-in-out;
   }
   
@@ -67,7 +67,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 30px;
-    box-shadow: 0px -40px 20px 0px #3daeff8e;
+    box-shadow: 0px -40px 20px 0px #4dffc172;
     transition: all 0.3s ease-in-out;
   }
   

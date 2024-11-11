@@ -32,7 +32,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <img src={MusLogo} alt="Mus Logo" id="musLogo"/>
+      <img src={MusLogo} alt="Mus Logo" id="musLogoLogin"/>
       <form className="login-form" onSubmit={handleLogin}>
             <input
                 className='login-input'

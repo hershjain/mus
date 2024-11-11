@@ -6,7 +6,7 @@
     width: 100%;            /* Makes the navbar span the full width of the screen */
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
-    background: linear-gradient(180deg, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 0.6) 25%, rgb(20, 20, 20) 80%, #4e3524 100%);
+    background: linear-gradient(180deg, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 0.6) 25%, rgb(20, 20, 20) 80%, #4e243d 100%);
     padding: 1em 0em;
     z-index: 1000;          /* Ensures the navbar stays on top of other elements */
     display: flex;
@@ -31,7 +31,7 @@
     align-items: center;
     flex-direction: column;
     gap: 0.25 em;
-    box-shadow: 0px 40px 20px 0px #ff9045;
+    box-shadow: 0px 40px 20px 0px #ff66c27b;
     border-radius: 30px;
     background: none;
     padding-top: 2px;
@@ -40,7 +40,7 @@
   
   .navbar ul li a:hover {
     color: #3daeff; /* Changes link color when hovered */
-    box-shadow: 0px 10px 30px 10px #ff904581 ,inset 0px 0px 30px #ff904581;
+    box-shadow: 0px 10px 30px 10px #ff66c27b ,inset 0px 0px 30px #ff66c27b;
     /* background: radial-gradient(#ff904582 0%, #ff955875 100%); */
   }
 

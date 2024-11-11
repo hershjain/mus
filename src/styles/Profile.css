@@ -79,11 +79,12 @@
 .dropdown {
   display: none;
   position: absolute;
-  right: 10px;
-  background-color: #222222;
+  right: 0px;
+  top: 30px;
+  background-color: #323232;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  width: 200px;
+  width: 125px;
   z-index: 1000;
 }
 
@@ -92,6 +93,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .dropdown-item i {
