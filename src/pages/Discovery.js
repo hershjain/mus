@@ -44,15 +44,46 @@ const Discovery = () => {
         fetchCategories();
       }, []);
 
+    const [catPL,setCatPL] = useState([]);
+
+    useEffect(() => {
+        const fetchCatPL = async () => {
+          try {
+            // Get the JWT token from localStorage (or your preferred storage)
+            const token = localStorage.getItem("access");
+    
+            const response = await fetch('http://localhost:8000/spotify/catPL/', {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            });
+    
+            if (!response.ok) {
+              throw new Error('Failed to fetch category playlists');
+            }
+    
+            const data = await response.json();
+            //console.log(data[0].name)
+            setCatPL(data.items || []);
+          } catch (error) {
+            console.error('Error fetching category playlists:', error);
+          }
+        };
+    
+        fetchCatPL();
+      }, []); 
 
     return (
         <body>
             <div className="discovery-page">
-                <PlaylistRow categoryTitle="Top Picks for You" playlists={samplePlaylists} />
+                <PlaylistRow categoryTitle="Top Picks for You" playlists={catPL} />
                 <PlaylistRow categoryTitle="Trending Playlists" playlists={samplePlaylists} />
                 <PlaylistRow categoryTitle="Chill Vibes" playlists={samplePlaylists} />
                 {categories.map((category) => (
-                    <p>{category.name}</p>
+                    <p>{category.name} : {category.id}</p>
+                    
                 ))}
             </div>
         </body>

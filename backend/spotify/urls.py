@@ -1,5 +1,5 @@
 from django.urls import path
-from .auth_views import get_spotify_auth_url, spotify_callback, get_playlists, get_categories
+from .auth_views import get_spotify_auth_url, spotify_callback, get_playlists, get_categories, get_catPL
 from .views import user_profile, login_required
 
 
@@ -8,6 +8,7 @@ urlpatterns = [
     path('auth/callback/', spotify_callback, name='spotify_callback'),
     path('playlists/', get_playlists, name='get_playlists'),
     path('categories/', get_categories, name='get_categories'),
+    path('catPL/', get_catPL, name='get_catPL'),
     path('profile/', user_profile, name='user-profile'),
 ]
     

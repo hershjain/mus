@@ -86,6 +86,37 @@ const handleSaveProfile = (updatedData) => {
     fetchPlaylists();
   }, []);
 
+  const [catTitle,setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        // Get the JWT token from localStorage (or your preferred storage)
+        const token = localStorage.getItem("access");
+
+        const response = await fetch('http://localhost:8000/spotify/categories/', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch categories');
+        }
+
+        const data = await response.json();
+        console.log(data[0].name)
+        setCategories(data || []);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
 
   return (
     <div className='App'>
@@ -99,7 +130,7 @@ const handleSaveProfile = (updatedData) => {
       <Navbar />
       <div className='main-content'>
         <Routes>
-          <Route path="discovery" element={<Discovery />} />
+          <Route path="discovery" element={<Discovery categories={catTitle} />} />
           <Route path="library" element={<Library userPlaylists={userPlaylists}/>} />
           <Route path='profile' element={<Profile />} />
           <Route path='profile/edit' element={<EditProfile user={user} onSave={handleSaveProfile} />} />
