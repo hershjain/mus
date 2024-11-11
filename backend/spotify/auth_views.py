@@ -218,8 +218,9 @@ def get_spf(request):
         results = sp.current_user()
         imageval = results['images']
         for x in imageval:
-            if x['url']:
-                img = x['url']
+            for x in imageval:
+                if str(x['height']) == '300':
+                    img = x['url']
         
 
         return JsonResponse(img, safe=False)
