@@ -216,12 +216,16 @@ def get_spf(request):
         # Use the Spotify access token to fetch playlists
         sp = Spotify(auth=profile.access_token)
         results = sp.current_user()
+        imageval = results['images']
+        for x in imageval:
+            if x['url']:
+                img = x['url']
         
 
-        return JsonResponse(results, safe=False)
+        return JsonResponse(img, safe=False)
 
     except Profile.DoesNotExist:
-        return JsonResponse({'error': 'Profile not found.'}, status=404)
+        return JsonResponse({'error': 'Profile/PFpic not found.'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
     
