@@ -27,7 +27,7 @@ const EditProfile = ({ user, onSave }) => {
           const token = localStorage.getItem("access");
           console.log('this is the auth token being passed in the header:', token);
       
-          const response = await fetch('http://localhost:8000/set-username/', {
+          const response = await fetch('http://localhost:8000/spotify/set-username/', {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -52,7 +52,7 @@ const EditProfile = ({ user, onSave }) => {
           const token = localStorage.getItem("access");
           console.log('this is the auth token being passed in the header:', token);
       
-          const response = await fetch('http://localhost:8000/set-bio/', {
+          const response = await fetch('http://localhost:8000/spotify/set-bio/', {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -71,6 +71,37 @@ const EditProfile = ({ user, onSave }) => {
           console.error('Error updating bio:', error);
         }
       };
+
+    const [userInfo, setUserInfo] = useState([]);
+
+    useEffect(() => {
+        const fetchSPF = async () => {
+          try {
+            // Get the JWT token from localStorage (or your preferred storage)
+            const token = localStorage.getItem("access");
+            console.log('this is the auth token being passed in the header: '+token)
+    
+            const response = await fetch('http://localhost:8000/spotify/getspf/', {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            });
+    
+            if (!response.ok) {
+              throw new Error('Failed to fetch user info');
+            }
+    
+            const data = await response.json();
+            setUserInfo(data || []);
+          } catch (error) {
+            console.error('Error fetching user info:', error);
+          }
+        };
+    
+        fetchSPF();
+      }, []);  
 
     return (
         <div className="edit-profile">
