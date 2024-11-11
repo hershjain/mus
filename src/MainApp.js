@@ -76,7 +76,7 @@ const handleSaveProfile = (updatedData) => {
           throw new Error('Failed to fetch playlists');
         }
 
-        const data = await response.json();git
+        const data = await response.json();
         setUserPlaylists(data.items || []);
       } catch (error) {
         console.error('Error fetching playlists:', error);
