@@ -16,6 +16,7 @@
 #musLogoLogin{
     padding: 20px;
     width: 60%;
+    max-width: 150px;
 }
 
 .login-form{
