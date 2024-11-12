@@ -6,7 +6,7 @@ const TopPlaylists = ({ categoryTitle, playlists }) => {
   return (
     <div className="playlist-row">
       <h2 className="category-title">{categoryTitle}</h2>
-      <div className="playlist-carousel">
+      <div className="top-playlist-carousel">
         {playlists.map((playlist, index) => (
           <div className='top-playlist-row'>
             <h1 className='playlist-rank'>{index+1}</h1>
