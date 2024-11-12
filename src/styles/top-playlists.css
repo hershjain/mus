@@ -1,0 +1,51 @@
+.playlist-row {
+    margin-bottom: 10px;
+  }
+  
+  .category-title {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    margin-top: 0px;
+    margin-left: 20px;
+    color: #e7e7e7;
+  }
+  
+  .playlist-carousel {
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    grid-auto-flow: column; /* Forces grid items to flow in a single row */
+    grid-auto-columns: 150px; /* Sets a fixed width for each card */
+    gap: 20px;               /* Adds space between the grid items */
+    overflow-x: auto;        /* Enables horizontal scrolling */ 
+    scroll-snap-type: x mandatory; /* Optional: Enables snap scrolling for a smooth experience */
+  }
+  
+  .playlist-carousel::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for better UX */
+  }
+  
+  .top-playlist-row{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .top-playlist-row a {
+    padding-top: 10px;
+  }
+
+  .playlist-rank{
+    color: #ffffff25;
+    font-size: 10em;
+    font-weight: 600;
+    padding-right: 20px;
+    position: relative;
+    top: 0px;
+    left: 40px;
+    z-index: -100;
+  }
+
+  .playlist-card img {
+    box-shadow: 0px 0px 15px 0px #e7e7e76a;
+  }

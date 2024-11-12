@@ -3,6 +3,7 @@ import "../styles/Profile.css";
 import testpic1 from "../assets/images/testpic1.png";
 import placeholder from '../assets/images/playlist-test-cover.jpg';
 import PlaylistRow from "../components/playlist-row";
+import TopPlaylists from "../components/top-playlists";
 import Logout from "../components/logout";
 import SpotifyAuthButton from '../components/spotify-auth-button';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,9 +18,9 @@ const Profile = ({ username, bio, profilePic }) => {
   };
 
   const samplePlaylists = [
-    { title: 'Pop Hits', imageUrl: placeholder , curator: 'mheydude123' },
-    { title: 'Hip Hop Vibes', imageUrl: placeholder , curator: 'hxrsh' },
-    { title: 'Rock Classics', imageUrl: placeholder, curator: 'ptpampadam' },     
+    { title: 'Connections', imageUrl: placeholder , curator: 'shiva', url: '' },
+    { title: 'sugi', imageUrl: placeholder , curator: 'harsh', url: '' },
+    { title: 'Neon Nights', imageUrl: placeholder, curator: 'shiva', url: '' },     
   ];
 
   const [isOpen, setIsOpen] = useState(false);
@@ -76,7 +77,7 @@ const Profile = ({ username, bio, profilePic }) => {
       </div>
       <div className="profile-content">
         <div className="top-playlists">
-          <PlaylistRow categoryTitle="Top Playlists" playlists={samplePlaylists} />
+          <TopPlaylists categoryTitle="Top Playlists" playlists={samplePlaylists} />
         </div>
         <div className="badges"></div>
       </div>
