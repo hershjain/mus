@@ -206,7 +206,7 @@ fetchSPUser();
       <div className='main-content'>
         <Routes>
           <Route path="discovery" element={<Discovery categories={catTitle} />} />
-          <Route path="library" element={<Library userPlaylists={userPlaylists}/>} />
+          <Route path="library" element={<Library userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
           <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} />} />
           <Route path='profile/edit' element={<EditProfile username={username} bio={bio}/>} />
           <Route path="callback" component={SpotifyCallback} />

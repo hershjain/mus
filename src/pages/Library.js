@@ -8,33 +8,29 @@ import '../styles/Library.css';
 
 
 
-const Library = ({userPlaylists}) => {
-    const savedPlaylists = [
-        { title: 'Pop Hits', imageUrl: placeholder , curator: 'mheydude123', category: 'Saved' },
-        { title: 'Hip Hop Vibes', imageUrl: placeholder , curator: 'hxrsh', category: 'Yours' },
-        { title: 'Rock Classics', imageUrl: placeholder, curator: 'ptpampadam', category: 'Saved' },
-        { title: 'Juicy Joints', imageUrl: placeholder, curator: 'mheydude123', category: 'Saved' },
-        { title: 'Sundae Blues', imageUrl: placeholder, curator: 'hxrsh', category: 'Yours' },
-        { title: 'Big Booms', imageUrl: placeholder, curator: 'ptpampadam', category: 'Saved' },      
-    ];
-
+const Library = ({userPlaylists, SPUserID}) => {
+    const ownedPlaylists = userPlaylists.filter(playlist => playlist.owner.id === SPUserID);
+    const savedPlaylists = userPlaylists.filter(playlist => playlist.owner.id !== SPUserID);
 
     const [selectedCategories, setSelectedCategories] = useState([]); // Track selected categories
-
-    const categories = [ 'Yours', 'Saved']; // List of all categories
-
+    const categories = ['Yours', 'Saved']; // List of all categories
 
     const toggleCategory = (category) => {
         if (selectedCategories.includes(category)) {
-        setSelectedCategories(selectedCategories.filter(c => c !== category)); // Remove category if it's already selected
+            setSelectedCategories(selectedCategories.filter(c => c !== category)); // Remove category if already selected
         } else {
-        setSelectedCategories([...selectedCategories, category]); // Add category if it's not selected
+            setSelectedCategories([...selectedCategories, category]); // Add category if not selected
         }
     };
 
+    // Filter playlists based on selected categories
     const filteredPlaylists = selectedCategories.length > 0
-    ? savedPlaylists.filter(playlist => selectedCategories.includes(playlist.category))
-    : savedPlaylists; // If no category is selected, display all playlists
+        ? selectedCategories.includes('Yours') && selectedCategories.includes('Saved')
+            ? userPlaylists
+            : selectedCategories.includes('Yours')
+            ? ownedPlaylists
+            : savedPlaylists
+        : userPlaylists; // If no category selected, display all playlists
 
     return (
         <body>
@@ -59,7 +55,7 @@ const Library = ({userPlaylists}) => {
                 </div>
             </div>
             <div className="library-grid">
-                <PlaylistGrid playlists={userPlaylists} />
+                <PlaylistGrid playlists={filteredPlaylists} />
             </div>
         </body>
     );
