@@ -152,8 +152,7 @@ fetchSPUser();
         }
 
         const data = await response.json();
-        console.log(data)
-        setUserPlaylists(data.items|| []);
+        setUserPlaylists(data.items || []);
       } catch (error) {
         console.error('Error fetching playlists:', error);
       }

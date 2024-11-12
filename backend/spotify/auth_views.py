@@ -140,7 +140,7 @@ def get_playlists(request):
         userid = results['id']
         playlists = sp.current_user_playlists(limit=10)
 
-        return JsonResponse(playlists, safe=False)
+        return JsonResponse(playlists, userid, safe=False)
 
     except Profile.DoesNotExist:
         return JsonResponse({'error': 'Profile not found.'}, status=404)
