@@ -12,9 +12,9 @@ import { Link } from "react-router-dom";
 
 const Profile = ({ username, bio, profilePic }) => {
   const user = {
-    profilePic: profilePic || testpic1, // Placeholder for profile picture URL
-    followers: 20000000,
-    madePlaylists: 69,
+    profilePic: profilePic, // Placeholder for profile picture URL
+    followers: 27,
+    madePlaylists: 4,
   };
 
   const samplePlaylists = [
