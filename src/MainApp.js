@@ -39,6 +39,7 @@ function MainApp() {
   const [username, setUsername] = useState('');
   const [bio, setBio] = useState('');
   const [followers, setFollowers] = useState([]);
+  const [spuserid, setSPuserid] = useState('');
 
 useEffect(() => {
   const fetchProfileData = async () => {
@@ -96,6 +97,36 @@ useEffect(() => {
   };
 
 fetchSPF();
+}, []);
+
+useEffect(() => {
+  const fetchSPUser = async () => {
+    try {
+    // Get the JWT token from localStorage (or your preferred storage)
+    const token = localStorage.getItem("access");
+    console.log('this is the auth token being passed in the header: '+token)
+
+    const response = await fetch('http://localhost:8000/spotify/getspuserid/', {
+      method: 'GET',
+      headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch user info');
+    }
+
+    const data = await response.json();
+    console.log(data);
+    setSPuserid(data || []);
+    } catch (error) {
+      console.error('Error fetching user info:', error);
+    }
+  };
+
+fetchSPUser();
 }, []);
 
 
