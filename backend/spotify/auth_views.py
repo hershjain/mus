@@ -216,11 +216,17 @@ def get_catPL(request):
 
         # Use the Spotify access token to fetch playlists
         sp = Spotify(auth=profile.access_token)
-        catPL = sp.category_playlists(category_id='0JQ5DAt0tbjZptfcdMSKl3',limit=6)
-        pls = catPL['playlists']
+        catPL = {}
+        results = sp.categories()
+        categories = results['categories']['items']
+        for x in categories:
+            userid = x['id']
+            new_dict = {f'key{x}': sp.category_playlists(category_id=userid,limit=6)}
+            catPL.update(new_dict)
+        #pls = catPL['playlists']
         
 
-        return JsonResponse(pls, safe=False)
+        return JsonResponse(catPL, safe=False)
 
     except Profile.DoesNotExist:
         return JsonResponse({'error': 'Profile not found.'}, status=404)
