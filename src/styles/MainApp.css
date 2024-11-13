@@ -5,6 +5,10 @@
   /* box-shadow: inset 0px 0px 20px 5px var(--glow-color); */
 }
 
+a:-webkit-any-link {
+  text-decoration: none;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
