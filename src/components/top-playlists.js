@@ -10,7 +10,7 @@ const TopPlaylists = ({ categoryTitle, playlists }) => {
         {playlists.map((playlist, index) => (
           <div className='top-playlist-row'>
             <h1 className='playlist-rank'>{index+1}</h1>
-            <PlaylistCard key={index} curator={playlist.curator} title={playlist.title} imageUrl={playlist.imageUrl} url={playlist.external_urls}/>
+            <PlaylistCard key={index} curator={playlist.curator} title={playlist.title} imageUrl={playlist.imageUrl} url={playlist.url}/>
           </div>
         ))}
       </div>
