@@ -24,9 +24,6 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from spotipy import Spotify
 
 
-
-
-
 SPOTIFY_CLIENT_ID = settings.SPOTIFY_CLIENT_ID
 SPOTIFY_CLIENT_SECRET = settings.SPOTIFY_CLIENT_SECRET
 SPOTIFY_REDIRECT_URI = settings.SPOTIFY_REDIRECT_URI  # This should be a route in your Django app
@@ -86,6 +83,7 @@ def spotify_callback(request):
         tokens = response.json()
         access_token = tokens.get('access_token')
         refresh_token = tokens.get('refresh_token')
+        
 
         # Save tokens in the Profile model
         profile, created = Profile.objects.get_or_create(user=request.user)
@@ -95,6 +93,13 @@ def spotify_callback(request):
         profile.save()
         print('here is user: '+str(profile.user))
         print('here is user spot token: '+str(profile.access_token))
+
+        sp = Spotify(auth=profile.access_token)
+        results = sp.current_user()
+        userid = results['id']
+        
+        profile.spotify_id = userid
+        profile.save()
 
         return Response('spot access tokens saved',status=status.HTTP_200_OK)  # Or respond with a success message
     else:
