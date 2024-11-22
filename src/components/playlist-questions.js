@@ -44,11 +44,32 @@ const PlaylistQuestions = ({ onClose, playlistId, onSubmit }) => {
     
     // Call the onSubmit prop function to handle the submission
     if (onSubmit) {
-      onSubmit(playlistData);
+      onSubmit(import_pl(playlistData));
     }
 
     onClose(); // Close the overlay after submission
   };
+
+  const import_pl = async (playlistData) => {
+    try {
+      const token = localStorage.getItem("access");
+      const response = await fetch('http://localhost:8000/spotify/import-pl/', {
+          method: 'POST',
+          headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({impldata: playlistData || '' },),
+    
+      });
+
+      if (!response.ok) throw new Error('Failed to import pl');
+      const data = await response.json();
+      console.log('import pl success:', data.message);
+  } catch (error) {
+      console.error('Error importing pl:', error);
+  }
+}; 
 
   return (
     <div className="playlist-overlay">
