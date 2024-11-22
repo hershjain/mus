@@ -37,6 +37,11 @@ class Playlist(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="playlists")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    public = models.BooleanField(default=False)
+    imdesc = models.TextField(blank=True, null=True)
+    primarycolor = models.CharField(max_length=255)
+    secondarycolor = models.CharField(max_length=255)
+    mood = models.CharField(max_length=255)
     likes = models.ManyToManyField(User, related_name='liked_playlists', blank=True)
     tags = models.ManyToManyField(Tag, related_name='playlists', blank=True)
 

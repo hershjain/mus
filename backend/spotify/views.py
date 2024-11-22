@@ -76,4 +76,23 @@ def login_view(request):
     return Response({"error": "Invalid credentials"}, status=400)
 # Create your views here.
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def import_pl(request):
+    try:
+        # new_bio = request.data.get("bio")
+        # if not new_bio:
+        #     return Response({"error": "Bio is required"}, status=400)
+
+        # # Update the bio in the Profile model
+        # profile = Profile.objects.get(user=request.user)
+        # profile.bio = new_bio
+        # profile.save()
+        return Response(request.data)
+        #return Response({"message": "Playlist was imported"}, status=200)
+
+    except Profile.DoesNotExist:
+        return Response({"error": "Profile not found"}, status=404)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
 
