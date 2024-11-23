@@ -5,7 +5,7 @@ import placeholder from '../assets/images/playlist-test-cover.jpg';
 import PlaylistRow from "./playlist-row";
 import SpotifyAuthButton from './spotify-auth-button';
 
-const ProfileTemplate = () => {
+const ProfileTemplate = (user, playlists) => {
   const user = {
     profilePic: testpic1, // Placeholder for profile picture URL
     username: "kartiscontacts",
