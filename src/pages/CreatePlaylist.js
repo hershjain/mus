@@ -1,9 +1,12 @@
 import React, {useState} from "react";
+import { Link } from 'react-router-dom'; 
 import '../styles/create-playlist.css';
 import PlaylistTemplate from "../components/playlist-template";
 import PlaylistList from "../components/playlist-list";
 import PlaylistQuestions from '../components/playlist-questions';
 import PlaylistCardHorizontal from "../components/playlist-card-horizontal";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 const CreatePlaylist = ({userPlaylists}) => {
@@ -29,13 +32,22 @@ const CreatePlaylist = ({userPlaylists}) => {
 
     return (
         <div className="playlist-page">
-            <h2>Import Playlist</h2>
-
+            <div className="import-header">
+                <div className="import-title">
+                    <Link to="/app/library">
+                        <FontAwesomeIcon className="back-button" icon={faChevronLeft} size="xs" color="white" />
+                    </Link>
+                    <h2>Import Playlists</h2>
+                </div>
+                <button>
+                    Confirm
+                </button>
+            </div>
             <div className="list-div">
                 <div className="playlist-list">
                     {userPlaylists.map((playlist) => (
                         <PlaylistCardHorizontal
-                            onClick={() => handleOpenOverlay(playlist.id)} // Pass the playlist ID
+                            // onClick={() => handleOpenOverlay(playlist.id)} // Pass the playlist ID
                             key={playlist.id}
                             curator={playlist.owner.display_name}
                             title={playlist.name}

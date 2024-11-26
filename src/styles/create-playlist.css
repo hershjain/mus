@@ -5,3 +5,33 @@
 .playlist-page h2{
     color: #e7e7e7;
 }
+
+.import-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.import-title{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.import-title a{
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.import-header button{
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: #ffffff;
+    color: black;
+    font-size: 1em;
+    font-weight: 600;
+}
