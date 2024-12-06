@@ -1,33 +1,38 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom'; 
 import '../styles/create-playlist.css';
-import PlaylistTemplate from "../components/playlist-template";
-import PlaylistList from "../components/playlist-list";
-import PlaylistQuestions from '../components/playlist-questions';
 import PlaylistCardHorizontal from "../components/playlist-card-horizontal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
+const CreatePlaylist = ({ userPlaylists }) => {
+    const [selectedPlaylists, setSelectedPlaylists] = useState([]);
 
-const CreatePlaylist = ({userPlaylists}) => {
-    const [showOverlay, setShowOverlay] = useState(false);
-    const [selectedPlaylistId, setSelectedPlaylistId] = useState(null); // State to hold the selected playlist ID
-
-    const handleOpenOverlay = (playlistId) => {
-        console.log(`Opening overlay for playlist ID: ${playlistId}`);
-        setSelectedPlaylistId(playlistId); // Set the selected playlist ID
-        setShowOverlay(true); // Show the overlay
+    const handleToggleChange = (playlistId, isPublic) => {
+        setSelectedPlaylists(prev => 
+            isPublic ? [...prev, playlistId] : prev.filter(id => id !== playlistId)
+        );
     };
 
-    const handleCloseOverlay = () => {
-        setShowOverlay(false); // Hide the overlay
-        setSelectedPlaylistId(null); // Reset the selected playlist ID
-    };
+    const handleConfirm = async () => {
+        try {
+            const response = await fetch('/api/submit-playlists', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ playlistIds: selectedPlaylists }),
+            });
 
-    const handleSubmit = () => {
-        // Handle form submission logic here
-        // After successful submission, close the overlay
-        handleCloseOverlay();
+            if (response.ok) {
+                console.log('Playlists submitted successfully');
+                setSelectedPlaylists([]); // Reset after successful submission
+            } else {
+                console.error('Failed to submit playlists');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -39,29 +44,21 @@ const CreatePlaylist = ({userPlaylists}) => {
                     </Link>
                     <h2>Import Playlists</h2>
                 </div>
-                <button>
-                    Confirm
-                </button>
+                <button onClick={handleConfirm}>Confirm</button>
             </div>
             <div className="list-div">
                 <div className="playlist-list">
                     {userPlaylists.map((playlist) => (
                         <PlaylistCardHorizontal
-                            // onClick={() => handleOpenOverlay(playlist.id)} // Pass the playlist ID
                             key={playlist.id}
+                            playlistId={playlist.id}
                             curator={playlist.owner.display_name}
                             title={playlist.name}
                             imageUrl={playlist.images[0].url}
+                            onToggleChange={handleToggleChange}
                         />
                     ))}
                 </div>
-                {showOverlay && (
-                    <PlaylistQuestions 
-                        onClose={handleCloseOverlay} 
-                        playlistId={selectedPlaylistId} // Pass the selected playlist ID to the overlay
-                        onSubmit={handleSubmit} // Pass the submit handler
-                    />
-                )}
             </div>
         </div>
     );
