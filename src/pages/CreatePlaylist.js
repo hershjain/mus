@@ -13,7 +13,7 @@ const CreatePlaylist = ({ userPlaylists }) => {
             isPublic ? [...prev, playlistId] : prev.filter(id => id !== playlistId)
         );
     };
-
+//Connect to backend for importing public playlists
     const handleConfirm = async () => {
         try {
             const response = await fetch('/api/submit-playlists', {
@@ -42,7 +42,7 @@ const CreatePlaylist = ({ userPlaylists }) => {
                     <Link to="/app/library">
                         <FontAwesomeIcon className="back-button" icon={faChevronLeft} size="xs" color="white" />
                     </Link>
-                    <h2>Import Playlists</h2>
+                    <h2>Publish Playlists</h2>
                 </div>
                 <button onClick={handleConfirm}>Confirm</button>
             </div>
