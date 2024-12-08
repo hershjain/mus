@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Discovery from './pages/Discovery';
 import Library from './pages/Library';
 import Profile from './pages/Profile';
+import ProfileTemplate from "./components/profile-template";
 import CreatePlaylist from './pages/CreatePlaylist';
 import Header from './components/header';
 import Navbar from './components/navbar';
@@ -209,9 +210,10 @@ fetchSPUser();
           <Route path="library" element={<Library userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
           <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} />} />
           <Route path='profile/edit' element={<EditProfile username={username} bio={bio}/>} />
+          <Route path='profile/:curator' element={<ProfileTemplate />} />
           <Route path="callback" component={SpotifyCallback} />
           <Route path='create-playlist' element={<CreatePlaylist userPlaylists={userPlaylists}/>} />
-          <Route path="/search-results/:query" element={<SearchResultsPage />} />
+          <Route path="search-results/:query" element={<SearchResultsPage />} />
         </Routes>
       </div>
     </div>
