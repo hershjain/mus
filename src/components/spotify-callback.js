@@ -28,6 +28,7 @@ const SpotifyCallback = () => {
                 .then(response => {
                     console.log("Tokens saved successfully:", response.data);
                     // Navigate to the profile page or another route after success
+                    //run the code for importing playlists
                     navigate("/app/profile");
                 })
                 .catch(error => {

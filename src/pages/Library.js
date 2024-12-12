@@ -7,8 +7,8 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Library.css';
 
 
-
 const Library = ({userPlaylists, SPUserID}) => {
+    
     const ownedPlaylists = userPlaylists.filter(playlist => playlist.owner.id === SPUserID);
     const savedPlaylists = userPlaylists.filter(playlist => playlist.owner.id !== SPUserID);
 

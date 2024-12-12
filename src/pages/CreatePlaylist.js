@@ -5,7 +5,9 @@ import PlaylistCardHorizontal from "../components/playlist-card-horizontal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-const CreatePlaylist = ({ userPlaylists }) => {
+
+const CreatePlaylist = ({ userPlaylists, SPUserID}) => {
+    const ownedPlaylists = userPlaylists.filter(playlist => playlist.owner.id === SPUserID);
     const [selectedPlaylists, setSelectedPlaylists] = useState([]);
 
     const handleToggleChange = (playlistId, isPublic) => {
@@ -48,7 +50,7 @@ const CreatePlaylist = ({ userPlaylists }) => {
             </div>
             <div className="list-div">
                 <div className="playlist-list">
-                    {userPlaylists.map((playlist) => (
+                    {ownedPlaylists.map((playlist) => (
                         <PlaylistCardHorizontal
                             key={playlist.id}
                             playlistId={playlist.id}

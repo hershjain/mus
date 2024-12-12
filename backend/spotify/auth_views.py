@@ -17,6 +17,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import login
 from django.contrib.auth.models import User
+from .models import Playlist
 from rest_framework.authtoken.models import Token
 import urllib.parse
 from rest_framework import status
@@ -143,7 +144,7 @@ def get_playlists(request):
         sp = Spotify(auth=profile.access_token)
         results = sp.current_user()
         userid = results['id']
-        playlists = sp.current_user_playlists(limit=10)
+        playlists = sp.current_user_playlists(limit=50)
 
         return JsonResponse(playlists, safe=False)
 
@@ -271,7 +272,7 @@ def get_spf(request):
     
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def get_imp_playlists(request):
+def set_imp_playlists(request):
     # Authenticate the JWT token and retrieve the user
     jwt_authenticator = JWTAuthentication()
     try:
@@ -287,9 +288,20 @@ def get_imp_playlists(request):
         sp = Spotify(auth=profile.access_token)
         results = sp.current_user()
         userid = results['id']
-        playlists = sp.current_user_playlists(limit=10)
+        playlists = sp.current_user_playlists(limit=50)
+        for x in playlists['items']:
+            t = x['name']
+            desc = x['description']
+            spID = x['id']
+            imp = True
+            
 
-        return JsonResponse(playlists, safe=False)
+            if x and x['owner']['id'] == userid:
+               pl = Playlist(title= t, description=desc, created_by=profile.user,spotify_playlist_id=spID, imported=imp)
+               pl.save()
+               print('imported: '+t)
+
+        return Response("Playlists were imported")
 
     except Profile.DoesNotExist:
         return JsonResponse({'error': 'Profile not found.'}, status=404)
