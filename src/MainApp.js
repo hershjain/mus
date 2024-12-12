@@ -192,7 +192,30 @@ fetchSPUser();
 
     fetchCategories();
   }, []);
-
+  
+  useEffect(() => {
+    const setImp = async () => {
+        try {
+  
+            const token = localStorage.getItem('access');
+  
+            // Replace '/api/profile/' with your actual endpoint for fetching user profile
+            //const response = await axios.get('http://localhost:8000/spotify/profile/');
+            const response = await axios.get('http://localhost:8000/spotify/setimp/', {
+              headers: {
+                  Authorization: `Bearer ${token}`, // Add the token to the request headers
+              },
+          });
+            
+            // Assuming response.data has the profile data in the expected structure
+            // setProfilePic(response.data.profilePic);
+        } catch (error) {
+            console.error("Error importing users playlists to db: ", error);
+        }
+    };
+  
+    setImp();
+  }, []); // Empty dependency array means this runs once when the component mounts
 
   return (
     <div className='App'>
@@ -212,7 +235,7 @@ fetchSPUser();
           <Route path='profile/edit' element={<EditProfile username={username} bio={bio}/>} />
           <Route path='profile/:curator' element={<ProfileTemplate />} />
           <Route path="callback" component={SpotifyCallback} />
-          <Route path='create-playlist' element={<CreatePlaylist userPlaylists={userPlaylists}/>} />
+          <Route path='create-playlist' element={<CreatePlaylist userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
           <Route path="search-results/:query" element={<SearchResultsPage />} />
         </Routes>
       </div>
