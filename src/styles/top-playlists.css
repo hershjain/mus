@@ -15,8 +15,8 @@
   }
   
   .top-playlist-carousel {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
     display: flex;
     grid-auto-flow: column; /* Forces grid items to flow in a single row */
     grid-auto-columns: 150px; /* Sets a fixed width for each card */
@@ -35,7 +35,7 @@
     align-items: flex-start;
   }
 
-  .top-playlist-row a {
+  .top-playlist-row .playlist-card {
     padding-top: 10px;
   }
 

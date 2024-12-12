@@ -1,6 +1,9 @@
 .playlist-card {
     width: 150px;
     /* margin-right: 10px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   .playlist-image {
@@ -23,7 +26,8 @@
   .playlist-curator {
     text-align: center;
     margin-top: 0px;
-    font-size: 0.8em;
+    padding-top: 0px;
+    font-size: 0.9em;
     font-weight: 500;
     color: #e7e7e7;
   }

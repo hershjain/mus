@@ -79,7 +79,10 @@ const ProfileTemplate = () => {
             <div className="profile-details">
               <div className="profile-div">
                 <h2 className="username">{curator}</h2>
-                <div className="profile-settings">
+                <div className="follow-button">
+                  <button>Follow</button>
+                </div>
+                {/* <div className="profile-settings">
                   <FontAwesomeIcon id="settings-icon" icon={faCog} color="#e7e7e7" onClick={toggleDropdown} />
                   <div className={`dropdown ${isOpen ? 'open' : ''}`}>
                     <div className="dropdown-item">
@@ -88,7 +91,7 @@ const ProfileTemplate = () => {
                       </Link>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
               <p className="bio">{user.bio}</p>
             </div>
@@ -97,9 +100,7 @@ const ProfileTemplate = () => {
             <span>{user.followers} Followers</span>
             <span>{user.madePlaylists} Playlists</span>
           </div>
-          <div className="follow-button">
-            <button>Follow</button>
-          </div>
+          
         </div>
         <div className="profile-content">
           <div className="top-playlists">

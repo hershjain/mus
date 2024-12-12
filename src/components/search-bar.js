@@ -5,7 +5,7 @@ import '../styles/search-bar.css';
 const SearchBar = ({ searchVisible, searchQuery, handleSearchChange, searchResults }) => {
     const [selectedCategories, setSelectedCategories] = useState([]); // Track selected categories
 
-    const categories = [ 'Created', 'Saved', 'Profiles']; // List of all categories
+    const categories = [ 'Yours', 'Saved', 'Profiles']; // List of all categories
 
 
     const toggleCategory = (category) => {

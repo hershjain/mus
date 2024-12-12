@@ -6,7 +6,7 @@
     align-items: center;
     /* margin-right: 10px; */
     border-bottom: 2px solid #424242;
-    padding-bottom: 10px;
+    padding: 10px 0px;
   }
 
   .playlist-img-title{
@@ -16,8 +16,8 @@
   }
   
   .playlist-image-small {
-    width: 15%;
-    height: 15%;
+    width: 75px;
+    height: 75px;
     aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 10px;
@@ -130,4 +130,11 @@
   
   input:checked + .slider .private {
     opacity: 1;
+  }
+
+  @media only screen and (max-width: 450px) {
+    .playlist-image-small{
+      width: 50px;
+      height: 50px;
+    }
   }
