@@ -14,7 +14,7 @@ import connections from '../assets/images/connections.jpg';
 import neon from '../assets/images/neon.jpg';
 
 
-const Profile = ({ username, bio, profilePic }) => {
+const Profile = ({ username, bio, profilePic, userPlaylists }) => {
   const user = {
     profilePic: profilePic, // Placeholder for profile picture URL
     followers: 27,
@@ -28,6 +28,20 @@ const Profile = ({ username, bio, profilePic }) => {
   ];
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const [topPlaylists, setTopPlaylists] = useState([null, null, null]); // Three slots
+  const [currentDropdown, setCurrentDropdown] = useState(null); // Track open dropdown for each slot
+
+  const openDropdown = (index) => setCurrentDropdown(index);
+
+  const closeDropdown = () => setCurrentDropdown(null);
+
+  const selectPlaylist = (index, playlist) => {
+    const updatedTopPlaylists = [...topPlaylists];
+    updatedTopPlaylists[index] = playlist; // Update the specific slot
+    setTopPlaylists(updatedTopPlaylists);
+    closeDropdown(); // Close the dropdown
+  };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -81,10 +95,56 @@ const Profile = ({ username, bio, profilePic }) => {
       </div>
       <div className="profile-content">
         <div className="top-playlists">
+          {topPlaylists.map((playlist, index) => (
+            <div key={index} className="top-playlist-slot">
+              <div className="playlist-info">
+                {playlist ? (
+                  <>
+                    <img
+                      src={playlist.imageUrl}
+                      alt={playlist.title}
+                      className="playlist-cover"
+                    />
+                    <p>{playlist.title}</p>
+                  </>
+                ) : (
+                  <p>Select a Playlist</p>
+                )}
+              </div>
+              <button
+                className="select-playlist-btn"
+                onClick={() => openDropdown(index)}
+              >
+                Choose Playlist
+              </button>
+              {currentDropdown === index && (
+                <div className="playlist-dropdown">
+                  {userPlaylists.map((pl) => (
+                    <div
+                      key={pl.id}
+                      className="playlist-option"
+                      onClick={() => selectPlaylist(index, pl)}
+                    >
+                      <img src={pl.imageUrl} alt={pl.title} className="option-cover" />
+                      <span>{pl.title}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+      <TopPlaylists
+        categoryTitle="Your Top Playlists"
+        playlists={topPlaylists.filter((pl) => pl !== null)} // Pass only selected playlists
+      />
+      {/* <div className="profile-content">
+        <div className="top-playlists">
           <TopPlaylists categoryTitle="Top Playlists" playlists={samplePlaylists} />
         </div>
         <div className="badges"></div>
-      </div>
+      </div> */}
     </div>
   );
 };
