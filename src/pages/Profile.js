@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import sugi from '../assets/images/sugi.jpg';
 import connections from '../assets/images/connections.jpg';
 import neon from '../assets/images/neon.jpg';
+import PlaylistCardHorizontal from "../components/playlist-card-horizontal";
 
 
 const Profile = ({ username, bio, profilePic, userPlaylists }) => {
