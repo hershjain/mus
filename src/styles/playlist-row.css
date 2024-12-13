@@ -16,7 +16,7 @@
     display: grid;
     grid-auto-flow: column; /* Forces grid items to flow in a single row */
     grid-auto-columns: 150px; /* Sets a fixed width for each card */
-    gap: 20px;               /* Adds space between the grid items */
+    gap: 45px;               /* Adds space between the grid items */
     overflow-x: auto;        /* Enables horizontal scrolling */ 
     scroll-snap-type: x mandatory; /* Optional: Enables snap scrolling for a smooth experience */
   }

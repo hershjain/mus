@@ -96,56 +96,10 @@ const Profile = ({ username, bio, profilePic, userPlaylists }) => {
       </div>
       <div className="profile-content">
         <div className="top-playlists">
-          {topPlaylists.map((playlist, index) => (
-            <div key={index} className="top-playlist-slot">
-              <div className="playlist-info">
-                {playlist ? (
-                  <>
-                    <img
-                      src={playlist.imageUrl}
-                      alt={playlist.title}
-                      className="playlist-cover"
-                    />
-                    <p>{playlist.title}</p>
-                  </>
-                ) : (
-                  <p>Select a Playlist</p>
-                )}
-              </div>
-              <button
-                className="select-playlist-btn"
-                onClick={() => openDropdown(index)}
-              >
-                Choose Playlist
-              </button>
-              {currentDropdown === index && (
-                <div className="playlist-dropdown">
-                  {userPlaylists.map((pl) => (
-                    <div
-                      key={pl.id}
-                      className="playlist-option"
-                      onClick={() => selectPlaylist(index, pl)}
-                    >
-                      <img src={pl.imageUrl} alt={pl.title} className="option-cover" />
-                      <span>{pl.title}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-      <TopPlaylists
-        categoryTitle="Your Top Playlists"
-        playlists={topPlaylists.filter((pl) => pl !== null)} // Pass only selected playlists
-      />
-      {/* <div className="profile-content">
-        <div className="top-playlists">
           <TopPlaylists categoryTitle="Top Playlists" playlists={samplePlaylists} />
         </div>
         <div className="badges"></div>
-      </div> */}
+      </div>
     </div>
   );
 };

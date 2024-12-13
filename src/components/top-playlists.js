@@ -1,11 +1,17 @@
 import React from 'react';
 import PlaylistCard from './playlist-card';
 import '../styles/top-playlists.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
 const TopPlaylists = ({ categoryTitle, playlists }) => {
   return (
     <div className="playlist-row">
-      <h2 className="category-title">{categoryTitle}</h2>
+      <div className='top-playlist-title'>
+        <h2 className="category-title">{categoryTitle}</h2>
+        <FontAwesomeIcon icon={faEllipsis} color="#e7e7e7" size='l' />
+      </div>
+      
       <div className="top-playlist-carousel">
         {playlists.map((playlist, index) => (
           <div className='top-playlist-row'>
