@@ -231,7 +231,7 @@ fetchSPUser();
         <Routes>
           <Route path="discovery" element={<Discovery categories={catTitle} />} />
           <Route path="library" element={<Library userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
-          <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} userPlaylists={userPlaylists}/>} />
+          <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} userPlaylists={userPlaylists} searchQuery={searchQuery} handleSearchChange={handleSearchChange} />} />
           <Route path='profile/edit' element={<EditProfile username={username} bio={bio}/>} />
           <Route path='profile/:curator' element={<ProfileTemplate />} />
           <Route path="callback" component={SpotifyCallback} />

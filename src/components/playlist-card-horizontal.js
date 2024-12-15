@@ -7,7 +7,7 @@ const PlaylistCardHorizontal = ({ title, imageUrl, curator, playlistId, onToggle
     };
 
     return (
-        <div className="playlist-card-horizontal">
+        <div className="playlist-card-horizontal" id={playlistId}>
             <div className="playlist-img-title">
                 <img src={imageUrl} alt={title} className="playlist-image-small" />
                 <div className="playlist-info">

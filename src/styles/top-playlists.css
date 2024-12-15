@@ -63,6 +63,41 @@
     box-shadow: 0px 0px 15px 0px #e7e7e76a;
   }
 
+  .edit-btn{
+    font-size: 0.8em;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    background: none;
+    border: none;
+    border-radius: 20px;
+  }
+
+  .edit-tp-selector{
+    margin: 30px 0px;
+    width: 100%;
+    background-color: #1e1e1e;
+    box-shadow: inset 0px 10px 15px 0px #000000;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .edit-tp-selector-hidden{
+    height: 0px;
+    overflow: hidden;
+  }
+
+  .edit-tp-selector-visible{
+    height: 400px;
+    overflow: scroll;
+  }
+
+  .edit-tp{
+    padding: 20px 0px !important;
+  }
+
+  .edit-tp input{
+    border: 2px solid #adadad !important;
+  }
 
 @media only screen and (max-width: 450px){
 
@@ -70,10 +105,16 @@
     padding: 20px 20px;
   }
 
+  .edit-tp-selector{
+    margin-top: 20px;
+  }
+
 }
 
-@media only screen and (min-width: 950px){
+@media only screen and (min-width: 900px){
   .top-playlist-carousel{
     justify-content: center;
+    padding-left: 0px;
+    overflow: none;
   }
 }
