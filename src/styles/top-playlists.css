@@ -99,6 +99,10 @@
     border: 2px solid #adadad !important;
   }
 
+  .tp-selector-row .category-title{
+    display: none;
+  }
+
 @media only screen and (max-width: 450px){
 
   .top-playlist-title{

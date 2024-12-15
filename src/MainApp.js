@@ -29,7 +29,7 @@ function MainApp() {
         .then((res) => res.json())
         .then((data) => setSearchResults(data.results))
         .catch((error) => console.error('Error fetching search results:', error));
-};
+  };
 
 
   const toggleSearch = () => {
@@ -229,9 +229,9 @@ fetchSPUser();
       <Navbar />
       <div className='main-content'>
         <Routes>
-          <Route path="discovery" element={<Discovery categories={catTitle} />} />
+          <Route path="discovery" element={<Discovery categories={catTitle} userPlaylists={userPlaylists}/>} />
           <Route path="library" element={<Library userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
-          <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} userPlaylists={userPlaylists} searchQuery={searchQuery} handleSearchChange={handleSearchChange} />} />
+          <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} userPlaylists={userPlaylists} />} />
           <Route path='profile/edit' element={<EditProfile username={username} bio={bio}/>} />
           <Route path='profile/:curator' element={<ProfileTemplate />} />
           <Route path="callback" component={SpotifyCallback} />

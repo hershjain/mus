@@ -44,7 +44,7 @@ import vicecity from '../assets/images/vicecity.jpg';
 import rose from '../assets/images/rose.jpg';
 
 
-const Discovery = ({categories}) => {
+const Discovery = ({categories, userPlaylists}) => {
     const samplePlaylistsFriends = [
         { title: 'Kintsugi', imageUrl: sugi , curator: 'harsh', url:'' },
         { title: 'Web 3.0', imageUrl: web3 , curator: 'Kaushik', url:'' },
@@ -170,12 +170,12 @@ const Discovery = ({categories}) => {
         <body>
             <div className="discovery-page">
                 {/* <PlaylistRow categoryTitle="Top Picks for You" playlists={catPL} /> */}
-                <PlaylistRow categoryTitle="Friend Activity" playlists={samplePlaylistsFriends} />
-                <PlaylistRow categoryTitle="Trending" playlists={samplePlaylistsTrending} />
-                <PlaylistRow categoryTitle="Popular in Williamsburg" playlists={samplePlaylistsLocation} />
-                <PlaylistRow categoryTitle="Bedroom Pop" playlists={samplePlaylistsBPop} />
-                <PlaylistRow categoryTitle="Hip Hop" playlists={samplePlaylistsHipHop} />
-                <PlaylistRow categoryTitle="Psychedelic Rock" playlists={samplePlaylistsPsychRock} />
+                <PlaylistRow categoryTitle="Friend Activity" playlists={userPlaylists} />
+                <PlaylistRow categoryTitle="Trending" playlists={userPlaylists} />
+                <PlaylistRow categoryTitle="Popular in Williamsburg" playlists={userPlaylists} />
+                <PlaylistRow categoryTitle="Bedroom Pop" playlists={userPlaylists} />
+                <PlaylistRow categoryTitle="Hip Hop" playlists={userPlaylists} />
+                <PlaylistRow categoryTitle="Psychedelic Rock" playlists={userPlaylists} />
                 {/* {catPL.map((category, index) => (
                     // <p>{cat.message}</p>
                     <CategoryRow category={category} index={index}/>

@@ -1,15 +1,29 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import PlaylistCard from './playlist-card';
 import PlaylistRow from './playlist-row';
 import '../styles/top-playlists.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
-const TopPlaylists = ({ categoryTitle, topPlaylists, searchQuery, handleSearchChange, userPlaylists }) => {
+const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists }) => {
   
   const [editTPVisible, setEditTPVisible] = useState(false);
   const toggleEditTP = () => {
     setEditTPVisible(!editTPVisible);
+  };
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState(userPlaylists);
+
+  const handleSearchChange = (e) => {
+    const query = e.target.value.toLowerCase(); // Case-insensitive search
+    setSearchQuery(query);
+
+    // Filter userPlaylists based on the search query
+    const filteredPlaylists = userPlaylists.filter((playlist) =>
+      (playlist.name?.toLowerCase().includes(query) || // Safely check title
+      playlist.owner.display_name?.toLowerCase().includes(query)) // Safely check curator
+    );
+
+    setSearchResults(filteredPlaylists);
   };
   
   return (
@@ -40,12 +54,12 @@ const TopPlaylists = ({ categoryTitle, topPlaylists, searchQuery, handleSearchCh
               type="text"
               value={searchQuery}
               onChange={handleSearchChange}
-              placeholder="Search playlists, profiles, genres..."
+              placeholder="Search playlists..."
           />
           {/* <button type="submit">Search</button> */}
         </div>
         <div className="tp-selector-row">
-          <PlaylistRow playlists={userPlaylists} categoryTitle={"Typee"}/>
+          <PlaylistRow playlists={searchResults} categoryTitle={"Your Playlists"}/>
         </div>
       </div>
     </div>
