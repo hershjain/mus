@@ -26,12 +26,14 @@
   .top-playlist-carousel {
     padding-left: 50px;
     padding-right: 50px;
+    padding-top: 10px;
     display: flex;
     grid-auto-flow: column; /* Forces grid items to flow in a single row */
     grid-auto-columns: 150px; /* Sets a fixed width for each card */
     gap: 20px;               /* Adds space between the grid items */
     overflow-x: auto;        /* Enables horizontal scrolling */ 
     scroll-snap-type: x mandatory; /* Optional: Enables snap scrolling for a smooth experience */
+    
   }
   
   .playlist-carousel::-webkit-scrollbar {
@@ -46,6 +48,7 @@
 
   .top-playlist-row .playlist-card {
     padding-top: 10px;
+    transition: all 0.3s ease-in-out;
   }
 
   .playlist-rank{
@@ -62,6 +65,30 @@
   .top-playlist-row .playlist-card img {
     box-shadow: 0px 0px 15px 0px #e7e7e76a;
   }
+
+  .top-playlist-row.selected .playlist-card{
+    border: 2px solid #4caf50; /* Example highlight */
+    box-shadow: 0px 0px 10px 0px #e7e7e780, inset 0px 0px 10px 0px #e7e7e780;
+  }
+  
+  .blank-card .playlist-card{
+    height: 240px;
+    justify-content: center;
+  }
+
+  .blank-card .playlist-card .playlist-link .playlist-image{
+    display: none;
+  }
+
+  .blank-card .playlist-card .playlist-link .playlist-title{
+    font-size: 5em;
+    font-weight: 700;
+    color: #adadad70;
+    padding: 0px;
+    padding-bottom: 10px;
+    margin: 0px;
+  }
+
 
   .edit-btn{
     font-size: 0.8em;
@@ -101,6 +128,13 @@
 
   .tp-selector-row .category-title{
     display: none;
+  }
+
+  .tp-selector-row{
+    display: flex;
+    gap: 10px;
+    padding: 0px 20px;
+    overflow-x: scroll;
   }
 
 @media only screen and (max-width: 450px){
