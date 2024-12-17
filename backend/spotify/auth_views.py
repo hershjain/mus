@@ -300,15 +300,31 @@ def set_imp_playlists(request):
         sp = Spotify(auth=profile.access_token)
         results = sp.current_user()
         userid = results['id']
-        playlists = sp.current_user_playlists(limit=50)
-        for x in playlists['items']:
-            t = x['name']
-            desc = x['description']
-            spID = x['id']
-            imp = True
-            
+        #playlists = sp.current_user_playlists(limit=50)
 
-            if x and x['owner']['id'] == userid:
+        plz = {}
+        off = 0
+        kval = 0
+        for x in range(0,4):
+            #print(off)
+            playlists = sp.current_user_playlists(limit=50, offset=off)
+            for idx, item in enumerate(playlists['items']):
+                new_dict = {kval: item}
+                plz.update(new_dict)
+                kval+=1
+            off+=50
+
+        print(plz[0]['owner']['id'])
+        
+        for item in plz:
+            if plz[item]:
+                t = plz[item]['name']
+                desc = plz[item]['description']
+                spID = plz[item]['id']
+                imp = True
+                uID = plz[item]['owner']['id']
+                            
+            if plz[item] and uID == userid:
                pl = Playlist(title= t, description=desc, created_by=profile.user,spotify_playlist_id=spID, imported=imp)
                pl.save()
                print('imported: '+t)
