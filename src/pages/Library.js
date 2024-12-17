@@ -13,7 +13,7 @@ const Library = ({userPlaylists, SPUserID}) => {
     const savedPlaylists = userPlaylists.filter(playlist => playlist.owner.id !== SPUserID);
 
     const [selectedCategories, setSelectedCategories] = useState([]); // Track selected categories
-    const categories = ['Yours', 'Saved']; // List of all categories
+    const categories = ['Yours '+ ownedPlaylists.length, 'Saved '+ savedPlaylists.length]; // List of all categories
 
     const toggleCategory = (category) => {
         if (selectedCategories.includes(category)) {
@@ -25,9 +25,9 @@ const Library = ({userPlaylists, SPUserID}) => {
 
     // Filter playlists based on selected categories
     const filteredPlaylists = selectedCategories.length > 0
-        ? selectedCategories.includes('Yours') && selectedCategories.includes('Saved')
+        ? selectedCategories.includes('Yours '+ ownedPlaylists.length) && selectedCategories.includes('Saved '+ savedPlaylists.length)
             ? userPlaylists
-            : selectedCategories.includes('Yours')
+            : selectedCategories.includes('Yours '+ ownedPlaylists.length)
             ? ownedPlaylists
             : savedPlaylists
         : userPlaylists; // If no category selected, display all playlists
