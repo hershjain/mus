@@ -151,9 +151,9 @@ fetchSPUser();
         if (!response.ok) {
           throw new Error('Failed to fetch playlists');
         }
-
+        
         const data = await response.json();
-        setUserPlaylists(data.items || []);
+        setUserPlaylists(Object.values(data) || []);
       } catch (error) {
         console.error('Error fetching playlists:', error);
       }

@@ -144,9 +144,21 @@ def get_playlists(request):
         sp = Spotify(auth=profile.access_token)
         results = sp.current_user()
         userid = results['id']
-        playlists = sp.current_user_playlists(limit=50)
+        #playlists = sp.current_user_playlists(limit=50)
+        plz = {}
+        off = 0
+        kval = 0
+        for x in range(0,3):
+            #print(off)
+            playlists = sp.current_user_playlists(limit=50, offset=off)
+            for idx, item in enumerate(playlists['items']):
+                new_dict = {kval: item}
+                plz.update(new_dict)
+                kval+=1
+            off+=50
 
-        return JsonResponse(playlists, safe=False)
+            
+        return JsonResponse(plz, safe=False)
 
     except Profile.DoesNotExist:
         return JsonResponse({'error': 'Profile not found.'}, status=404)
