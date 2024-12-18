@@ -3,11 +3,12 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from .serializers import ProfileSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
-from .models import Profile
+from .models import Profile, Playlist, Genre
 
 
 @api_view(['GET'])
@@ -76,23 +77,13 @@ def login_view(request):
     return Response({"error": "Invalid credentials"}, status=400)
 # Create your views here.
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def import_pl(request):
+@api_view(['GET'])
+def pullhh(request):
     try:
-        # new_bio = request.data.get("bio")
-        # if not new_bio:
-        #     return Response({"error": "Bio is required"}, status=400)
-
-        # # Update the bio in the Profile model
-        # profile = Profile.objects.get(user=request.user)
-        # profile.bio = new_bio
-        # profile.save()
-        return Response(request.data)
-        #return Response({"message": "Playlist was imported"}, status=200)
+        hhpl = Playlist.objects.filter(genres="Hip Hop")
+        return JsonResponse(hhpl)
 
     except Profile.DoesNotExist:
-        return Response({"error": "Profile not found"}, status=404)
+        return Response({"error": "Playlists couldn't be pulled"}, status=404)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
-

@@ -166,6 +166,37 @@ const Discovery = ({categories, userPlaylists}) => {
         fetchCatPL();
       }, []); 
 
+      const [hhpl,setHHpl] = useState([]);
+
+
+      useEffect(() => {
+          const fetchHHPL = async () => {
+              try {
+                  const token = localStorage.getItem("access");
+                  const response = await fetch('http://localhost:8000/spotify/pullhh/', {
+                      method: 'GET',
+                      headers: {
+                          'Authorization': `Bearer ${token}`,
+                          'Content-Type': 'application/json'
+                      }
+                  });
+      
+                  if (!response.ok) {
+                      throw new Error('Failed to fetch hip hop playlists');
+                  }
+      
+                  const data = await response.json();
+                  console.log(data);                  
+      
+                  setHHpl(data);
+              } catch (error) {
+                  console.error('Error fetching hip hop playlists:', error);
+              }
+          };
+      
+          fetchHHPL();
+        }, []); 
+
     return (
         <body>
             <div className="discovery-page">
@@ -174,7 +205,7 @@ const Discovery = ({categories, userPlaylists}) => {
                 <PlaylistRow categoryTitle="Trending" playlists={userPlaylists} />
                 <PlaylistRow categoryTitle="Popular in Williamsburg" playlists={userPlaylists} />
                 <PlaylistRow categoryTitle="Bedroom Pop" playlists={userPlaylists} />
-                <PlaylistRow categoryTitle="Hip Hop" playlists={userPlaylists} />
+                <PlaylistRow categoryTitle="Hip Hop" playlists={hhpl} />
                 <PlaylistRow categoryTitle="Psychedelic Rock" playlists={userPlaylists} />
                 {/* {catPL.map((category, index) => (
                     // <p>{cat.message}</p>

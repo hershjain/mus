@@ -152,9 +152,10 @@ def get_playlists(request):
             #print(off)
             playlists = sp.current_user_playlists(limit=50, offset=off)
             for idx, item in enumerate(playlists['items']):
-                new_dict = {kval: item}
-                plz.update(new_dict)
-                kval+=1
+                if item:
+                    new_dict = {kval: item}
+                    plz.update(new_dict)
+                    kval+=1
             off+=50
 
             
