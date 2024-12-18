@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Follow, Notification, Tag, Playlist
+from .models import Follow, Notification, Tag, Playlist, Genre
 from .models import Profile
 
 @admin.register(Profile)
@@ -28,11 +28,26 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 
-# Register Playlist model
+# Register the Genre model
+@admin.register(Genre)
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ('name',)  # Display genre name in the list view
+    search_fields = ('name',)  # Add a search bar for genres
+
+# Customize the Playlist admin
 @admin.register(Playlist)
 class PlaylistAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_by', 'created_at', 'updated_at')
-    search_fields = ('title', 'created_by__username')
-    list_filter = ('created_at', 'updated_at', 'tags')
-    filter_horizontal = ('tags', 'likes')  # This adds a better UI for many-to-many fields
-
+    list_display = ('title', 'created_by', 'created_at', 'public')  # Fields to show in list view
+    search_fields = ('title', 'description')  # Add search functionality
+    list_filter = ('public', 'created_at')  # Add filters for public status and creation date
+    filter_horizontal = ('genres',)  # Add horizontal filter widget for genres (better for many-to-many fields)
+    readonly_fields = ('created_at', 'updated_at')  # Make certain fields read-only
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'description', 'spotify_playlist_id', 'created_by', 'genres', 'public')
+        }),
+        ('Advanced options', {
+            'classes': ('collapse',),
+            'fields': ('imported', 'imdesc', 'primarycolor', 'secondarycolor', 'mood', 'tags', 'likes'),
+        }),
+    )
