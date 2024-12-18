@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
@@ -30,6 +31,12 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+class Genre(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
 class Playlist(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
@@ -45,6 +52,17 @@ class Playlist(models.Model):
     mood = models.CharField(max_length=255, null=True)
     likes = models.ManyToManyField(User, related_name='liked_playlists', blank=True)
     tags = models.ManyToManyField(Tag, related_name='playlists', blank=True)
+    genres = models.ManyToManyField(Genre, related_name='playlists', blank=True)
+
+    def clean(self):
+        super().clean()
+        # Enforce max of 3 genres
+        if self.genres.count() > 3:
+            raise ValidationError("A playlist can have at most 3 genres.")
+
+    def save(self, *args, **kwargs):
+        self.clean()  # Ensure validation is checked before saving
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
