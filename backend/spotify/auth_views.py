@@ -152,7 +152,8 @@ def get_playlists(request):
             #print(off)
             playlists = sp.current_user_playlists(limit=50, offset=off)
             for idx, item in enumerate(playlists['items']):
-                if item:
+                #print(item)
+                if item and item['images']:
                     new_dict = {kval: item}
                     plz.update(new_dict)
                     kval+=1
@@ -310,9 +311,10 @@ def set_imp_playlists(request):
             #print(off)
             playlists = sp.current_user_playlists(limit=50, offset=off)
             for idx, item in enumerate(playlists['items']):
-                new_dict = {kval: item}
-                plz.update(new_dict)
-                kval+=1
+                if item:
+                    new_dict = {kval: item}
+                    plz.update(new_dict)
+                    kval+=1
             off+=50
 
         print(plz[0]['owner']['id'])
