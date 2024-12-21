@@ -4,7 +4,7 @@ import '../styles/top-playlists.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
-const TopPlaylists = ({ categoryTitle, playlists }) => {
+const TopPlaylistsDisp = ({ categoryTitle, playlists }) => {
   return (
     <div className="playlist-row">
       <div className='top-playlist-title'>
@@ -24,4 +24,4 @@ const TopPlaylists = ({ categoryTitle, playlists }) => {
   );
 };
 
-export default TopPlaylists;
+export default TopPlaylistsDisp;

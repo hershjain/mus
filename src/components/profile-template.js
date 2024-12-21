@@ -5,7 +5,7 @@ import "../styles/Profile.css";
 import testpic1 from "../assets/images/testpic1.png";
 import placeholder from '../assets/images/playlist-test-cover.jpg';
 import PlaylistRow from "../components/playlist-row";
-import TopPlaylists from "../components/top-playlists";
+import TopPlaylistsDisp from "../components/top-playlists-display";
 import Logout from "../components/logout";
 import SpotifyAuthButton from '../components/spotify-auth-button';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -104,7 +104,7 @@ const ProfileTemplate = () => {
         </div>
         <div className="profile-content">
           <div className="top-playlists">
-            <TopPlaylists categoryTitle="Top Playlists" playlists={samplePlaylists} />
+            <TopPlaylistsDisp categoryTitle="Top Playlists" playlists={samplePlaylists} />
           </div>
           <div className="badges"></div>
         </div>
