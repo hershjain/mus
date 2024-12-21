@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile
+from .models import Profile, Playlist
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,3 +37,19 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['username', 'bio', 'profile_picture']  # Include relevant fields
+
+class PlaylistSerializer(serializers.ModelSerializer):
+    created_by = serializers.SerializerMethodField()
+    genres = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Playlist
+        fields = ['title', 'description', 'spotify_playlist_id', 'created_by', 'public', 'genres']
+
+    def get_genres(self, obj):
+        return [genre.name for genre in obj.genres.all()]
+
+    def get_created_by(self, obj):
+        return obj.created_by.username
+    
+    

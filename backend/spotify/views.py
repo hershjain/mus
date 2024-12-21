@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer, PlaylistSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
@@ -80,8 +80,12 @@ def login_view(request):
 @api_view(['GET'])
 def pullhh(request):
     try:
-        hhpl = Playlist.objects.filter(genres="Hip Hop")
-        return JsonResponse(hhpl)
+
+        genre = get_object_or_404(Genre, name='Hip Hop')
+
+        hhpl = Playlist.objects.filter(genres=genre)
+        serializer = PlaylistSerializer(hhpl, many=True)
+        return Response(serializer.data)
 
     except Profile.DoesNotExist:
         return Response({"error": "Playlists couldn't be pulled"}, status=404)
