@@ -19,6 +19,24 @@ def user_profile(request):
     serializer = ProfileSerializer(profile)
     return Response(serializer.data)
 
+def pub_user_profile(request, username):
+    try:
+        profile = get_object_or_404(Profile, user__username=username)
+
+        # Include whatever data you want to return
+        profile_data = {
+            'username': profile.user.username,
+            'bio': profile.bio,
+            'profile_picture': profile.profile_picture.url if profile.profile_picture else None,
+            #'email': profile.email,
+            #'followers_count': profile.followers.count(),
+            #'following_count': profile.user.following.count(),
+        }
+
+        return JsonResponse(profile_data, safe=False)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def set_username(request):
