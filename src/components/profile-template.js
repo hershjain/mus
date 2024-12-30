@@ -15,101 +15,92 @@ import sugi from '../assets/images/sugi.jpg';
 import connections from '../assets/images/connections.jpg';
 import neon from '../assets/images/neon.jpg';
 
-
 const ProfileTemplate = () => {
-  const { curator } = useParams(); // Get the curator name from the URL
+  const { curator } = useParams(); // Get the username (curator) from the URL
 
   const [user, setUser] = useState({
-      profilePic: placeholder, // Placeholder
-      followers: 0,
-      madePlaylists: 0,
-      bio: "test",
+    profilePic: placeholder, // Placeholder image
+    followers: 0,
+    madePlaylists: 0,
+    bio: "",
   });
 
+  const [playlists, setPlaylists] = useState([]);
+  const [error, setError] = useState(null);
+
+  // Fetch user profile and playlists data
   useEffect(() => {
-      // Replace this with an API call or data fetching logic
-      const profileData = {
-          shiva: {
-              profilePic: 'path/to/shiva-pic.jpg',
-              followers: 27,
-              madePlaylists: 4,
-          },
-          harsh: {
-              profilePic: 'path/to/harsh-pic.jpg',
-              followers: 15,
-              madePlaylists: 2,
-          },
-      };
-      setUser(profileData[curator] || {});
-  }, [curator]);
+    const fetchProfile = async () => {
+      try {
+        
+        const token = localStorage.getItem('access');
 
-  
+        const response = await fetch(`http://localhost:8000/spotify/profile/${curator}/`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Add the token to the request headers
+          },
+        });
 
-  
-    const samplePlaylists = [
-      { title: 'Connections', imageUrl: connections , curator: 'shiva', url: '' },
-      { title: 'sugi', imageUrl: sugi , curator: 'harsh', url: '' },
-      { title: 'Neon Nights', imageUrl: neon, curator: 'shiva', url: '' },     
-    ];
-  
-    const [isOpen, setIsOpen] = useState(false);
-  
-    const toggleDropdown = () => {
-      setIsOpen(!isOpen);
-    };
-  
-    const handleOutsideClick = (e) => {
-      if (!e.target.closest('.profile-settings')) {
-        setIsOpen(false);
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile');
+        }
+
+        const profileData = await response.json();
+
+        setUser({
+          profilePic: profileData.profile_picture || placeholder,
+          followers: profileData.followers_count || 0,
+          madePlaylists: profileData.made_playlists_count || 0,
+          bio: profileData.bio || "This user has no bio yet.",
+        });
+
+        // Optionally fetch playlists associated with the user
+        const playlistResponse = await fetch(`http://localhost:8000/spotify/profile/${curator}/playlists/`);
+        if (playlistResponse.ok) {
+          const playlistData = await playlistResponse.json();
+          setPlaylists(playlistData || []);
+        }
+      } catch (err) {
+        setError(err.message);
       }
     };
-  
-    useEffect(() => {
-      document.addEventListener('click', handleOutsideClick);
-      return () => {
-        document.removeEventListener('click', handleOutsideClick);
-      };
-    }, []);
-  
-    return (
-      <div>
-        <div className="profile-container">
-          <div className="profile-header">
-            <img src={user.profilePic} alt="Profile Pic" className="profile-pic" />
-            <div className="profile-details">
-              <div className="profile-div">
-                <h2 className="username">{curator}</h2>
-                <div className="follow-button">
-                  <button>Follow</button>
-                </div>
-                {/* <div className="profile-settings">
-                  <FontAwesomeIcon id="settings-icon" icon={faCog} color="#e7e7e7" onClick={toggleDropdown} />
-                  <div className={`dropdown ${isOpen ? 'open' : ''}`}>
-                    <div className="dropdown-item">
-                      <Link to="/app/profile/edit">
-                        <p className="profile-link">Edit Profile</p>
-                      </Link>
-                    </div>
-                  </div>
-                </div> */}
+
+    fetchProfile();
+  }, [curator]);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  return (
+    <div>
+      <div className="profile-container">
+        <div className="profile-header">
+          <img src={user.profilePic} alt="Profile Pic" className="profile-pic" />
+          <div className="profile-details">
+            <div className="profile-div">
+              <h2 className="username">{curator}</h2>
+              <div className="follow-button">
+                <button>Follow</button>
               </div>
-              <p className="bio">{user.bio}</p>
             </div>
+            <p className="bio">{user.bio}</p>
           </div>
-          <div className="followers">
-            <span>{user.followers} Followers</span>
-            <span>{user.madePlaylists} Playlists</span>
-          </div>
-          
         </div>
-        <div className="profile-content">
-          <div className="top-playlists">
-            <TopPlaylistsDisp categoryTitle="Top Playlists" playlists={samplePlaylists} />
-          </div>
-          <div className="badges"></div>
+        <div className="followers">
+          <span>{user.followers} Followers</span>
+          <span>{user.madePlaylists} Playlists</span>
         </div>
       </div>
-    );
-  };
-  
+      <div className="profile-content">
+        <div className="top-playlists">
+          <TopPlaylistsDisp categoryTitle="Top Playlists" playlists={playlists} />
+        </div>
+        <div className="badges"></div>
+      </div>
+    </div>
+  );
+};
+
 export default ProfileTemplate;
