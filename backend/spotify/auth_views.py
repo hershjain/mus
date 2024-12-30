@@ -302,6 +302,7 @@ def set_imp_playlists(request):
         sp = Spotify(auth=profile.access_token)
         results = sp.current_user()
         userid = results['id']
+        print("userid =" +userid)
         #playlists = sp.current_user_playlists(limit=50)
 
         plz = {}
@@ -317,22 +318,29 @@ def set_imp_playlists(request):
                     kval+=1
             off+=50
 
-        print(plz[0]['owner']['id'])
+        print(" this is profile.user: "+str(profile.user))
         
         for item in plz:
             if plz[item]:
                 t = plz[item]['name']
+                print("title: "+t)
                 desc = plz[item]['description']
+                print("desc: "+desc)
                 spID = plz[item]['id']
+                print("spID: "+spID)
                 imp = True
+                print(imp)
                 uID = plz[item]['owner']['id']
+                print("uID: "+uID)
                             
             if plz[item] and uID == userid:
-               pl = Playlist(title= t, description=desc, created_by=profile.user,spotify_playlist_id=spID, imported=imp)
+               genres = []
+               pl = Playlist(title= t, description=desc, created_by=profile.user ,spotify_playlist_id=spID, imported=imp)
                pl.save()
+               pl.genres.set([])
                print('imported: '+t)
 
-        return Response("Playlists were imported")
+        return JsonResponse(plz, safe=False)
 
     except Profile.DoesNotExist:
         return JsonResponse({'error': 'Profile not found.'}, status=404)
