@@ -2,10 +2,10 @@
     margin-bottom: 10px;
   }
   
-  .category-title {
+  .playlist-row .category-title {
     font-size: 1.5em;
     margin-bottom: 15px;
-    margin-top: 0px;
+    margin-top: 5px;
     margin-left: 20px;
     color: #e7e7e7;
   }
@@ -19,6 +19,7 @@
     gap: 45px;               /* Adds space between the grid items */
     overflow-x: auto;        /* Enables horizontal scrolling */ 
     scroll-snap-type: x mandatory; /* Optional: Enables snap scrolling for a smooth experience */
+    align-items: center;
   }
   
   .playlist-carousel::-webkit-scrollbar {

@@ -24,7 +24,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 40%;
 }
 
 .login-input {
@@ -48,4 +48,16 @@
     font-weight: 600;
     /* backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px); */
+}
+
+.login-container p {
+    color: #ff1717;
+    font-size: 1em;
+}
+
+@media only screen and (max-width: 450px){
+    .login-form{
+        width: 100%;
+    }
+    
 }
