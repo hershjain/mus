@@ -8,7 +8,7 @@ from .serializers import ProfileSerializer, PlaylistSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
-from .models import Profile, Playlist, Genre
+from .models import Profile, Playlist, Genre, User
 
 
 @api_view(['GET'])
@@ -22,6 +22,9 @@ def user_profile(request):
 def pub_user_profile(request, username):
     try:
         profile = get_object_or_404(Profile, user__username=username)
+        #target_profile = get_object_or_404(Profile, user=profile)
+
+        #is_following = request.user.profile.following.filter(pk=target_profile.pk).exists()
 
         # Include whatever data you want to return
         profile_data = {
@@ -31,6 +34,7 @@ def pub_user_profile(request, username):
             #'email': profile.email,
             #'followers_count': profile.followers.count(),
             #'following_count': profile.user.following.count(),
+            #'is_following': is_following
         }
 
         return JsonResponse(profile_data, safe=False)
@@ -109,3 +113,26 @@ def pullhh(request):
         return Response({"error": "Playlists couldn't be pulled"}, status=404)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
+    
+@api_view(['POST'])
+@login_required
+def follow_user(request, username):
+    target_user = get_object_or_404(User, username=username)
+    target_profile = get_object_or_404(Profile, user=target_user)
+    current_profile = request.user.profile
+
+    if current_profile == target_profile:
+        return JsonResponse({'error': 'You cannot follow yourself.'}, status=400)
+
+    if target_profile in current_profile.following.all():
+        # Unfollow if already following
+        current_profile.following.remove(target_profile)
+        current_profile.save()
+        message = "Unfollowed successfully."
+    else:
+        # Follow the user
+        current_profile.following.add(target_profile)
+        current_profile.save()
+        message = "Followed successfully."
+
+    return JsonResponse({'message': message, 'following_count': current_profile.following.count()})
