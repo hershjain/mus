@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import ConnectSpotifyPrompt from '../components/connectSpotifyPrompt.js';
 
 
-const Discovery = ({categories, userPlaylists}) => {
+const Discovery = ({categories, userPlaylists, SPUserID}) => {
     // const [categories,setCategories] = useState([]);
 
     // useEffect(() => {
@@ -111,12 +111,12 @@ const Discovery = ({categories, userPlaylists}) => {
             <div className="discovery-page">
                 
                 {/* <PlaylistRow categoryTitle="Top Picks for You" playlists={catPL} /> */}
-                <PlaylistRow categoryTitle="Friend Activity" playlists={userPlaylists} />
-                <PlaylistRow categoryTitle="Trending" playlists={userPlaylists} />
-                <PlaylistRow categoryTitle="Popular in Williamsburg" playlists={userPlaylists} />
-                <PlaylistRow categoryTitle="Bedroom Pop" playlists={userPlaylists} />
-                <PlaylistRow categoryTitle="Hip Hop" playlists={userPlaylists} />
-                <PlaylistRow categoryTitle="Psychedelic Rock" playlists={userPlaylists} />
+                <PlaylistRow categoryTitle="Friend Activity" playlists={userPlaylists}  SPUserID={SPUserID}/>
+                <PlaylistRow categoryTitle="Trending" playlists={userPlaylists} SPUserID={SPUserID} />
+                <PlaylistRow categoryTitle="Popular in Williamsburg" playlists={userPlaylists} SPUserID={SPUserID}/>
+                <PlaylistRow categoryTitle="Bedroom Pop" playlists={userPlaylists} SPUserID={SPUserID}/>
+                <PlaylistRow categoryTitle="Hip Hop" playlists={userPlaylists} SPUserID={SPUserID}/>
+                <PlaylistRow categoryTitle="Psychedelic Rock" playlists={userPlaylists} SPUserID={SPUserID}/>
                 {/* {catPL.map((category, index) => (
                     // <p>{cat.message}</p>
                     <CategoryRow category={category} index={index}/>
