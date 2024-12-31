@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/Profile.css";
 import testpic1 from "../assets/images/testpic1.png";
 import placeholder from '../assets/images/playlist-test-cover.jpg';
+import pfplh from '../assets/images/pfimage.png'
 import PlaylistRow from "../components/playlist-row";
 import TopPlaylists from "../components/top-playlists";
 import Logout from "../components/logout";
@@ -65,7 +66,7 @@ const Profile = ({ username, bio, profilePic, userPlaylists }) => {
     <div>
       <div className="profile-container">
         <div className="profile-header">
-          <img src={user.profilePic} alt="Profile Pic" className="profile-pic" />
+          <img src={user.profilePic || pfplh } alt='PF' className="profile-pic" />
           <div className="profile-details">
             <div className="profile-div">
               <h2 className="username">{username}</h2>

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import "../styles/Profile.css";
 import testpic1 from "../assets/images/testpic1.png";
 import placeholder from '../assets/images/playlist-test-cover.jpg';
+import pfplh from '../assets/images/pfimage.png'
 import PlaylistRow from "../components/playlist-row";
 import TopPlaylistsDisp from "../components/top-playlists-display";
 import Logout from "../components/logout";
@@ -19,7 +20,7 @@ const ProfileTemplate = () => {
   const { curator } = useParams(); // Get the username (curator) from the URL
 
   const [user, setUser] = useState({
-    profilePic: placeholder, // Placeholder image
+    profilePic: pfplh, // Placeholder image
     followers: 0,
     madePlaylists: 0,
     bio: "",
@@ -49,7 +50,7 @@ const ProfileTemplate = () => {
         const profileData = await response.json();
 
         setUser({
-          profilePic: profileData.profile_picture || placeholder,
+          profilePic: profileData.profile_picture || pfplh,
           followers: profileData.followers_count || 0,
           madePlaylists: profileData.made_playlists_count || 0,
           bio: profileData.bio || "This user has no bio yet.",
