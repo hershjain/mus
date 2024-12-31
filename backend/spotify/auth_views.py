@@ -269,12 +269,16 @@ def get_spf(request):
 
         # Use the Spotify access token to fetch playlists
         sp = Spotify(auth=profile.access_token)
+        profile = Profile.objects.get(user=request.user)
         results = sp.current_user()
         imageval = results['images']
         for x in imageval:
             for x in imageval:
                 if str(x['height']) == '300':
                     img = x['url']
+                    profile.profile_picture = img
+                    profile.save()
+        
         
 
         return JsonResponse(img, safe=False)
@@ -332,6 +336,7 @@ def set_imp_playlists(request):
                 print(imp)
                 uID = plz[item]['owner']['id']
                 print("uID: "+uID)
+                #img = plz[item]
                             
             if plz[item] and uID == userid:
                genres = []

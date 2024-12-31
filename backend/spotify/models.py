@@ -45,6 +45,7 @@ class Playlist(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     public = models.BooleanField(default=False)
+    cover_img = models.URLField(blank=True, null=True)
     imported = models.BooleanField(default=False)
     imdesc = models.TextField(blank=True, null=True)
     primarycolor = models.CharField(max_length=255, null=True)

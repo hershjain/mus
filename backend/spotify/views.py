@@ -27,7 +27,7 @@ def pub_user_profile(request, username):
         profile_data = {
             'username': profile.user.username,
             'bio': profile.bio,
-            'profile_picture': profile.profile_picture.url if profile.profile_picture else None,
+            'profile_picture': profile.profile_picture if profile.profile_picture else None,
             #'email': profile.email,
             #'followers_count': profile.followers.count(),
             #'following_count': profile.user.following.count(),
