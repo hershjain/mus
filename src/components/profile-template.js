@@ -1,28 +1,18 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../styles/Profile.css";
-import testpic1 from "../assets/images/testpic1.png";
-import placeholder from '../assets/images/playlist-test-cover.jpg';
-import PlaylistRow from "../components/playlist-row";
+import pfplh from '../assets/images/pfimage.png';
 import TopPlaylistsDisp from "../components/top-playlists-display";
-import Logout from "../components/logout";
-import SpotifyAuthButton from '../components/spotify-auth-button';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import sugi from '../assets/images/sugi.jpg';
-import connections from '../assets/images/connections.jpg';
-import neon from '../assets/images/neon.jpg';
 
 const ProfileTemplate = () => {
   const { curator } = useParams(); // Get the username (curator) from the URL
 
   const [user, setUser] = useState({
-    profilePic: placeholder, // Placeholder image
+    profilePic: pfplh, // Placeholder image
     followers: 0,
     madePlaylists: 0,
     bio: "",
+    isFollowing: false, // Track if the current user is following this profile
   });
 
   const [playlists, setPlaylists] = useState([]);
@@ -32,27 +22,27 @@ const ProfileTemplate = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        
-        const token = localStorage.getItem('access');
+        const token = localStorage.getItem("access");
 
         const response = await fetch(`http://localhost:8000/spotify/profile/${curator}/`, {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`, // Add the token to the request headers
           },
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch profile');
+          throw new Error("Failed to fetch profile");
         }
 
         const profileData = await response.json();
 
         setUser({
-          profilePic: profileData.profile_picture || placeholder,
+          profilePic: profileData.profile_picture || pfplh,
           followers: profileData.followers_count || 0,
           madePlaylists: profileData.made_playlists_count || 0,
           bio: profileData.bio || "This user has no bio yet.",
+          isFollowing: profileData.is_following || false, // Backend should provide this information
         });
 
         // Optionally fetch playlists associated with the user
@@ -69,6 +59,36 @@ const ProfileTemplate = () => {
     fetchProfile();
   }, [curator]);
 
+  // Handle follow/unfollow logic
+  const handleFollow = async () => {
+    try {
+      const token = localStorage.getItem("access");
+
+      const response = await fetch(`http://localhost:8000/spotify/profile/${curator}/follow/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Add the token to the request headers
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to follow/unfollow the user");
+      }
+
+      const data = await response.json();
+
+      // Update the user state based on the response
+      setUser((prevUser) => ({
+        ...prevUser,
+        isFollowing: !prevUser.isFollowing, // Toggle follow status
+        followers: prevUser.isFollowing ? prevUser.followers - 1 : prevUser.followers + 1, // Update follower count
+      }));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -82,7 +102,9 @@ const ProfileTemplate = () => {
             <div className="profile-div">
               <h2 className="username">{curator}</h2>
               <div className="follow-button">
-                <button>Follow</button>
+                <button onClick={handleFollow}>
+                  {user.isFollowing ? "Unfollow" : "Follow"}
+                </button>
               </div>
             </div>
             <p className="bio">{user.bio}</p>
