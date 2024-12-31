@@ -94,7 +94,7 @@ const EditProfile = ({ username, bio }) => {
                 <h2>Edit Profile</h2>
             </div>
             <form className="edit-form" onSubmit={handleSave}>
-                <label>
+                {/* <label>
                     Username:
                     <input
                         type="text"
@@ -102,7 +102,7 @@ const EditProfile = ({ username, bio }) => {
                         value={formData.username}
                         onChange={handleChange}
                     />
-                </label>
+                </label> */}
 
                 <label>
                     Bio:

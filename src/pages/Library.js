@@ -37,9 +37,9 @@ const Library = ({userPlaylists, SPUserID}) => {
             <div className="library-content">
                 <div className="library-header">
                     <h1>Your Library</h1>
-                    <Link to="/app/create-playlist"> 
+                    {/* <Link to="/app/create-playlist"> 
                         <FontAwesomeIcon className="create-playlist-button" icon={faPlusCircle} size="50px" color='white' />
-                    </Link>
+                    </Link> */}
                     
                 </div>
                 <div className="filter-buttons">
@@ -55,7 +55,7 @@ const Library = ({userPlaylists, SPUserID}) => {
                 </div>
             </div>
             <div className="library-grid">
-                <PlaylistGrid playlists={filteredPlaylists} />
+                <PlaylistGrid playlists={filteredPlaylists} SPUserID={SPUserID} sserPlaylists={userPlaylists}/>
             </div>
         </body>
     );

@@ -3,7 +3,7 @@ import PlaylistCard from './playlist-card';
 import PlaylistRow from './playlist-row';
 import '../styles/top-playlists.css';
 
-const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists }) => {
+const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists, SPUserID }) => {
   const [editTPVisible, setEditTPVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState(userPlaylists);
@@ -90,7 +90,11 @@ const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists }) => {
               curator={playlist.curator}
               title={playlist.title}
               imageUrl={playlist.imageUrl}
+              description={playlist.description}
+              curatorID={playlist.owner.id}
               url={editTPVisible ? null : playlist.url} // Disable URL when editing
+              SPUserID={SPUserID}
+              userPlaylists={userPlaylists}
             />
             ) : (
             <div className='blank-card'>

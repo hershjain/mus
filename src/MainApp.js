@@ -11,6 +11,7 @@ import SpotifyCallback from './components/spotify-callback';
 import './styles/MainApp.css';
 import EditProfile from './pages/EditProfile';
 import SearchResultsPage from "./components/search-results-page";
+import ConnectSpotifyPrompt from './components/connectSpotifyPrompt';
 import axios from 'axios';
 
 
@@ -18,6 +19,7 @@ function MainApp() {
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const tokenTest = localStorage.getItem("access") === null;
 
   const handleSearchChange = (e) => {
     const query = e.target.value;
@@ -225,13 +227,21 @@ fetchSPUser();
         handleSearchChange={handleSearchChange} 
         toggleSearch={toggleSearch}
         searchResults={searchResults}
+        userPlaylists={userPlaylists}
+        SPUserID={spuserid}
       />
       <Navbar />
+      {userPlaylists === "" ? (
+        <ConnectSpotifyPrompt />
+      ):(
+        <div>
+        </div>
+      )}
       <div className='main-content'>
         <Routes>
-          <Route path="discovery" element={<Discovery categories={catTitle} userPlaylists={userPlaylists}/>} />
+          <Route path="discovery" element={<Discovery categories={catTitle} userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
           <Route path="library" element={<Library userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
-          <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} userPlaylists={userPlaylists} />} />
+          <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} userPlaylists={userPlaylists} SPUserID={spuserid} />} />
           <Route path='profile/edit' element={<EditProfile username={username} bio={bio}/>} />
           <Route path='profile/:curator' element={<ProfileTemplate />} />
           <Route path="callback" component={SpotifyCallback} />

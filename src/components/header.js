@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell as faBellSolid, faSearch, faTimes, } from '@fortawesome/free-solid-svg-icons';
 import { faBell as faBellRegular } from '@fortawesome/free-regular-svg-icons';
 
-const Header = ({ searchVisible, searchQuery, handleSearchChange, toggleSearch, searchResults }) => {
+const Header = ({ searchVisible, searchQuery, handleSearchChange, toggleSearch, searchResults, userPlaylists, SPUserID }) => {
     // const [searchVisible, setSearchVisible] = useState(false);
     // const [searchQuery, setSearchQuery] = useState("");
     const [notificationsVisible, setNotificationsVisible] = useState(false);
@@ -42,13 +42,13 @@ const Header = ({ searchVisible, searchQuery, handleSearchChange, toggleSearch, 
                 </button>
                 <img src={MusLogo} alt="Mus Logo" id="musLogo"/>
                 {/* <div className="header-icons"> */}
-                <button onClick={toggleNotifications} className="notification-btn">
-                {notificationsVisible ? (
+                {/* <button onClick={toggleNotifications} className="notification-btn"> */}
+                {/* {notificationsVisible ? (
                     <FontAwesomeIcon icon={faBellSolid} color="white" />
                     ) : (
                     <FontAwesomeIcon icon={faBellRegular} color="white" />
-                    )}
-                </button>
+                    )} */}
+                {/* </button> */}
 
                 {notificationsVisible && (
                 <div className="notifications-dropdown">
@@ -69,9 +69,8 @@ const Header = ({ searchVisible, searchQuery, handleSearchChange, toggleSearch, 
         </header>
             <SearchBar 
                 searchVisible={searchVisible} 
-                searchQuery={searchQuery} 
-                handleSearchChange={handleSearchChange}
-                searchResults={searchResults} 
+                userPlaylists={userPlaylists}
+                SPUserID={SPUserID}
             />
         </div>
     );

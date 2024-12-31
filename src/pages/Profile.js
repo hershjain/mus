@@ -15,7 +15,7 @@ import neon from '../assets/images/neon.jpg';
 import PlaylistCardHorizontal from "../components/playlist-card-horizontal";
 
 
-const Profile = ({ username, bio, profilePic, userPlaylists }) => {
+const Profile = ({ username, bio, profilePic, userPlaylists, SPUserID }) => {
   const user = {
     profilePic: profilePic, // Placeholder for profile picture URL
     followers: 27,
@@ -97,7 +97,7 @@ const Profile = ({ username, bio, profilePic, userPlaylists }) => {
       <div className="profile-content">
         <div className="top-playlists">
           
-          <TopPlaylists categoryTitle="Top Playlists" topPlaylists={samplePlaylists} userPlaylists={userPlaylists}/>
+          <TopPlaylists categoryTitle="Top Playlists" topPlaylists={samplePlaylists} userPlaylists={userPlaylists} SPUserID={SPUserID}/>
         </div>
         <div className="badges"></div>
       </div>
