@@ -333,11 +333,11 @@ def set_imp_playlists(request):
                 imp = True
                 uID = plz[item]['owner']['id']
                 existing = Playlist.objects.filter(spotify_playlist_id=spID).exists()
-                #img = plz[item]          
+                img = plz[item]['images'][0]['url']          
                 if not existing and uID == userid:
                     try:
                         print("about to import playlist: "+t)
-                        pl = Playlist(title=t, description=desc, created_by=profile.user, spotify_playlist_id=spID, imported=imp)
+                        pl = Playlist(title=t, description=desc, created_by=profile.user, spotify_playlist_id=spID, imported=imp, cover_img=img)
                         pl.save()
                         print('Playlist saved: '+pl.title)
                     except Exception as e:
