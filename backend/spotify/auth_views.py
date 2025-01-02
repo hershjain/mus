@@ -1,5 +1,7 @@
 import os
 import spotipy
+import csv
+from collections import Counter
 from spotipy.oauth2 import SpotifyOAuth
 import requests
 from django.views.decorators.csrf import csrf_exempt
@@ -17,12 +19,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import login
 from django.contrib.auth.models import User
-from .models import Playlist
+from .models import Playlist, Genre
 from rest_framework.authtoken.models import Token
 import urllib.parse
 from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from spotipy import Spotify
+
 
 
 SPOTIFY_CLIENT_ID = settings.SPOTIFY_CLIENT_ID
@@ -308,6 +311,7 @@ def set_imp_playlists(request):
         userid = results['id']
         print("userid =" +userid)
         #playlists = sp.current_user_playlists(limit=50)
+        
 
         plz = {}
         off = 0
@@ -323,27 +327,100 @@ def set_imp_playlists(request):
             off+=50
 
         print(" this is profile.user: "+str(profile.user))
-        
+
+        def load_genre_data(file_paths):
+            """
+            Load genre data from CSV files into a dictionary where keys are artists
+            and values are genres.
+            """
+            genre_mapping = {}
+            for genre, file_path in file_paths.items():
+                try:
+                    with open(file_path, 'r') as file:
+                        reader = csv.reader(file)
+                        for row in reader:
+                            for artist in row:
+                                genre_mapping[artist.strip().lower()] = genre
+                except FileNotFoundError:
+                    print(f"Warning: File {file_path} not found. Skipping.")
+            return genre_mapping
+
+        def assign_top_genres(artists, genre_mapping, top_n=3):
+            """
+            Assign the top N genres to a playlist based on artist-genre mappings.
+            """
+            # Count genres for the given artists
+            genre_counts = Counter()
+            unmatched_artists = []
+            
+            for artist in artists:
+                genre = genre_mapping.get(artist.lower())
+                if genre:
+                    genre_counts[genre] += 1
+                else:
+                    unmatched_artists.append(artist)
+            
+            # Get the top N genres
+            top_genres = [genre for genre, _ in genre_counts.most_common(top_n)]
+            
+            #print(f"Top {top_n} genres: {top_genres}")
+            #print(f"Unmatched artists: {unmatched_artists}")
+            
+            return top_genres
+
+        # Example usage:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        file_paths = {
+            'Hip-Hop': os.path.join(current_dir, 'WikiRapArtists12.17.24.csv'),
+            'EDM': os.path.join(current_dir, 'WikiEDMArtists12.28.24.csv'),
+            'Country': os.path.join(current_dir, 'WikiCountryArtists12.29.24.csv'),
+            'Jazz': os.path.join(current_dir, 'WikiJazzArtists12.29.24.csv'),
+            'Pop': os.path.join(current_dir, 'WikiPopArtists12.28.24.csv'),
+            'Reggae': os.path.join(current_dir, 'WikiRegaeArtists12.29.24.csv'),
+            'Reggaeton': os.path.join(current_dir, 'WikiReggaetonArtists12.29.24.csv'),
+            'RnB': os.path.join(current_dir, 'WikiRnBArtists12.29.24.csv'),
+            'Rock': os.path.join(current_dir, 'WikiRockArtists12.29.24.csv'),
+        }
+
+        # Load genre mappings once
+        genre_mapping = load_genre_data(file_paths)
+
         for item in plz:
-            if plz[item]:
+            if plz[item] and plz[item]['images']:
                 t = plz[item]['name']
-                print("title: "+t)
                 desc = plz[item]['description']
-                print("desc: "+desc)
                 spID = plz[item]['id']
-                print("spID: "+spID)
                 imp = True
-                print(imp)
                 uID = plz[item]['owner']['id']
-                print("uID: "+uID)
-                #img = plz[item]
-                            
-            if plz[item] and uID == userid:
-               genres = []
-               pl = Playlist(title= t, description=desc, created_by=profile.user ,spotify_playlist_id=spID, imported=imp)
-               pl.save()
-               pl.genres.set([])
-               print('imported: '+t)
+                existing = Playlist.objects.filter(spotify_playlist_id=spID).exists()
+                img = plz[item]['images'][0]['url']          
+                
+                if not existing and uID == userid:
+                    try:
+                        print("about to import playlist: "+t)
+                        
+                        # Collect all artist names from the playlist's tracks
+                        tracks = sp.playlist_tracks(spID)['items']
+                        artist_names = [
+                            artist['name']
+                            for track in tracks
+                            if track.get('track') and track['track'].get('artists')
+                            for artist in track['track']['artists']
+                        ]
+                        
+                        top_genres = assign_top_genres(artist_names, genre_mapping)
+                        
+                        pl = Playlist(title=t, description=desc, created_by=profile.user, spotify_playlist_id=spID, imported=imp, cover_img=img)
+                        pl.save()
+                        
+                        for genre_name in top_genres:
+                            genre, _ = Genre.objects.get_or_create(name=genre_name)
+                            pl.genres.add(genre)
+
+                        print('Playlist saved: '+pl.title)
+                    except Exception as e:
+                        print(f"Error saving playlist '{t}': {e}")
+
 
         return JsonResponse(plz, safe=False)
 

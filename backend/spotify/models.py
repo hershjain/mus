@@ -55,11 +55,11 @@ class Playlist(models.Model):
     tags = models.ManyToManyField(Tag, related_name='playlists', blank=True)
     genres = models.ManyToManyField(Genre, related_name='playlists', blank=True)
 
-    def clean(self):
-        super().clean()
-        # Enforce max of 3 genres
-        if self.genres.count() > 3:
-            raise ValidationError("A playlist can have at most 3 genres.")
+    # def clean(self):
+    #     super().clean()
+    #     # Enforce max of 3 genres
+    #     if self.genres.count() > 3:
+    #         raise ValidationError("A playlist can have at most 3 genres.")
 
     def save(self, *args, **kwargs):
         self.clean()  # Ensure validation is checked before saving
