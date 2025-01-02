@@ -238,7 +238,7 @@ fetchSPUser();
           }
 
           const data = await response.json();
-          console.log(data);
+          //console.log(data);
 
           setallpl(data);
               } catch (error) {
@@ -248,7 +248,7 @@ fetchSPUser();
       
           fetchAllPL();
         }, []); 
-        
+
   return (
     <div className='App'>
       <Header 
