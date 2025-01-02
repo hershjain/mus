@@ -13,8 +13,13 @@ const shuffleArray = (array) => {
 };
 
 const PlaylistRow = ({ categoryTitle, playlists, userPlaylists, SPUserID }) => {
-  // Shuffle the playlists before rendering
-  const randomizedPlaylists = shuffleArray(playlists);
+  // Filter playlists where the first genre matches the category title
+  const filteredPlaylists = playlists.filter(
+    (playlist) => playlist.genres && playlist.genres[0]?.toLowerCase() === categoryTitle.toLowerCase()
+  );
+
+  // Shuffle the filtered playlists before rendering
+  const randomizedPlaylists = shuffleArray(filteredPlaylists);
 
   return (
     <div className="playlist-row">

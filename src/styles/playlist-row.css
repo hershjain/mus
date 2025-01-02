@@ -12,7 +12,7 @@
   
   .playlist-carousel {
     padding-left: 20px;
-    padding-right: 20px;
+    padding-right: 60px;
     display: grid;
     grid-auto-flow: column; /* Forces grid items to flow in a single row */
     grid-auto-columns: 150px; /* Sets a fixed width for each card */

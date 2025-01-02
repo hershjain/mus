@@ -117,9 +117,15 @@ const PlaylistCard = ({
                         />
                         <div className="playlist-info-enlarged">
                             <h2>{title}</h2>
-                            <Link to={`/app/profile/${curator}`} className="playlist-curator-enlarged">
-                                {curator}
-                            </Link>
+                            {isOwner ? (
+                                <Link to={`/app/profile`} className="playlist-curator-enlarged">
+                                    {curator}
+                                </Link>
+                            ) : (    
+                                <Link to={`/app/profile/${curator}`} className="playlist-curator-enlarged">
+                                    {curator}
+                                </Link>
+                            )}
                         </div>
                         
                         <p className="description">{description}</p>
