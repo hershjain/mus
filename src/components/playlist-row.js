@@ -18,14 +18,22 @@ const PlaylistRow = ({ categoryTitle, playlists, userPlaylists, SPUserID }) => {
     (playlist) => playlist.genres && playlist.genres[0]?.toLowerCase() === categoryTitle.toLowerCase()
   );
 
+  const filteredPlaylistsTWO = playlists.filter(
+    (playlist) => playlist.genres && playlist.genres[1]?.toLowerCase() === categoryTitle.toLowerCase()
+  );
+
+
+
   // Shuffle the filtered playlists before rendering
   const randomizedPlaylists = shuffleArray(filteredPlaylists);
+  const randomizedPlaylistsTWO = shuffleArray(filteredPlaylistsTWO);
+  const randomizedCombined = randomizedPlaylists.concat(randomizedPlaylistsTWO);
 
   return (
     <div className="playlist-row">
       <h2 className="category-title">{categoryTitle}</h2>
       <div className="playlist-carousel">
-        {randomizedPlaylists.map((playlist, index) => (
+        {randomizedCombined.map((playlist, index) => (
           <PlaylistCard 
             key={playlist.spotify_playlist_id} 
             id={playlist.spotify_playlist_id} 

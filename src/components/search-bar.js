@@ -1,38 +1,89 @@
 import React, { useState, useEffect } from 'react';
 import PlaylistCard from './playlist-card';
 import ProfileCard from './profile-card';
-import placeholder from '../assets/images/pfimage.png'
+import placeholder from '../assets/images/pfimage.png';
 import '../styles/search-bar.css';
 
+// Fisher-Yates Shuffle Algorithm for randomization
+const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+};
+
+// Normalize playlist data to a consistent format
+const normalizePlaylist = (playlist) => {
+    return {
+        id: playlist.spotify_playlist_id || playlist.id,
+        title: playlist.title || playlist.name,
+        curator: playlist.created_by || playlist.owner?.display_name,
+        description: playlist.description || '',
+        imageUrl: playlist.cover_img || playlist.images?.[0]?.url || '',
+        url: playlist.sp_link || playlist.external_urls?.spotify,
+        curatorID: playlist.spu_id || playlist.owner?.id,
+        genres: playlist.genres || [],
+    };
+};
+
 const SearchBar = ({ searchVisible, userPlaylists, SPUserID }) => {
-    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [allpl, setAllpl] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(null); // Only one category can be selected
     const [searchQuery, setSearchQuery] = useState('');
     const categories = ['Yours', 'Saved', 'Profiles'];
-    const ownedPlaylists = userPlaylists.filter(playlist => playlist.owner.id === SPUserID);
-    const savedPlaylists = userPlaylists.filter(playlist => playlist.owner.id !== SPUserID);
+
+    useEffect(() => {
+        const fetchAllPL = async () => {
+            try {
+                const token = localStorage.getItem("access");
+                const response = await fetch('http://localhost:8000/spotify/pullall/', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch all playlists');
+                }
+
+                const data = await response.json();
+                console.log(data);
+                setAllpl(data);
+            } catch (error) {
+                console.error('Error fetching all playlists:', error);
+            }
+        };
+
+        fetchAllPL();
+    }, []);
 
     const toggleCategory = (category) => {
-        if (selectedCategories.includes(category)) {
-            setSelectedCategories(selectedCategories.filter(c => c !== category));
-        } else {
-            setSelectedCategories([...selectedCategories, category]);
-        }
+        setSelectedCategory((prevCategory) => (prevCategory === category ? null : category));
     };
 
     // Compute filtered playlists dynamically
-    const filteredPlaylists = userPlaylists.filter((playlist) => {
+    const sourcePlaylists = selectedCategory ? userPlaylists : allpl;
+
+    const filteredPlaylists = sourcePlaylists.filter((playlist) => {
         const matchesCategory =
-            selectedCategories.length === 0 || // No filter applied
-            (selectedCategories.includes('Yours') && playlist.owner.id === SPUserID) ||
-            (selectedCategories.includes('Saved') && playlist.owner.id !== SPUserID);
+            !selectedCategory || // No category selected, use allpl
+            (selectedCategory === 'Yours' && playlist.owner?.id === SPUserID) ||
+            (selectedCategory === 'Saved' && playlist.owner?.id !== SPUserID);
 
         const matchesSearchQuery =
             !searchQuery || // No search query
             playlist.name?.toLowerCase().includes(searchQuery) || // Match playlist name
-            playlist.owner.display_name?.toLowerCase().includes(searchQuery); // Match curator name
+            playlist.owner?.display_name?.toLowerCase().includes(searchQuery); // Match curator name
 
         return matchesCategory && matchesSearchQuery;
     });
+
+    // Randomize the order of the filtered playlists
+    const randomizedPlaylists = shuffleArray(filteredPlaylists);
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value.toLowerCase());
@@ -50,11 +101,11 @@ const SearchBar = ({ searchVisible, userPlaylists, SPUserID }) => {
             </div>
             <div className="search-filters">
                 <div className="filter-buttons">
-                    {categories.map(category => (
+                    {categories.map((category) => (
                         <button
                             key={category}
                             onClick={() => toggleCategory(category)}
-                            className={selectedCategories.includes(category) ? 'active' : ''}
+                            className={selectedCategory === category ? 'active' : ''}
                         >
                             {category}
                         </button>
@@ -62,23 +113,27 @@ const SearchBar = ({ searchVisible, userPlaylists, SPUserID }) => {
                 </div>
             </div>
 
-            {searchQuery && filteredPlaylists.length > 0 ? (
+            {searchQuery && randomizedPlaylists.length > 0 ? (
                 <div className="search-results-grid">
                     <ProfileCard name="Mhey" profilePic={placeholder} />
-                    {filteredPlaylists.map((playlist) => (
-                        <PlaylistCard
-                            key={playlist.id}
-                            id={playlist.id}
-                            title={playlist.name}
-                            curator={playlist.owner.display_name}
-                            description={playlist.description}
-                            imageUrl={playlist.images[0]?.url}
-                            url={playlist.external_urls.spotify}
-                            curatorID={playlist.owner.id}
-                            SPUserID={SPUserID}
-                            userPlaylists={userPlaylists}
-                        />
-                    ))}
+                    {randomizedPlaylists.map((playlist) => {
+                        const normalizedPlaylist = normalizePlaylist(playlist);
+                        return (
+                            <PlaylistCard
+                                key={normalizedPlaylist.id}
+                                id={normalizedPlaylist.id}
+                                title={normalizedPlaylist.title}
+                                curator={normalizedPlaylist.curator}
+                                description={normalizedPlaylist.description}
+                                imageUrl={normalizedPlaylist.imageUrl}
+                                url={normalizedPlaylist.url}
+                                curatorID={normalizedPlaylist.curatorID}
+                                SPUserID={SPUserID}
+                                userPlaylists={userPlaylists}
+                                genres={normalizedPlaylist.genres}
+                            />
+                        );
+                    })}
                 </div>
             ) : (
                 searchQuery && <p className='no-results-message'>No results found.</p>
