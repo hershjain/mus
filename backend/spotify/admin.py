@@ -37,14 +37,14 @@ class GenreAdmin(admin.ModelAdmin):
 # Customize the Playlist admin
 @admin.register(Playlist)
 class PlaylistAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_by', 'created_at', 'public', 'cover_img')  # Fields to show in list view
+    list_display = ('title', 'created_by', 'created_at', 'public')  # Fields to show in list view
     search_fields = ('title', 'description')  # Add search functionality
     list_filter = ('public', 'created_at')  # Add filters for public status and creation date
     filter_horizontal = ('genres',)  # Add horizontal filter widget for genres (better for many-to-many fields)
     readonly_fields = ('created_at', 'updated_at')  # Make certain fields read-only
     fieldsets = (
         (None, {
-            'fields': ('title', 'description', 'spotify_playlist_id', 'created_by', 'genres', 'public')
+            'fields': ('title', 'description', 'spotify_playlist_id', 'created_by', 'cover_img','genres', 'public')
         }),
         ('Advanced options', {
             'classes': ('collapse',),
