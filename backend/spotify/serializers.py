@@ -44,7 +44,7 @@ class PlaylistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Playlist
-        fields = ['title', 'description', 'spotify_playlist_id', 'created_by', 'public', 'genres', 'cover_img']
+        fields = ['title', 'description', 'spotify_playlist_id', 'created_by', 'public', 'genres', 'cover_img', 'spu_id', 'sp_link']
 
     def get_genres(self, obj):
         return [genre.name for genre in obj.genres.all()]

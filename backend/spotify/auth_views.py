@@ -393,7 +393,8 @@ def set_imp_playlists(request):
                 imp = True
                 uID = plz[item]['owner']['id']
                 existing = Playlist.objects.filter(spotify_playlist_id=spID).exists()
-                img = plz[item]['images'][0]['url']          
+                img = plz[item]['images'][0]['url']
+                splink = plz[item]['external_urls']['spotify']         
                 
                 if not existing and uID == userid:
                     try:
@@ -410,7 +411,7 @@ def set_imp_playlists(request):
                         
                         top_genres = assign_top_genres(artist_names, genre_mapping)
                         
-                        pl = Playlist(title=t, description=desc, created_by=profile.user, spotify_playlist_id=spID, imported=imp, cover_img=img)
+                        pl = Playlist(title=t, description=desc, created_by=profile.user, spotify_playlist_id=spID, imported=imp, cover_img=img, spu_id=uID, sp_link= splink)
                         pl.save()
                         
                         for genre_name in top_genres:

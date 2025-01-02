@@ -218,7 +218,37 @@ fetchSPUser();
   
     setImp();
   }, []); // Empty dependency array means this runs once when the component mounts
+  
+  const [allpl,setallpl] = useState([]);
 
+  useEffect(() => {
+    const fetchAllPL = async () => {
+        try {
+          const token = localStorage.getItem("access");
+          const response = await fetch('http://localhost:8000/spotify/pullall/', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to fetching all playlists');
+          }
+
+          const data = await response.json();
+          console.log(data);
+
+          setallpl(data);
+              } catch (error) {
+                  console.error('Error fetching all playlists:', error);
+              }
+          };
+      
+          fetchAllPL();
+        }, []); 
+        
   return (
     <div className='App'>
       <Header 
