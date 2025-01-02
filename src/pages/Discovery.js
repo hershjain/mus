@@ -115,7 +115,7 @@ const Discovery = ({categories, userPlaylists, SPUserID}) => {
                 <PlaylistRow categoryTitle="Trending" playlists={userPlaylists} SPUserID={SPUserID} />
                 <PlaylistRow categoryTitle="Popular in Williamsburg" playlists={userPlaylists} SPUserID={SPUserID}/>
                 <PlaylistRow categoryTitle="Bedroom Pop" playlists={userPlaylists} SPUserID={SPUserID}/>
-                <PlaylistRow categoryTitle="Hip Hop" playlists={userPlaylists} SPUserID={SPUserID}/>
+                <PlaylistRow categoryTitle="Hip Hop" playlists={hhpl} SPUserID={SPUserID}/>
                 <PlaylistRow categoryTitle="Psychedelic Rock" playlists={userPlaylists} SPUserID={SPUserID}/>
                 {/* {catPL.map((category, index) => (
                     // <p>{cat.message}</p>
