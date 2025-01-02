@@ -24,7 +24,11 @@ const Login = () => {
 
         // Redirect or do something after login
         alert("Login successful");
-        navigate('/app/discovery')
+
+        setTimeout(() => {
+          navigate('/app/discovery');
+      }, 100);
+        
     } catch (err) {
         setError('Invalid username or password');
     }
