@@ -7,6 +7,7 @@ urlpatterns = [
     path('auth/login', get_spotify_auth_url, name='get_spotify_auth_url'),
     path('auth/callback/', spotify_callback, name='spotify_callback'),
     path('playlists/', get_playlists, name='get_playlists'),
+    path('setimp/', set_imp_playlists, name='setimp'),
     path('categories/', get_categories, name='get_categories'),
     path('catPL/', get_catPL, name='get_catPL'),
     path('set-username/', set_username, name='set_username'),
@@ -16,7 +17,6 @@ urlpatterns = [
     path('profile/', user_profile, name='user_profile'),
     path('profile/<str:username>/', pub_user_profile, name='pub_user_profile'),
     path('profile/<str:username>/follow/', follow_user, name='follow_user'),
-    path('setimp/', set_imp_playlists, name='setimp'),
     path('pullhh/', pullhh, name='pullhh'),
 
 
