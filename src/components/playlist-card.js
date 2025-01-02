@@ -6,23 +6,21 @@ import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 import Vibrant from "node-vibrant";
 import "../styles/playlist-card.css";
 
-const PlaylistCard = ({ id, title, curator, url, imageUrl, description, curatorID, SPUserID, userPlaylists }) => {
-    
-    // const playlistID = playlist.id;
-    // const title = playlist.name;
-    // const imageUrl = playlist.images[0].url;
-    // const curator = playlist.owner.display_name;
-    // const url = playlist.external_urls.spotify;
-    // const description = playlist.description;
-    // const curatorID = playlist.owner.id
-    
+const PlaylistCard = ({ 
+    id, 
+    title, 
+    curator, 
+    url, 
+    imageUrl, 
+    description, 
+    curatorID, 
+    SPUserID, 
+    userPlaylists, 
+    disableOverlay // Add the new prop
+}) => {
     const [backgroundColor, setBackgroundColor] = useState("#ffffff10");
     const [isExpanded, setIsExpanded] = useState(false);
-    const tags = ["Hip Hop", "Pop", "RNB"]
 
-
-    // const isInUserPlaylists = curatorID === SPUserID;
-    // const isInUserPlaylists = userPlaylists.some(userPlaylist => userPlaylist.id === id);
     const isOwner = curatorID === SPUserID;
 
     useEffect(() => {
@@ -40,7 +38,9 @@ const PlaylistCard = ({ id, title, curator, url, imageUrl, description, curatorI
     }, [imageUrl]);
 
     const handleExpand = () => {
-        setIsExpanded(true);
+        if (!disableOverlay) {
+            setIsExpanded(true);
+        }
     };
 
     const handleClose = () => {
@@ -48,7 +48,6 @@ const PlaylistCard = ({ id, title, curator, url, imageUrl, description, curatorI
     };
 
     const handleOverlayClick = (e) => {
-        // Close the overlay only if the click is outside the content
         if (e.target.classList.contains("overlay")) {
             handleClose();
         }
@@ -60,7 +59,7 @@ const PlaylistCard = ({ id, title, curator, url, imageUrl, description, curatorI
             <div 
                 className="playlist-card" 
                 style={{ backgroundColor }} 
-                onClick={handleExpand} // Open expanded view on click
+                onClick={handleExpand} // Conditional overlay opening
             >
                 <h3 className="playlist-title">{title}</h3>
                 <img 
@@ -74,44 +73,42 @@ const PlaylistCard = ({ id, title, curator, url, imageUrl, description, curatorI
             </div>
 
             {/* Expanded View Overlay */}
-            {isExpanded && (
-                <div className="overlay" style={{backgroundColor}} onClick={handleOverlayClick} >
+            {isExpanded && !disableOverlay && (
+                <div className="overlay" style={{ backgroundColor }} onClick={handleOverlayClick}>
                     <button className="close-button" onClick={handleClose}>
-                                <FontAwesomeIcon icon={faClose}/>
+                        <FontAwesomeIcon icon={faClose} />
                     </button>
                     <div className="overlay-content">
-                            
-                                
-                                {isOwner ? (
-                                    <div className="overlay-actions">
-                                        <a 
-                                        href={url} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer" 
-                                        className="spotify-button"
-                                        >
-                                            <FontAwesomeIcon icon={faSpotify} />
-                                        </a>
-                                    </div>
-                                ) : (
-                                    <div className="overlay-actions">
-                                        <button className="save-button">
-                                            <FontAwesomeIcon icon={faPlusCircle}/>
-                                        </button>
-                                        <a 
-                                        href={url} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer" 
-                                        className="spotify-button"
-                                        >
-                                            <FontAwesomeIcon icon={faSpotify} />
-                                        </a>
-                                        <Link to={`/app/profile/${curator}`} className="profile-button">
-                                            <FontAwesomeIcon icon={faUser}/>
-                                        </Link>
-                                    </div>
-                                )}
-                        
+                        {isOwner ? (
+                            <div className="overlay-actions">
+                                <a 
+                                    href={url} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="spotify-button"
+                                >
+                                    <FontAwesomeIcon icon={faSpotify} />
+                                </a>
+                            </div>
+                        ) : (
+                            <div className="overlay-actions">
+                                <button className="save-button">
+                                    <FontAwesomeIcon icon={faPlusCircle} />
+                                </button>
+                                <a 
+                                    href={url} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="spotify-button"
+                                >
+                                    <FontAwesomeIcon icon={faSpotify} />
+                                </a>
+                                <Link to={`/app/profile/${curator}`} className="profile-button">
+                                    <FontAwesomeIcon icon={faUser} />
+                                </Link>
+                            </div>
+                        )}
+
                         <img 
                             src={imageUrl} 
                             alt={title} 
@@ -125,12 +122,6 @@ const PlaylistCard = ({ id, title, curator, url, imageUrl, description, curatorI
                         </div>
                         
                         <p className="description">{description}</p>
-                        {/* <div className="tags">
-                            {tags.map((tag, index) => (
-                                <span key={index} className="tag">{tag}</span>
-                            ))}
-                        </div> */}
-                        
                     </div>
                 </div>
             )}

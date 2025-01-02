@@ -14,3 +14,11 @@
     display: none; /* Hide scrollbar for better UX */
   }
   
+
+  @media only screen and (max-width:450px) {
+    .playlist-grid {
+      gap: 20px 10px;
+      padding: 20px 20px;
+    }
+    
+  }

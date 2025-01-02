@@ -72,7 +72,7 @@
 
   /* styles.css or your relevant CSS file */
 .search-bar-div {
-    overflow: hidden; /* Ensure content doesn't overflow during animation */
+    overflow: scroll; /* Ensure content doesn't overflow during animation */
     transition: all 0.3s ease-in-out; /* Transition for smooth sliding */
 }
 
@@ -99,4 +99,22 @@
     display: flex;
     width: 100%;
     padding: 10px 20px;
+}
+
+.no-results-message{
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-left: 30px;
+}
+
+@media only screen and (max-width: 450px) {
+  .search-results-grid {
+    padding: 20px 20px;
+    margin-bottom: 100px;
+    gap: 20px 20px;
+    align-items: center;
+    justify-content: center;
+  }
+  
 }
