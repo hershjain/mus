@@ -427,7 +427,7 @@ def set_imp_playlists(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
     
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def add_playlist_to_lib(request, spid, spuid):
     # Authenticate the JWT token and retrieve the user
@@ -443,10 +443,12 @@ def add_playlist_to_lib(request, spid, spuid):
 
         # Use the Spotify access token to fetch playlists
         sp = Spotify(auth=profile.access_token)
-        sp.user_playlist_follow_playlist()
-
-            
-        return Response('Added playlist to library', safe=False)
+        try:
+            sp.user_playlist_follow_playlist(playlist_owner_id=spuid,playlist_id=spid)
+            return Response('Added playlist to library', safe=False)
+        
+        except Exception as e:
+            print(f"Error adding playlist to library: {e}")
 
     except Profile.DoesNotExist:
         return JsonResponse({'error': 'Profile not found.'}, status=404)
