@@ -103,7 +103,7 @@ def login_view(request):
 def pullhh(request):
     try:
 
-        genre = get_object_or_404(Genre, name='Hip Hop')
+        genre = get_object_or_404(Genre, name='Hip-Hop')
 
         hhpl = Playlist.objects.filter(genres=genre)
         serializer = PlaylistSerializer(hhpl, many=True)
