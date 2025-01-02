@@ -16,7 +16,8 @@ const PlaylistCard = ({
     curatorID, 
     SPUserID, 
     userPlaylists, 
-    disableOverlay // Add the new prop
+    disableOverlay,
+    genres
 }) => {
     const [backgroundColor, setBackgroundColor] = useState("#ffffff10");
     const [isExpanded, setIsExpanded] = useState(false);
@@ -122,6 +123,15 @@ const PlaylistCard = ({
                         </div>
                         
                         <p className="description">{description}</p>
+
+                        
+                        {genres && genres.length > 0 && (
+                            <div className="tags">
+                                {genres.map((genre, index) => (
+                                    <a className="tag" key={index}>{genre}</a>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
