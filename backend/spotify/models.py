@@ -41,6 +41,8 @@ class Playlist(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     spotify_playlist_id = models.CharField(max_length=255, unique=True)
+    spu_id = models.CharField(max_length=100, null=True, blank=True)
+    sp_link = models.URLField(blank=True, null=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="playlists")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
