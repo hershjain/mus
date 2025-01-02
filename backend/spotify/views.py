@@ -114,6 +114,21 @@ def pullhh(request):
     except Exception as e:
         return Response({"error": str(e)}, status=500)
     
+@api_view(['GET'])
+def pullall(request):
+    try:
+
+        genre = get_object_or_404(Genre, name='Hip-Hop')
+
+        allpl = Playlist.objects.filter(imported=True)
+        serializer = PlaylistSerializer(allpl, many=True)
+        return Response(serializer.data)
+
+    except Profile.DoesNotExist:
+        return Response({"error": "Playlists couldn't be pulled"}, status=404)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+    
 @api_view(['POST'])
 @login_required
 def follow_user(request, username):
