@@ -8,7 +8,7 @@ const PlaylistRow = ({ categoryTitle, playlists, userPlaylists, SPUserID }) => {
       <h2 className="category-title">{categoryTitle}</h2>
       <div className="playlist-carousel">
         {playlists.map((playlist, index) => (
-          <PlaylistCard key={playlist.id} id={playlist.id} title={playlist.name} curator={playlist.owner.display_name} description={playlist.description} imageUrl={playlist.images[0].url} url={playlist.external_urls.spotify} curatorID={playlist.owner.id} SPUserID={SPUserID} userPlaylists={userPlaylists}/>
+          <PlaylistCard key={playlist.spotify_playlist_id} id={playlist.spotify_playlist_id} title={playlist.title} curator={playlist.created_by} description={playlist.description} imageUrl={playlist.cover_img} url={playlist.sp_link} curatorID={playlist.spu_id} SPUserID={SPUserID} userPlaylists={userPlaylists}/>
         ))}
       </div>
     </div>
