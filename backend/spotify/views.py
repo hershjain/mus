@@ -182,10 +182,13 @@ def follow_user(request, username):
 def set_toppl(request):
     try:
         toppl = request.data
+        user = request.user
+        profile = user.profile
+
         for x in toppl['playlists']:
             spid = x['id']
             print(spid)
-            pl = Playlist.objects.filter(spotify_playlist_id=spid).update(top_playlist=True)
+            pl = Playlist.objects.filter(spotify_playlist_id=spid,created_by=user).update(top_playlist=True)
             print(spid+" was added to top pl")
 
         return Response('Top Playlists updated!')
@@ -194,8 +197,29 @@ def set_toppl(request):
     
 def rem_toppl(request):
     try:
-        pl = Playlist.objects.filter(top_playlist=True).update(top_playlist=False)
+        user = request.user
+        pl = Playlist.objects.filter(top_playlist=True,created_by=user).update(top_playlist=False)
         print("removed top pl" + pl)
         return Response('Top Playlists were removed')
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@api_view(['POST'])
+def set_pub(request):
+    try:
+        pl = Playlist.objects.filter(spotify_playlist_id=spid)
+        pl.update(public=True)
+        
+        return Response('Top Playlists updated!')
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@api_view(['POST'])
+def set_pri(request):
+    try:
+        pl = Playlist.objects.filter(spotify_playlist_id=spid)
+        pl.update(public=False)
+        
+        return Response('Top Playlists updated!')
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
