@@ -5,7 +5,7 @@ import '../styles/top-playlists.css';
 const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists, SPUserID }) => {
   const [editTPVisible, setEditTPVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState(userPlaylists);
+  const [searchResults, setSearchResults] = useState(userPlaylists.filter((playlist) => playlist.owner?.id === SPUserID));
   const [topPlaylistsState, setTopPlaylistsState] = useState([...topPlaylists]);
   const [selectedSlot, setSelectedSlot] = useState(null);
 
@@ -47,11 +47,13 @@ const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists, SPUserID }) 
   };
   
 
+  const yourPlaylists = userPlaylists.filter((playlist) => playlist.owner?.id === SPUserID);
+
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
 
-    const filteredPlaylists = userPlaylists.filter(
+    const filteredPlaylists = yourPlaylists.filter(
       (playlist) =>
         playlist.name?.toLowerCase().includes(query) ||
         playlist.owner.display_name?.toLowerCase().includes(query)
