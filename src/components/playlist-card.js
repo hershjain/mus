@@ -93,9 +93,9 @@ const PlaylistCard = ({
                             </div>
                         ) : (
                             <div className="overlay-actions">
-                                <button className="save-button">
+                                {/* <button className="save-button">
                                     <FontAwesomeIcon icon={faPlusCircle} />
-                                </button>
+                                </button> */}
                                 <a 
                                     href={url} 
                                     target="_blank" 
