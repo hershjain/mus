@@ -231,3 +231,22 @@ def get_pubpri(request):
         ''
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
+@api_view(['GET'])
+def pullfract(request):
+    try:
+        user = request.user
+        profile = user.profile
+        followers = profile.followers.all()
+        follower_data = []
+        for x in followers:
+            fractpl = Playlist.objects.filter(public=True, top_playlist=True, created_by=x.user)
+            serializer = PlaylistSerializer(fractpl, many=True)
+            #follower_data.append(serializer.data)
+        
+        return Response(serializer.data)
+
+    except Profile.DoesNotExist:
+        return Response({"error": "Playlists couldn't be pulled"}, status=404)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)

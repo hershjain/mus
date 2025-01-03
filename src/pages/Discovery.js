@@ -5,7 +5,11 @@ import React, { useEffect, useState } from 'react';
 import ConnectSpotifyPrompt from '../components/connectSpotifyPrompt.js';
 
 
-const Discovery = ({categories, userPlaylists, SPUserID, allpl}) => {
+const Discovery = ({categories, userPlaylists, SPUserID, allpl, fractpl}) => {
+    console.log("this is fractpl below")
+    console.log(fractpl)
+    console.log('this is allpl below')
+    console.log(allpl)
     // const [categories,setCategories] = useState([]);
 
     // useEffect(() => {
@@ -111,7 +115,7 @@ const Discovery = ({categories, userPlaylists, SPUserID, allpl}) => {
             <div className="discovery-page">
                 
                 {/* <PlaylistRow categoryTitle="Top Picks for You" playlists={catPL} /> */}
-                <PlaylistRow categoryTitle="Friend Activity" playlists={userPlaylists}  SPUserID={SPUserID}/>
+                <PlaylistRow categoryTitle="Friend Activity" playlists={fractpl}  SPUserID={SPUserID}/>
                 <PlaylistRow categoryTitle="Pop" playlists={allpl} SPUserID={SPUserID}/>
                 <PlaylistRow categoryTitle="EDM" playlists={allpl} SPUserID={SPUserID}/>
                 <PlaylistRow categoryTitle="Hip-Hop" playlists={allpl} SPUserID={SPUserID}/>
