@@ -69,9 +69,10 @@ const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists, SPUserID }) 
   const handlePlaylistReplacement = (playlist) => {
     if (selectedSlot !== null) {
       const duplicateIndex = topPlaylistsState.findIndex((tp) => tp.id === playlist.id);
-
+  
       const updatedPlaylists = [...topPlaylistsState];
-
+  
+      // Remove any existing occurrence of the playlist to prevent duplicates
       if (duplicateIndex !== -1) {
         updatedPlaylists[duplicateIndex] = {
           id: null,
@@ -81,7 +82,8 @@ const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists, SPUserID }) 
           url: '',
         };
       }
-
+  
+      // Replace the selected slot with the chosen playlist
       updatedPlaylists[selectedSlot] = {
         id: playlist.id,
         title: playlist.name,
@@ -89,11 +91,17 @@ const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists, SPUserID }) 
         imageUrl: playlist.images[0]?.url || '',
         url: playlist.external_urls.spotify,
       };
-
+  
+      // Find the next blank slot index
+      const nextBlankIndex = updatedPlaylists.findIndex((playlist) => !playlist.id);
+  
       setTopPlaylistsState(updatedPlaylists);
-      setSelectedSlot(null);
+  
+      // Set the next blank slot as selected or deselect if no blanks remain
+      setSelectedSlot(nextBlankIndex !== -1 ? nextBlankIndex : null);
     }
   };
+  
 
   return (
     <div className="playlist-row">

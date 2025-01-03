@@ -4,7 +4,7 @@ import "../styles/Profile.css";
 import pfplh from '../assets/images/pfimage.png';
 import TopPlaylistsDisp from "../components/top-playlists-display";
 
-const ProfileTemplate = (SPUserID) => {
+const ProfileTemplate = (SPUserID, userPlaylists) => {
   const { curator } = useParams(); // Get the username (curator) from the URL
 
   const [user, setUser] = useState({
@@ -120,7 +120,7 @@ const ProfileTemplate = (SPUserID) => {
       </div>
       <div className="profile-content">
         <div className="top-playlists">
-          <TopPlaylistsDisp categoryTitle="Top Playlists" playlists={playlists} />
+          <TopPlaylistsDisp categoryTitle="Top Playlists" playlists={playlists} SPUserID={SPUserID} userPlaylists={userPlaylists} />
         </div>
         <div className="badges"></div>
       </div>
