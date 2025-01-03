@@ -16,10 +16,35 @@ import axios from 'axios';
 
 
 function MainApp() {
+  const [isConnected, setIsConnected] = useState(true);
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const tokenTest = localStorage.getItem("access") === null;
+
+  const token = localStorage.getItem("access");
+
+  useEffect(() => {
+    const checkSpotifyConnection = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/spotify/check-connection/', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          setIsConnected(true);
+        } else {
+          setIsConnected(true);
+        }
+      } catch (error) {
+        console.error('Error checking Spotify connection:', error);
+        setIsConnected(true);
+      }
+    };
+
+    checkSpotifyConnection();
+  }, [token]);
 
   const handleSearchChange = (e) => {
     const query = e.target.value;
@@ -251,34 +276,34 @@ fetchSPUser();
 
   return (
     <div className='App'>
-      <Header 
-        searchVisible={searchVisible} 
-        searchQuery={searchQuery} 
-        handleSearchChange={handleSearchChange} 
-        toggleSearch={toggleSearch}
-        searchResults={searchResults}
-        userPlaylists={userPlaylists}
-        SPUserID={spuserid}
-      />
-      <Navbar />
-      {userPlaylists === "" ? (
+      {!isConnected ? (
         <ConnectSpotifyPrompt />
-      ):(
-        <div>
+      ) : (
+        <>
+        <Header 
+          searchVisible={searchVisible} 
+          searchQuery={searchQuery} 
+          handleSearchChange={handleSearchChange} 
+          toggleSearch={toggleSearch}
+          searchResults={searchResults}
+          userPlaylists={userPlaylists}
+          SPUserID={spuserid}
+        />
+        <Navbar />
+        <div className='main-content'>
+          <Routes>
+            <Route path="discovery" element={<Discovery categories={catTitle} userPlaylists={userPlaylists} SPUserID={spuserid} allpl={allpl}/>} />
+            <Route path="library" element={<Library userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
+            <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} userPlaylists={userPlaylists} SPUserID={spuserid} />} />
+            <Route path='profile/edit' element={<EditProfile username={username} bio={bio}/>} />
+            <Route path='profile/:curator' element={<ProfileTemplate SPUserID={spuserid} />} />
+            <Route path="callback" component={SpotifyCallback} />
+            <Route path='create-playlist' element={<CreatePlaylist userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
+            <Route path="search-results/:query" element={<SearchResultsPage />} />
+          </Routes>
         </div>
+        </>
       )}
-      <div className='main-content'>
-        <Routes>
-          <Route path="discovery" element={<Discovery categories={catTitle} userPlaylists={userPlaylists} SPUserID={spuserid} allpl={allpl}/>} />
-          <Route path="library" element={<Library userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
-          <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} userPlaylists={userPlaylists} SPUserID={spuserid} />} />
-          <Route path='profile/edit' element={<EditProfile username={username} bio={bio}/>} />
-          <Route path='profile/:curator' element={<ProfileTemplate SPUserID={spuserid} />} />
-          <Route path="callback" component={SpotifyCallback} />
-          <Route path='create-playlist' element={<CreatePlaylist userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
-          <Route path="search-results/:query" element={<SearchResultsPage />} />
-        </Routes>
-      </div>
     </div>
   );
 }
