@@ -15,17 +15,23 @@ from .models import Profile, Playlist, Genre, User
 @login_required
 def user_profile(request):
     user = request.user
-    profile = user.profile  # assuming a OneToOneField between User and Profile models
-    serializer = ProfileSerializer(profile)
-    return Response(serializer.data)
+    profile = user.profile  # assuming a OneToOneField between User and Profile model
+    profile_data = {
+        'username': profile.user.username,
+        'bio': profile.bio,
+        'profile_picture': profile.profile_picture if profile.profile_picture else None,
+        'followers': profile.followers.count(),
+    }
+    #serializer = ProfileSerializer(profile)
+    return JsonResponse(profile_data, safe=False)
 
 @api_view(['POST'])
-def pub_user_profile(request, username, pf):
+def pub_user_profile(request, username):
     try:
         profile = get_object_or_404(Profile, user__username=username)
-        target_profile = get_object_or_404(Profile, user__username=pf)
+        #current_profile = request.user.profile
 
-        is_following = request.user.profile.following.filter(pk=target_profile.pk).exists()
+        is_following = request.user.profile.following.filter(pk=profile.pk).exists()
 
         # Include whatever data you want to return
         profile_data = {
@@ -121,7 +127,7 @@ def pullall(request):
 
         genre = get_object_or_404(Genre, name='Hip-Hop')
 
-        allpl = Playlist.objects.filter(imported=True)
+        allpl = Playlist.objects.filter(public=True)
         serializer = PlaylistSerializer(allpl, many=True)
         return Response(serializer.data)
 

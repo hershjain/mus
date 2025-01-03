@@ -36,7 +36,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['username', 'bio', 'profile_picture']  # Include relevant fields
+        fields = ['username', 'bio', 'profile_picture', 'followers']  # Include relevant fields
 
 class PlaylistSerializer(serializers.ModelSerializer):
     created_by = serializers.SerializerMethodField()

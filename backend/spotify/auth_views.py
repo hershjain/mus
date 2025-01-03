@@ -408,7 +408,7 @@ def set_imp_playlists(request):
                         
                         top_genres = assign_top_genres(artist_names, genre_mapping)
                         
-                        pl = Playlist(title=t, description=desc, created_by=profile.user, spotify_playlist_id=spID, imported=imp, cover_img=img, spu_id=uID, sp_link= splink)
+                        pl = Playlist(title=t, description=desc, created_by=profile.user, spotify_playlist_id=spID, imported=imp, cover_img=img, spu_id=uID, sp_link= splink, public=True)
                         pl.save()
                         
                         for genre_name in top_genres:

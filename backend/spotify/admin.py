@@ -44,7 +44,7 @@ class PlaylistAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at')  # Make certain fields read-only
     fieldsets = (
         (None, {
-            'fields': ('title', 'description', 'spotify_playlist_id', 'created_by', 'cover_img','genres', 'public')
+            'fields': ('title', 'description', 'spotify_playlist_id', 'created_by', 'cover_img','genres', 'public', 'top_playlist')
         }),
         ('Advanced options', {
             'classes': ('collapse',),
