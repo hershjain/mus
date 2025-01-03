@@ -1,6 +1,6 @@
 from django.urls import path
 from .auth_views import get_spotify_auth_url, spotify_callback, get_playlists, get_categories, get_catPL, get_spf, get_spuserid, set_imp_playlists, add_playlist_to_lib
-from .views import user_profile, login_required, set_bio, set_username, pullhh, pub_user_profile, follow_user, pullall, pullpfs
+from .views import user_profile, login_required, set_bio, set_username, pullhh, pub_user_profile, follow_user, pullall, pullpfs, set_toppl, rem_toppl
 
 
 urlpatterns = [
@@ -21,5 +21,7 @@ urlpatterns = [
     path('pullhh/', pullhh, name='pullhh'),
     path('pullall/', pullall, name='pullall'),
     path('pullpfs/', pullpfs, name='pullpfs'),
+    path('settoppl/', set_toppl, name='settoppl'),
+    path('remtoppl/', rem_toppl, name='remtoppl'),
 ]
     

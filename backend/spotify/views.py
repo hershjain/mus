@@ -16,11 +16,15 @@ from .models import Profile, Playlist, Genre, User
 def user_profile(request):
     user = request.user
     profile = user.profile  # assuming a OneToOneField between User and Profile model
+    tppl = Playlist.objects.filter(top_playlist=True)
+    serializer = PlaylistSerializer(tppl, many=True)
+    
     profile_data = {
         'username': profile.user.username,
         'bio': profile.bio,
         'profile_picture': profile.profile_picture if profile.profile_picture else None,
         'followers': profile.followers.count(),
+        'top_playlists' : serializer.data
     }
     #serializer = ProfileSerializer(profile)
     return JsonResponse(profile_data, safe=False)
@@ -29,6 +33,8 @@ def user_profile(request):
 def pub_user_profile(request, username):
     try:
         profile = get_object_or_404(Profile, user__username=username)
+        tppl = Playlist.objects.filter(top_playlist=True)
+        serializer = PlaylistSerializer(tppl, many=True)
         #current_profile = request.user.profile
 
         is_following = request.user.profile.following.filter(pk=profile.pk).exists()
@@ -41,7 +47,8 @@ def pub_user_profile(request, username):
             #'email': profile.email,
             'followers_count': profile.followers.count(),
             #'following_count': profile.user.following.count(),
-            'is_following': is_following
+            'is_following': is_following,
+            'top_playlists' : serializer.data
         }
 
         return JsonResponse(profile_data, safe=False)
@@ -170,3 +177,25 @@ def follow_user(request, username):
         message = "Followed successfully."
 
     return JsonResponse({'message': message, 'following_count': current_profile.following.count()})
+
+@api_view(['POST'])
+def set_toppl(request):
+    try:
+        toppl = request.data
+        for x in toppl['playlists']:
+            spid = x['id']
+            print(spid)
+            pl = Playlist.objects.filter(spotify_playlist_id=spid).update(top_playlist=True)
+            print(spid+" was added to top pl")
+
+        return Response('Top Playlists updated!')
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+def rem_toppl(request):
+    try:
+        pl = Playlist.objects.filter(top_playlist=True).update(top_playlist=False)
+        print("removed top pl" + pl)
+        return Response('Top Playlists were removed')
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
