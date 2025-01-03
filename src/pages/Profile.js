@@ -14,13 +14,17 @@ import sugi from '../assets/images/sugi.jpg';
 import connections from '../assets/images/connections.jpg';
 import neon from '../assets/images/neon.jpg';
 import PlaylistCardHorizontal from "../components/playlist-card-horizontal";
+import Library from "./Library";
 
 
 const Profile = ({ username, bio, profilePic, userPlaylists, SPUserID }) => {
+
+  const ownedPlaylists = userPlaylists.filter(playlist => playlist.owner.id === SPUserID);
+
   const user = {
     profilePic: profilePic, // Placeholder for profile picture URL
     followers: 27,
-    madePlaylists: 4,
+    madePlaylists: ownedPlaylists.length,
   };
 
   const samplePlaylists = [

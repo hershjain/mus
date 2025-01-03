@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
@@ -7,9 +7,20 @@ import MainApp from "./MainApp";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SpotifyCallback from './components/spotify-callback';
 
-
 function App() {
-    const isAuthenticated = !!localStorage.getItem('access');
+    //const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('access'));
+
+    // useEffect(() => {
+    //     // Listen for changes to localStorage and update authentication state
+    //     const handleStorageChange = () => {
+    //         setIsAuthenticated(!!localStorage.getItem('access'));
+    //     };
+
+    //     window.addEventListener('storage', handleStorageChange);
+
+    //     // Cleanup the event listener when the component unmounts
+    //     return () => window.removeEventListener('storage', handleStorageChange);
+    // }, []);
 
     return (
         <Router>
@@ -20,9 +31,8 @@ function App() {
                 <Route path="/spotify/callback" element={<SpotifyCallback />} />
 
                 {/* Protect routes by nesting them under ProtectedRoute */}
-                <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+                <Route element={<ProtectedRoute/>}>
                     <Route path="/app/*" element={<MainApp />} />
-                 
                     {/* Add more protected routes as needed */}
                 </Route>
             </Routes>

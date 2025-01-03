@@ -94,7 +94,7 @@ const Discovery = ({categories, userPlaylists, SPUserID}) => {
                   }
       
                   const data = await response.json();
-                  console.log(data);                  
+                  //console.log(data);                  
       
                   setHHpl(data);
               } catch (error) {

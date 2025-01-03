@@ -1,5 +1,5 @@
 from django.urls import path
-from .auth_views import get_spotify_auth_url, spotify_callback, get_playlists, get_categories, get_catPL, get_spf, get_spuserid, set_imp_playlists
+from .auth_views import get_spotify_auth_url, spotify_callback, get_playlists, get_categories, get_catPL, get_spf, get_spuserid, set_imp_playlists, add_playlist_to_lib
 from .views import user_profile, login_required, set_bio, set_username, pullhh, pub_user_profile, follow_user, pullall
 
 
@@ -17,6 +17,7 @@ urlpatterns = [
     path('profile/', user_profile, name='user_profile'),
     path('profile/<str:username>/', pub_user_profile, name='pub_user_profile'),
     path('profile/<str:username>/follow/', follow_user, name='follow_user'),
+    path('add-pl/', add_playlist_to_lib, name='add-pl'),
     path('pullhh/', pullhh, name='pullhh'),
     path('pullall/', pullall, name='pullall'),
 ]

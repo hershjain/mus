@@ -1,8 +1,14 @@
 // src/components/ProtectedRoute.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-const ProtectedRoute = ({ isAuthenticated }) => {
+
+
+const ProtectedRoute = () => {
+    // useEffect(() => {
+    //     console.log('ProtectedRoute rendered, isAuthenticated:', isAuthenticated);
+    // }, [isAuthenticated]);
+    const isAuthenticated = !!localStorage.getItem('access');
     return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
 };
 

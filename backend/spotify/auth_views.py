@@ -281,9 +281,6 @@ def get_spf(request):
                     img = x['url']
                     profile.profile_picture = img
                     profile.save()
-        
-        
-
         return JsonResponse(img, safe=False)
 
     except Profile.DoesNotExist:
@@ -424,6 +421,34 @@ def set_imp_playlists(request):
 
 
         return JsonResponse(plz, safe=False)
+
+    except Profile.DoesNotExist:
+        return JsonResponse({'error': 'Profile not found.'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_playlist_to_lib(request, spid, spuid):
+    # Authenticate the JWT token and retrieve the user
+    jwt_authenticator = JWTAuthentication()
+    try:
+        # Extract and validate the JWT token from the header
+        user, _ = jwt_authenticator.authenticate(request)
+        profile = Profile.objects.get(user=user)
+
+        # Check if the Spotify access token is expired
+        if profile.access_token_is_expired():  # Assuming access_token_is_expired() is defined
+            refresh_spotify_token(profile)  # Refresh the token if needed
+
+        # Use the Spotify access token to fetch playlists
+        sp = Spotify(auth=profile.access_token)
+        try:
+            sp.user_playlist_follow_playlist(playlist_owner_id=spuid,playlist_id=spid)
+            return Response('Added playlist to library', safe=False)
+        
+        except Exception as e:
+            print(f"Error adding playlist to library: {e}")
 
     except Profile.DoesNotExist:
         return JsonResponse({'error': 'Profile not found.'}, status=404)
