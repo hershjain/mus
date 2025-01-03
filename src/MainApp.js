@@ -293,7 +293,6 @@ fetchSPUser();
         }
 
         const data = await response.json();
-        //console.log(data);
 
         setfractpl(data);
       } catch (error) {

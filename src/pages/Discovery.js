@@ -6,6 +6,10 @@ import ConnectSpotifyPrompt from '../components/connectSpotifyPrompt.js';
 
 
 const Discovery = ({categories, userPlaylists, SPUserID, allpl, fractpl}) => {
+    console.log("this is fractpl below")
+    console.log(fractpl)
+    console.log('this is allpl below')
+    console.log(allpl)
     // const [categories,setCategories] = useState([]);
 
     // useEffect(() => {

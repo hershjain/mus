@@ -242,9 +242,9 @@ def pullfract(request):
         for x in followers:
             fractpl = Playlist.objects.filter(public=True, top_playlist=True, created_by=x.user)
             serializer = PlaylistSerializer(fractpl, many=True)
-            follower_data.append(serializer.data)
+            #follower_data.append(serializer.data)
         
-        return Response(follower_data)
+        return Response(serializer.data)
 
     except Profile.DoesNotExist:
         return Response({"error": "Playlists couldn't be pulled"}, status=404)
