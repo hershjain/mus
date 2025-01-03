@@ -16,7 +16,7 @@ from .models import Profile, Playlist, Genre, User
 def user_profile(request):
     user = request.user
     profile = user.profile  # assuming a OneToOneField between User and Profile model
-    tppl = Playlist.objects.filter(top_playlist=True)
+    tppl = Playlist.objects.filter(top_playlist=True, created_by=user)
     serializer = PlaylistSerializer(tppl, many=True)
     
     profile_data = {
@@ -32,8 +32,9 @@ def user_profile(request):
 @api_view(['POST'])
 def pub_user_profile(request, username):
     try:
+        user = request.user
         profile = get_object_or_404(Profile, user__username=username)
-        tppl = Playlist.objects.filter(top_playlist=True)
+        tppl = Playlist.objects.filter(top_playlist=True, created_by=user)
         serializer = PlaylistSerializer(tppl, many=True)
         #current_profile = request.user.profile
 
@@ -183,12 +184,11 @@ def set_toppl(request):
     try:
         toppl = request.data
         user = request.user
-        profile = user.profile
 
         for x in toppl['playlists']:
             spid = x['id']
             print(spid)
-            pl = Playlist.objects.filter(spotify_playlist_id=spid,created_by=user).update(top_playlist=True)
+            pl = Playlist.objects.filter(spotify_playlist_id=spid).update(top_playlist=True)
             print(spid+" was added to top pl")
 
         return Response('Top Playlists updated!')
@@ -198,7 +198,7 @@ def set_toppl(request):
 def rem_toppl(request):
     try:
         user = request.user
-        pl = Playlist.objects.filter(top_playlist=True,created_by=user).update(top_playlist=False)
+        pl = Playlist.objects.filter(top_playlist=True).update(top_playlist=False)
         print("removed top pl" + pl)
         return Response('Top Playlists were removed')
     except Exception as e:
