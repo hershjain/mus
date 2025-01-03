@@ -52,6 +52,7 @@ class Playlist(models.Model):
     imdesc = models.TextField(blank=True, null=True)
     primarycolor = models.CharField(max_length=255, null=True)
     secondarycolor = models.CharField(max_length=25, null=True)
+    top_playlist = models.BooleanField(default=False)
     mood = models.CharField(max_length=255, null=True)
     likes = models.ManyToManyField(User, related_name='liked_playlists', blank=True)
     tags = models.ManyToManyField(Tag, related_name='playlists', blank=True)
