@@ -169,7 +169,28 @@ def get_playlists(request):
         return JsonResponse({'error': 'Profile not found.'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
-    
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_spotifyconnection(request):
+    # Authenticate the JWT token and retrieve the user
+    jwt_authenticator = JWTAuthentication()
+    try:
+        # Extract and validate the JWT token from the header
+        user, _ = jwt_authenticator.authenticate(request)
+        profile = Profile.objects.get(user=user)
+
+        # Check if the Spotify access token is expired
+        if profile.access_token_is_expired():  # Assuming access_token_is_expired() is defined
+            refresh_spotify_token(profile)  # Refresh the token if needed
+
+        return JsonResponse(True, safe=False)
+
+    except Profile.DoesNotExist:
+        return JsonResponse({'error': 'connection not found.'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_spuserid(request):

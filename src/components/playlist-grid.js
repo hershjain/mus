@@ -26,7 +26,7 @@ const PlaylistGrid = ({ playlists, SPUserID, userPlaylists }) => {
     <div className="playlist-grid">
         {playlists.map((playlist) => (
 
-          <PlaylistCard key={playlist.id} id={playlist.id} title={playlist.name} curator={playlist.owner.display_name} description={playlist.description} imageUrl={playlist.images[0].url} url={playlist.external_urls.spotify} curatorID={playlist.owner.id} SPUserID={SPUserID} userPlaylists={userPlaylists}/>
+          <PlaylistCard key={playlist.id} id={playlist.id} title={playlist.name} curator={playlist.owner.display_name} description={playlist.description} imageUrl={playlist.images[0].url} url={playlist.external_urls.spotify} curatorID={playlist.owner.id} SPUserID={SPUserID} userPlaylists={userPlaylists} isPublic={playlist.public}/>
         ))}
     </div>
   );

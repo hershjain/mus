@@ -46,6 +46,7 @@ const PlaylistRow = ({ categoryTitle, playlists, userPlaylists, SPUserID }) => {
             SPUserID={SPUserID} 
             userPlaylists={userPlaylists}
             genres={playlist.genres}
+            isPublic={playlist.public}
           />
         ))}
       </div>

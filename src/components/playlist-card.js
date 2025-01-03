@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faUser, faX, faClose, faCheckCircle, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faUser, faX, faClose, faCheckCircle, faLockOpen, faLock, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 import Vibrant from "node-vibrant";
 import "../styles/playlist-card.css";
@@ -17,10 +17,12 @@ const PlaylistCard = ({
     SPUserID, 
     userPlaylists, 
     disableOverlay,
-    genres
+    genres,
+    isPublic,
 }) => {
     const [backgroundColor, setBackgroundColor] = useState("#ffffff10");
     const [isExpanded, setIsExpanded] = useState(false);
+    const [isPublicDisplay, setIsPublicDisplay] = useState(isPublic);
 
     const isOwner = curatorID === SPUserID;
 
@@ -54,6 +56,16 @@ const PlaylistCard = ({
         }
     };
 
+    const togglePublic = () => {
+        setIsPublicDisplay(true);
+    };
+
+    const togglePrivate = () => {
+        setIsPublicDisplay(false);
+    };
+
+
+
     return (
         <>
             {/* Playlist Card */}
@@ -82,6 +94,22 @@ const PlaylistCard = ({
                     <div className="overlay-content">
                         {isOwner ? (
                             <div className="overlay-actions">
+                                {isPublicDisplay ? (
+                                    <a 
+                                    className="public-button"
+                                    onClick={togglePrivate}
+                                    >
+                                        <FontAwesomeIcon icon={faGlobe} />
+                                    </a>
+                                ) : (
+                                    <a 
+                                    className="private-button"
+                                    onClick={togglePublic}
+                                    >
+                                        <FontAwesomeIcon icon={faLock} />
+                                    </a>
+                                )}
+                                
                                 <a 
                                     href={url} 
                                     target="_blank" 

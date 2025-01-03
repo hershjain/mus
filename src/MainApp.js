@@ -35,11 +35,11 @@ function MainApp() {
         if (response.ok) {
           setIsConnected(true);
         } else {
-          setIsConnected(true);
+          setIsConnected(false);
         }
       } catch (error) {
         console.error('Error checking Spotify connection:', error);
-        setIsConnected(true);
+        setIsConnected(false);
       }
     };
 
@@ -276,9 +276,6 @@ fetchSPUser();
 
   return (
     <div className='App'>
-      {!isConnected ? (
-        <ConnectSpotifyPrompt />
-      ) : (
         <>
         <Header 
           searchVisible={searchVisible} 
@@ -289,6 +286,12 @@ fetchSPUser();
           userPlaylists={userPlaylists}
           SPUserID={spuserid}
         />
+        {!isConnected ? (
+        <ConnectSpotifyPrompt />
+        ) : (
+        <>
+        </>
+        )}
         <Navbar />
         <div className='main-content'>
           <Routes>
@@ -303,7 +306,6 @@ fetchSPUser();
           </Routes>
         </div>
         </>
-      )}
     </div>
   );
 }
