@@ -2,12 +2,25 @@ import React, { useState } from 'react';
 import PlaylistCard from './playlist-card';
 import '../styles/top-playlists.css';
 
+const normalizePlaylist = (playlist) => ({
+  id: playlist.spotify_playlist_id || playlist.id || '',
+  title: playlist.title || playlist.name || '',
+  curator: playlist.created_by || playlist.owner?.display_name || '',
+  description: playlist.description || '',
+  imageUrl: playlist.cover_img || playlist.images?.[0]?.url || '',
+  url: playlist.sp_link || playlist.external_urls?.spotify || '',
+  curatorID: playlist.spu_id || playlist.owner?.id || '',
+  genres: playlist.genres || [],
+  isPublic: playlist.public
+});
+
 const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists, SPUserID }) => {
   const [editTPVisible, setEditTPVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState(userPlaylists.filter((playlist) => playlist.owner?.id === SPUserID));
-  const [topPlaylistsState, setTopPlaylistsState] = useState([...topPlaylists]);
+  const [topPlaylistsState, setTopPlaylistsState] = useState([...topPlaylists.map((item) => {normalizePlaylist(item)})]);
   const [selectedSlot, setSelectedSlot] = useState(null);
+  console.log(topPlaylistsState);
 
   const toggleEditTP = async () => {
     if (editTPVisible) {

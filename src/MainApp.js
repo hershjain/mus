@@ -13,6 +13,7 @@ import EditProfile from './pages/EditProfile';
 import SearchResultsPage from "./components/search-results-page";
 import ConnectSpotifyPrompt from './components/connectSpotifyPrompt';
 import axios from 'axios';
+import TopPlaylists from './components/top-playlists';
 
 
 function MainApp() {
@@ -68,6 +69,7 @@ function MainApp() {
   const [bio, setBio] = useState('');
   const [followers, setFollowers] = useState([]);
   const [spuserid, setSPuserid] = useState('');
+  const [userTopPlaylists, setUserTopPlaylists] = useState([null, null, null]);
 
 useEffect(() => {
   const fetchProfileData = async () => {
@@ -88,6 +90,8 @@ useEffect(() => {
           setUsername(response.data.username); // Assuming user object is nested
           setBio(response.data.bio);
           setFollowers(response.data.followers); // Adjust if the structure is different
+          setUserTopPlaylists(response.data.top_playlists);
+          console.log(response.data.top_playlists);
 
       } catch (error) {
           console.error("Error fetching profile data:", error);
@@ -297,7 +301,7 @@ fetchSPUser();
           <Routes>
             <Route path="discovery" element={<Discovery categories={catTitle} userPlaylists={userPlaylists} SPUserID={spuserid} allpl={allpl}/>} />
             <Route path="library" element={<Library userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
-            <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} userPlaylists={userPlaylists} SPUserID={spuserid} followers={followers}/>} />
+            <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} userPlaylists={userPlaylists} SPUserID={spuserid} followers={followers} topPlaylists={userTopPlaylists}/>} />
             <Route path='profile/edit' element={<EditProfile username={username} bio={bio}/>} />
             <Route path='profile/:curator' element={<ProfileTemplate SPUserID={spuserid} userPlaylists={userPlaylists}/>} />
             <Route path="callback" component={SpotifyCallback} />

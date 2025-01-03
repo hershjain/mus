@@ -17,7 +17,7 @@ import PlaylistCardHorizontal from "../components/playlist-card-horizontal";
 import Library from "./Library";
 
 
-const Profile = ({ username, bio, profilePic, userPlaylists, SPUserID, followers }) => {
+const Profile = ({ username, bio, profilePic, userPlaylists, SPUserID, followers, topPlaylists }) => {
 
   const ownedPlaylists = userPlaylists.filter(playlist => playlist.owner.id === SPUserID);
 
@@ -35,19 +35,18 @@ const Profile = ({ username, bio, profilePic, userPlaylists, SPUserID, followers
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const [topPlaylists, setTopPlaylists] = useState([null, null, null]); // Three slots
   const [currentDropdown, setCurrentDropdown] = useState(null); // Track open dropdown for each slot
 
   const openDropdown = (index) => setCurrentDropdown(index);
 
   const closeDropdown = () => setCurrentDropdown(null);
 
-  const selectPlaylist = (index, playlist) => {
-    const updatedTopPlaylists = [...topPlaylists];
-    updatedTopPlaylists[index] = playlist; // Update the specific slot
-    setTopPlaylists(updatedTopPlaylists);
-    closeDropdown(); // Close the dropdown
-  };
+  // const selectPlaylist = (index, playlist) => {
+  //   const updatedTopPlaylists = [...topPlaylists];
+  //   updatedTopPlaylists[index] = playlist; // Update the specific slot
+  //   setTopPlaylists(updatedTopPlaylists);
+  //   closeDropdown(); // Close the dropdown
+  // };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -102,7 +101,7 @@ const Profile = ({ username, bio, profilePic, userPlaylists, SPUserID, followers
       <div className="profile-content">
         <div className="top-playlists">
           
-          <TopPlaylists categoryTitle="Top Playlists" topPlaylists={samplePlaylists} userPlaylists={userPlaylists} SPUserID={SPUserID}/>
+          <TopPlaylists categoryTitle="Top Playlists" topPlaylists={topPlaylists} userPlaylists={userPlaylists} SPUserID={SPUserID}/>
         </div>
         <div className="badges"></div>
       </div>
