@@ -9,16 +9,43 @@ const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists, SPUserID }) 
   const [topPlaylistsState, setTopPlaylistsState] = useState([...topPlaylists]);
   const [selectedSlot, setSelectedSlot] = useState(null);
 
-  const toggleEditTP = () => {
+  const toggleEditTP = async () => {
+    if (editTPVisible) {
+      // Send the selected playlists to the backend
+      try {
+        const token = localStorage.getItem('access');
+        const selectedPlaylists = topPlaylistsState.filter((playlist) => playlist.id); // Only send non-blank playlists
+  
+        const response = await fetch('http://localhost:8000/api/top-playlists/', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ playlists: selectedPlaylists }),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to save top playlists');
+        }
+  
+        console.log('Top playlists saved successfully');
+      } catch (error) {
+        console.error('Error saving top playlists:', error);
+      }
+    }
+  
+    // Toggle the edit mode
     if (!editTPVisible) {
-      // Automatically select the first blank card when entering edit mode
       const firstBlankIndex = topPlaylistsState.findIndex((playlist) => !playlist.id);
       setSelectedSlot(firstBlankIndex !== -1 ? firstBlankIndex : null);
     } else {
-      setSelectedSlot(null); // Reset selection when exiting edit mode
+      setSelectedSlot(null);
     }
+  
     setEditTPVisible(!editTPVisible);
   };
+  
 
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
