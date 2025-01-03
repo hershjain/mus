@@ -42,8 +42,8 @@ const ProfileTemplate = (SPUserID, userPlaylists) => {
 
         setUser({
           profilePic: profileData.profile_picture || pfplh,
-          followers: profileData.followers_count || 0,
-          madePlaylists: profileData.made_playlists_count || 0,
+          followers: profileData.followers_count,
+          madePlaylists: profileData.playlists,
           bio: profileData.bio || "This user has no bio yet.",
           isFollowing: profileData.is_following || false, // Backend should provide this information
         });

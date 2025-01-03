@@ -34,7 +34,8 @@ def pub_user_profile(request, username):
     try:
         user = request.user
         profile = get_object_or_404(Profile, user__username=username)
-        tppl = Playlist.objects.filter(top_playlist=True, created_by=user)
+        tppl = Playlist.objects.filter(top_playlist=True, created_by=profile.user)
+        mypl = Playlist.objects.filter(created_by=profile.user)
         serializer = PlaylistSerializer(tppl, many=True)
         #current_profile = request.user.profile
 
@@ -49,7 +50,8 @@ def pub_user_profile(request, username):
             'followers_count': profile.followers.count(),
             #'following_count': profile.user.following.count(),
             'is_following': is_following,
-            'top_playlists' : serializer.data
+            'top_playlists' : serializer.data,
+            'playlists' : mypl.count()
         }
 
         return JsonResponse(profile_data, safe=False)
@@ -198,7 +200,7 @@ def set_toppl(request):
 def rem_toppl(request):
     try:
         user = request.user
-        pl = Playlist.objects.filter(top_playlist=True).update(top_playlist=False)
+        pl = Playlist.objects.filter(top_playlist=True, created_by=user).update(top_playlist=False)
         print("removed top pl" + pl)
         return Response('Top Playlists were removed')
     except Exception as e:
@@ -221,5 +223,11 @@ def set_pri(request):
         pl.update(public=False)
         
         return Response('Top Playlists updated!')
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+def get_pubpri(request):
+    try:
+        ''
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)

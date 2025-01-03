@@ -62,6 +62,7 @@ const Profile = ({ username, bio, profilePic, userPlaylists, SPUserID, followers
     document.addEventListener('click', handleOutsideClick);
     return () => {
       document.removeEventListener('click', handleOutsideClick);
+      console.log(topPlaylists);
     };
   }, []);
 
