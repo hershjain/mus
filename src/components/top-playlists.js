@@ -16,7 +16,7 @@ const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists, SPUserID }) 
         const token = localStorage.getItem('access');
         const selectedPlaylists = topPlaylistsState.filter((playlist) => playlist.id); // Only send non-blank playlists
   
-        const response = await fetch('http://localhost:8000/api/top-playlists/', {
+        const response = await fetch('http://localhost:8000/spotify/settoppl/', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
