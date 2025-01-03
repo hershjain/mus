@@ -123,6 +123,7 @@ const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists, SPUserID }) 
                 disableOverlay={editTPVisible} // Disable overlay when editing
                 SPUserID={SPUserID}
                 userPlaylists={userPlaylists}
+                isPublic={playlist.public}
               />
             ) : (
               <div className="blank-card">
@@ -131,7 +132,7 @@ const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists, SPUserID }) 
                   title="+"
                   imageUrl={null}
                   url={null}
-                  disableOverlay={editTPVisible}
+                  disableOverlay={true}
                 />
               </div>
             )}
@@ -166,6 +167,7 @@ const TopPlaylists = ({ categoryTitle, topPlaylists, userPlaylists, SPUserID }) 
                   disableOverlay={true} // Always disable overlay in this context
                   SPUserID={SPUserID}
                   userPlaylists={userPlaylists}
+                  isPublic={playlist.public}
                 />
               </div>
             ))}
