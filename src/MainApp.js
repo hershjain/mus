@@ -274,6 +274,36 @@ fetchSPUser();
           fetchAllPL();
         }, []); 
 
+  const [fractpl, setfractpl] = useState([]);
+
+  useEffect(() => {
+    const fetchfractPL = async () => {
+      try {
+        const token = localStorage.getItem("access");
+        const response = await fetch('http://localhost:8000/spotify/pullfract/', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetching all playlists');
+        }
+
+        const data = await response.json();
+        //console.log(data);
+
+        setfractpl(data);
+      } catch (error) {
+        console.error('Error fetching all playlists:', error);
+      }
+    };
+
+    fetchfractPL();
+  }, []); 
+
   return (
     <div className='App'>
         <>
@@ -295,7 +325,7 @@ fetchSPUser();
         <Navbar />
         <div className='main-content'>
           <Routes>
-            <Route path="discovery" element={<Discovery categories={catTitle} userPlaylists={userPlaylists} SPUserID={spuserid} allpl={allpl}/>} />
+            <Route path="discovery" element={<Discovery categories={catTitle} userPlaylists={userPlaylists} SPUserID={spuserid} allpl={allpl} fractpl={fractpl}/>} />
             <Route path="library" element={<Library userPlaylists={userPlaylists} SPUserID={spuserid}/>} />
             <Route path='profile' element={<Profile username={username} bio={bio} profilePic={profilePic} userPlaylists={userPlaylists} SPUserID={spuserid} followers={followers}/>} />
             <Route path='profile/edit' element={<EditProfile username={username} bio={bio}/>} />
