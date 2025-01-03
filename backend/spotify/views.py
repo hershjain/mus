@@ -19,12 +19,13 @@ def user_profile(request):
     serializer = ProfileSerializer(profile)
     return Response(serializer.data)
 
-def pub_user_profile(request, username):
+@api_view(['POST'])
+def pub_user_profile(request, username, pf):
     try:
         profile = get_object_or_404(Profile, user__username=username)
-        #target_profile = get_object_or_404(Profile, user=profile)
+        target_profile = get_object_or_404(Profile, user__username=pf)
 
-        #is_following = request.user.profile.following.filter(pk=target_profile.pk).exists()
+        is_following = request.user.profile.following.filter(pk=target_profile.pk).exists()
 
         # Include whatever data you want to return
         profile_data = {
@@ -32,9 +33,9 @@ def pub_user_profile(request, username):
             'bio': profile.bio,
             'profile_picture': profile.profile_picture if profile.profile_picture else None,
             #'email': profile.email,
-            #'followers_count': profile.followers.count(),
+            'followers_count': profile.followers.count(),
             #'following_count': profile.user.following.count(),
-            #'is_following': is_following
+            'is_following': is_following
         }
 
         return JsonResponse(profile_data, safe=False)
@@ -126,6 +127,18 @@ def pullall(request):
 
     except Profile.DoesNotExist:
         return Response({"error": "Playlists couldn't be pulled"}, status=404)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+@api_view(['GET'])
+def pullpfs(request):
+    try:
+        pfs = Profile.objects.all()
+        serializer = ProfileSerializer(pfs, many=True)
+        return Response(serializer.data)
+
+    except Profile.DoesNotExist:
+        return Response({"error": "Profiles couldn't be pulled"}, status=404)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
     

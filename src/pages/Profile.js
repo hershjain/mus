@@ -17,13 +17,13 @@ import PlaylistCardHorizontal from "../components/playlist-card-horizontal";
 import Library from "./Library";
 
 
-const Profile = ({ username, bio, profilePic, userPlaylists, SPUserID }) => {
+const Profile = ({ username, bio, profilePic, userPlaylists, SPUserID, followers }) => {
 
   const ownedPlaylists = userPlaylists.filter(playlist => playlist.owner.id === SPUserID);
 
   const user = {
     profilePic: profilePic, // Placeholder for profile picture URL
-    followers: 27,
+    followers: followers,
     madePlaylists: ownedPlaylists.length,
   };
 

@@ -4,7 +4,7 @@ import "../styles/Profile.css";
 import pfplh from '../assets/images/pfimage.png';
 import TopPlaylistsDisp from "../components/top-playlists-display";
 
-const ProfileTemplate = () => {
+const ProfileTemplate = (SPUserID) => {
   const { curator } = useParams(); // Get the username (curator) from the URL
 
   const [user, setUser] = useState({
@@ -17,6 +17,7 @@ const ProfileTemplate = () => {
 
   const [playlists, setPlaylists] = useState([]);
   const [error, setError] = useState(null);
+  
 
   // Fetch user profile and playlists data
   useEffect(() => {
@@ -25,10 +26,12 @@ const ProfileTemplate = () => {
         const token = localStorage.getItem("access");
 
         const response = await fetch(`http://localhost:8000/spotify/profile/${curator}/`, {
+          method: 'POST',
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`, // Add the token to the request headers
           },
+          body: JSON.stringify({ pf: SPUserID }),
         });
 
         if (!response.ok) {
