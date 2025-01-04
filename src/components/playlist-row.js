@@ -38,7 +38,7 @@ const PlaylistRow = ({ categoryTitle, playlists, userPlaylists, SPUserID, matchT
 
   return (
     <div className="playlist-row">
-      {randomizedCombined ? (
+      {randomizedCombined.length !== 0 ? (
         <h2 className="category-title">{categoryTitle}</h2>
       ) : (
         <>
