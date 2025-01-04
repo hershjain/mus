@@ -42,6 +42,7 @@ ALLOWED_HOSTS = [
     # ***** NEED TO ADD OUR URL HERE ***** #
     "https://mus-7du3.onrender.com",
     "https://musplays.netlify.app",
+    "mus-7du3.onrender.com",
 ]
 
 
