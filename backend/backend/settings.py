@@ -81,7 +81,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React frontend during development
     "http://localhost:8000",
+    "musplays.netlify.app",
     "https://accounts.spotify.com"
+
     # "https://your-production-domain.com",  # Replace with your production domain
 ]
 
