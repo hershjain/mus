@@ -6,7 +6,6 @@ __pycache__
 ./backend/backend/__pycache__
 *.py[cod]
 .cache
-staticfiles/
 
 # dependencies
 /node_modules
@@ -34,3 +33,10 @@ yarn-error.log*
 env/
 venv/
 .venv
+.env
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
