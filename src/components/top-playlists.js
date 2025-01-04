@@ -35,13 +35,22 @@ const TopPlaylists = ({ categoryTitle, userPlaylists, SPUserID }) => {
           headers: { Authorization: `Bearer ${token}` },
         });
         const normalizedTopPlaylists = response.data.top_playlists.map(normalizePlaylist);
-        setUserTopPlaylists(normalizedTopPlaylists);
+  
+        // Ensure exactly 3 slots, filled with either playlists or null
+        setUserTopPlaylists([
+          normalizedTopPlaylists[0] || null,
+          normalizedTopPlaylists[1] || null,
+          normalizedTopPlaylists[2] || null,
+        ]);
       } catch (error) {
         console.error('Error fetching top playlists:', error);
+        setUserTopPlaylists([null, null, null]); // Default to blank slots on error
       }
     };
+  
     fetchTopPlaylists();
   }, []);
+  
 
   const toggleEditTP = async () => {
     if (editTPVisible) {
@@ -146,7 +155,7 @@ const TopPlaylists = ({ categoryTitle, userPlaylists, SPUserID }) => {
               />
             ) : (
               <div className="blank-card">
-                <PlaylistCard title="+" disableOverlay={true} />
+                <PlaylistCard title="+" imageUrl='' curator='' disableOverlay={true} />
               </div>
             )}
           </div>
