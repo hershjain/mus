@@ -41,6 +41,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     # ***** NEED TO ADD OUR URL HERE ***** #
     "https://mus-7du3.onrender.com",
+    "https://musplays.netlify.app",
 ]
 
 
@@ -151,24 +152,23 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-if env('DEBUG'):
+# Database Configuration
+if env('DEBUG', default=False):  # Use SQLite for local development
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-else:
+else:  # Use PostgreSQL for production
     DATABASES = {
         'default': {
-            'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('POSTGRES_DB'),
-            'USER': os.getenv('POSTGRES_USER'),
-            'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-            'HOST': os.getenv('POSTGRES_HOST'),
-            'PORT': '5432',
-    }
+            'NAME': env('POSTGRES_DB'),
+            'USER': env('POSTGRES_USER'),
+            'PASSWORD': env('POSTGRES_PASSWORD'),
+            'HOST': env('POSTGRES_HOST'),
+            'PORT': env('POSTGRES_PORT', default='5432'),  # Default PostgreSQL port
         }
     }
 
