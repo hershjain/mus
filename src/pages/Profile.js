@@ -10,9 +10,6 @@ import SpotifyAuthButton from '../components/spotify-auth-button';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import sugi from '../assets/images/sugi.jpg';
-import connections from '../assets/images/connections.jpg';
-import neon from '../assets/images/neon.jpg';
 import PlaylistCardHorizontal from "../components/playlist-card-horizontal";
 import Library from "./Library";
 
@@ -27,11 +24,6 @@ const Profile = ({ username, bio, profilePic, userPlaylists, SPUserID, followers
     madePlaylists: ownedPlaylists.length,
   };
 
-  const samplePlaylists = [
-    { title: 'Connections', imageUrl: connections , curator: 'shiva', url: '' },
-    { title: 'sugi', imageUrl: sugi , curator: 'harsh', url: '' },
-    { title: 'Neon Nights', imageUrl: neon, curator: 'shiva', url: '' },     
-  ];
 
   const [isOpen, setIsOpen] = useState(false);
 
