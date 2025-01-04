@@ -38,7 +38,13 @@ const PlaylistRow = ({ categoryTitle, playlists, userPlaylists, SPUserID, matchT
 
   return (
     <div className="playlist-row">
-      <h2 className="category-title">{categoryTitle}</h2>
+      {randomizedCombined ? (
+        <h2 className="category-title">{categoryTitle}</h2>
+      ) : (
+        <>
+        </>
+      )}
+      
       <div className="playlist-carousel">
         {randomizedCombined.map((playlist, index) => (
           <PlaylistCard 

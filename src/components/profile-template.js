@@ -12,6 +12,7 @@ const ProfileTemplate = (SPUserID, userPlaylists) => {
     followers: 0,
     madePlaylists: 0,
     bio: "",
+    top_playlists: [],
     isFollowing: false, // Track if the current user is following this profile
   });
 
@@ -45,6 +46,7 @@ const ProfileTemplate = (SPUserID, userPlaylists) => {
           followers: profileData.followers_count,
           madePlaylists: profileData.playlists,
           bio: profileData.bio || "This user has no bio yet.",
+          top_playlists: profileData.top_playlists,
           isFollowing: profileData.is_following || false, // Backend should provide this information
         });
 
@@ -120,7 +122,7 @@ const ProfileTemplate = (SPUserID, userPlaylists) => {
       </div>
       <div className="profile-content">
         <div className="top-playlists">
-          <TopPlaylistsDisp categoryTitle="Top Playlists" playlists={playlists} SPUserID={SPUserID} userPlaylists={userPlaylists} />
+          <TopPlaylistsDisp categoryTitle="Top Playlists" playlists={user.top_playlists} SPUserID={SPUserID} userPlaylists={userPlaylists} />
         </div>
         <div className="badges"></div>
       </div>

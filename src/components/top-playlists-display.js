@@ -8,7 +8,13 @@ const TopPlaylistsDisp = ({ categoryTitle, playlists, SPUserID, userPlaylists })
   return (
     <div className="playlist-row">
       <div className='top-playlist-title'>
-        <h2 className="category-title">{categoryTitle}</h2>
+        {playlists == [] ? (
+          <h2 className="category-title">{categoryTitle}</h2>
+        ): (
+          <>
+          </>
+        )}
+        
       </div>
       
       <div className="top-playlist-carousel">
