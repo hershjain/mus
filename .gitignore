@@ -6,6 +6,7 @@ __pycache__
 ./backend/backend/__pycache__
 *.py[cod]
 .cache
+staticfiles/
 
 # dependencies
 /node_modules
