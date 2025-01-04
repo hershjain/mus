@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import "../styles/Profile.css";
 import pfplh from '../assets/images/pfimage.png';
 import TopPlaylistsDisp from "../components/top-playlists-display";
-import TopPlaylists from "./top-playlists";
 
 const ProfileTemplate = (SPUserID, userPlaylists) => {
   const { curator } = useParams(); // Get the username (curator) from the URL
@@ -13,7 +12,6 @@ const ProfileTemplate = (SPUserID, userPlaylists) => {
     followers: 0,
     madePlaylists: 0,
     bio: "",
-    top_playlists: [],
     isFollowing: false, // Track if the current user is following this profile
   });
 
@@ -41,13 +39,11 @@ const ProfileTemplate = (SPUserID, userPlaylists) => {
         }
 
         const profileData = await response.json();
-        console.log(profileData);
 
         setUser({
           profilePic: profileData.profile_picture || pfplh,
           followers: profileData.followers_count,
           madePlaylists: profileData.playlists,
-          top_playlists: profileData.top_playlists,
           bio: profileData.bio || "This user has no bio yet.",
           isFollowing: profileData.is_following || false, // Backend should provide this information
         });
@@ -97,7 +93,7 @@ const ProfileTemplate = (SPUserID, userPlaylists) => {
   };
 
   if (error) {
-    return <div className="error-message">Error: {error}</div>;
+    return <div>Error: {error}</div>;
   }
 
   return (
@@ -124,7 +120,7 @@ const ProfileTemplate = (SPUserID, userPlaylists) => {
       </div>
       <div className="profile-content">
         <div className="top-playlists">
-          <TopPlaylistsDisp categoryTitle="Top Playlists" playlists={user.top_playlists} SPUserID={SPUserID} userPlaylists={userPlaylists} />
+          <TopPlaylistsDisp categoryTitle="Top Playlists" playlists={playlists} SPUserID={SPUserID} userPlaylists={userPlaylists} />
         </div>
         <div className="badges"></div>
       </div>
