@@ -28,7 +28,6 @@ p, a {
 }
 
 
-
 .App {
   
   height: 100%;
@@ -45,7 +44,12 @@ p, a {
   /* box-shadow: inset 0px 0px 10px 10px #61dafb70; */
 }
 
-
+.error-message{
+  color: white;
+  font-size: 2em;
+  font-weight: 600;
+  padding: 30px;
+}
 
 .App-logo {
   height: 40vmin;

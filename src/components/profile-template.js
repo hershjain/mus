@@ -93,7 +93,7 @@ const ProfileTemplate = (SPUserID, userPlaylists) => {
   };
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="error-message">Error: {error}</div>;
   }
 
   return (

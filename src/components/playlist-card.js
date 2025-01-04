@@ -94,7 +94,7 @@ const PlaylistCard = ({
                     <div className="overlay-content">
                         {isOwner ? (
                             <div className="overlay-actions">
-                                {isPublicDisplay ? (
+                                {/* {isPublicDisplay ? (
                                     <a 
                                     className="public-button"
                                     onClick={togglePrivate}
@@ -108,7 +108,7 @@ const PlaylistCard = ({
                                     >
                                         <FontAwesomeIcon icon={faLock} />
                                     </a>
-                                )}
+                                )} */}
                                 
                                 <a 
                                     href={url} 

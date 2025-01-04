@@ -12,7 +12,7 @@ const shuffleArray = (array) => {
   return shuffled;
 };
 
-const PlaylistRow = ({ categoryTitle, playlists, userPlaylists, SPUserID }) => {
+const PlaylistRow = ({ categoryTitle, playlists, userPlaylists, SPUserID, matchTitle }) => {
   // Filter playlists where the first genre matches the category title
   const filteredPlaylists = playlists.filter(
     (playlist) => playlist.genres && playlist.genres[0]?.toLowerCase() === categoryTitle.toLowerCase()
@@ -27,7 +27,14 @@ const PlaylistRow = ({ categoryTitle, playlists, userPlaylists, SPUserID }) => {
   // Shuffle the filtered playlists before rendering
   const randomizedPlaylists = shuffleArray(filteredPlaylists);
   const randomizedPlaylistsTWO = shuffleArray(filteredPlaylistsTWO);
-  const randomizedCombined = randomizedPlaylists.concat(randomizedPlaylistsTWO);
+
+  let randomizedCombined;
+  if (matchTitle) {
+    randomizedCombined = randomizedPlaylists.concat(randomizedPlaylistsTWO);
+  } else {
+    randomizedCombined = shuffleArray(playlists);
+  }
+  
 
   return (
     <div className="playlist-row">

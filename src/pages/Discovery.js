@@ -115,15 +115,15 @@ const Discovery = ({categories, userPlaylists, SPUserID, allpl, fractpl}) => {
             <div className="discovery-page">
                 
                 {/* <PlaylistRow categoryTitle="Top Picks for You" playlists={catPL} /> */}
-                <PlaylistRow categoryTitle="Friend Activity" playlists={fractpl}  SPUserID={SPUserID}/>
-                <PlaylistRow categoryTitle="Pop" playlists={allpl} SPUserID={SPUserID}/>
-                <PlaylistRow categoryTitle="EDM" playlists={allpl} SPUserID={SPUserID}/>
-                <PlaylistRow categoryTitle="Hip-Hop" playlists={allpl} SPUserID={SPUserID}/>
-                <PlaylistRow categoryTitle="RnB" playlists={allpl} SPUserID={SPUserID}/>
-                <PlaylistRow categoryTitle="Rock" playlists={allpl} SPUserID={SPUserID}/> 
+                <PlaylistRow categoryTitle="Friend Activity" playlists={fractpl}  SPUserID={SPUserID} />
+                <PlaylistRow categoryTitle="Pop" playlists={allpl} SPUserID={SPUserID} matchTitle={true}/>
+                <PlaylistRow categoryTitle="EDM" playlists={allpl} SPUserID={SPUserID} matchTitle={true}/>
+                <PlaylistRow categoryTitle="Hip-Hop" playlists={allpl} SPUserID={SPUserID} matchTitle={true}/>
+                <PlaylistRow categoryTitle="RnB" playlists={allpl} SPUserID={SPUserID} matchTitle={true}/>
+                <PlaylistRow categoryTitle="Rock" playlists={allpl} SPUserID={SPUserID} matchTitle={true}/> 
                 {/* <PlaylistRow categoryTitle="Country" playlists={allpl} SPUserID={SPUserID}/> */}
-                <PlaylistRow categoryTitle="Reggaeton" playlists={allpl} SPUserID={SPUserID}/>
-                <PlaylistRow categoryTitle="Jazz" playlists={allpl} SPUserID={SPUserID}/>
+                <PlaylistRow categoryTitle="Reggaeton" playlists={allpl} SPUserID={SPUserID} matchTitle={true}/>
+                <PlaylistRow categoryTitle="Jazz" playlists={allpl} SPUserID={SPUserID} matchTitle={true}/>
                 {/* {catPL.map((category, index) => (
                     // <p>{cat.message}</p>
                     <CategoryRow category={category} index={index}/>
