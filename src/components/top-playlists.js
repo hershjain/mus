@@ -67,7 +67,7 @@ const TopPlaylists = ({ categoryTitle, userPlaylists, SPUserID }) => {
     if (!editTPVisible) {
       try {
         const token = localStorage.getItem('access');
-        await axios.get('http://localhost:8000/spotify/remtoppl/', {
+        await axios.post('http://localhost:8000/spotify/remtoppl/', { user: SPUserID },{
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log('Top playlists removed successfully');
