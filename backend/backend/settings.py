@@ -87,7 +87,6 @@ CORS_ORIGIN_WHITELIST = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React frontend during development
     "http://localhost:8000",
-    "https://localhost:8000",
     "https://musplays.netlify.app",
     "https://accounts.spotify.com",
 
