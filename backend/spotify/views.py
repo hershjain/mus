@@ -196,12 +196,14 @@ def set_toppl(request):
         return Response('Top Playlists updated!')
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
-    
+
+@api_view(['POST'])
 def rem_toppl(request):
     try:
         user = request.user
+        #print("this is request.user: "+str(user))
         pl = Playlist.objects.filter(top_playlist=True, created_by=user).update(top_playlist=False)
-        print("removed top pl" + pl)
+        print("removed top pl " + str(pl))
         return Response('Top Playlists were removed')
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
