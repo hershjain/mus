@@ -14,7 +14,7 @@ const SpotifyAuthButton = () => {
       console.log("this is token: "+token)
       console.log("this is lenght?: "+info)
       // Make a GET request to your backend to retrieve the Spotify auth URL
-      const response = await axios.get('http://localhost:8000/spotify/auth/login', {
+      const response = await axios.get('https://mus-7du3.onrender.com/spotify/auth/login', {
         headers: {
           "Authorization": `Bearer ${token}`
         }

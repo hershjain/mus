@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create an instance of axios
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8000/api/',
+    baseURL: 'https://mus-7du3.onrender.com/api/',
     timeout: 5000,
     headers: {
         Authorization: localStorage.getItem('access')

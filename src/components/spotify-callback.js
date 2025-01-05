@@ -19,7 +19,7 @@ const SpotifyCallback = () => {
 
             if (token) {
                 // Make the axios call to your backend with JWT token in the header
-                axios.get('http://localhost:8000/spotify/auth/callback/', {
+                axios.get('https://mus-7du3.onrender.com/spotify/auth/callback/', {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     },

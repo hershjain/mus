@@ -13,7 +13,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post('http://localhost:8000/api/auth/jwt/create/', {
+        const response = await axios.post('http://mus-7du3.onrender.com/api/auth/jwt/create/', {
             username: username,
             password: password,
         });

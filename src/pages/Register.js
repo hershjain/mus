@@ -38,7 +38,7 @@ const Register = () => {
         if (!validateForm()) return;
 
         try {
-            const response = await axios.post('http://localhost:8000/api/auth/users/', {
+            const response = await axios.post('https://mus-7du3.onrender.com/api/auth/users/', {
                 username: username,
                 email: email,
                 password: password,
