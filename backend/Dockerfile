@@ -12,14 +12,20 @@ WORKDIR /app
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install Nginx
+RUN apt-get update && apt-get install -y nginx
+
 # Copy the Django project files to the container
 COPY . /app/
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
-# Expose the default Django port
-EXPOSE 8000
+# Copy your custom nginx.conf (create this file in the backend folder)
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
-# Command to run the Django app
-CMD ["gunicorn", "mus.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Expose necessary ports
+EXPOSE 8000 80
+
+# Command to run both Gunicorn (Django) and Nginx
+CMD service nginx start && gunicorn mus.wsgi:application --bind 0.0.0.0:8000
