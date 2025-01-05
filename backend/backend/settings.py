@@ -193,9 +193,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 #++ When we deploy into production, neet to make sure these are here++
-SECURE_SSL_REDIRECT = not DEBUG
-SESSION_COOKIE_SECURE = not DEBUG
-CSRF_COOKIE_SECURE = not DEBUG
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
