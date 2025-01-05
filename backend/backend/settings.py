@@ -40,8 +40,8 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     # ***** NEED TO ADD OUR URL HERE ***** #
-    "https://mus-7du3.onrender.com",
-    "https://musplays.netlify.app",
+    "http://mus-7du3.onrender.com",
+    "http://musplays.netlify.app",
     "mus-7du3.onrender.com",
 ]
 
@@ -87,9 +87,9 @@ CORS_ORIGIN_WHITELIST = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React frontend during development
     "http://localhost:8000",
-    "https://musplays.netlify.app",
-    "https://mus-7du3.onrender.com",
-    "https://accounts.spotify.com",
+    "http://musplays.netlify.app",
+    "http://mus-7du3.onrender.com",
+    "http://accounts.spotify.com",
 
     # "https://your-production-domain.com",  # Replace with your production domain
 ]
@@ -193,9 +193,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 #++ When we deploy into production, neet to make sure these are here++
-SECURE_SSL_REDIRECT = not DEBUG
-SESSION_COOKIE_SECURE = not DEBUG
-CSRF_COOKIE_SECURE = not DEBUG
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -213,7 +213,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR/'staticfiles'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type

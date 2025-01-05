@@ -10,10 +10,12 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const muskey = 'mus-7du3.onrender.com'
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post('https://mus-7du3.onrender.com/api/auth/jwt/create/', {
+        const response = await axios.post('http://mus-7du3.onrender.com/api/auth/jwt/create/', {
             username: username,
             password: password,
         });
