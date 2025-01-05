@@ -266,3 +266,5 @@ DJOSER = {
         'user': 'djoser.serializers.UserSerializer',
     },
 }
+
+APPEND_SLASH = True
