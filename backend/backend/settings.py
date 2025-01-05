@@ -40,8 +40,8 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     # ***** NEED TO ADD OUR URL HERE ***** #
-    "https://mus-7du3.onrender.com",
-    "https://musplays.netlify.app",
+    "http://mus-7du3.onrender.com",
+    "http://musplays.netlify.app",
     "mus-7du3.onrender.com",
 ]
 
@@ -81,15 +81,15 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = [
-    "https://musplays.netlify.app",
+    "http://musplays.netlify.app",
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React frontend during development
     "http://localhost:8000",
-    "https://musplays.netlify.app",
-    "https://mus-7du3.onrender.com",
-    "https://accounts.spotify.com",
+    "http://musplays.netlify.app",
+    "http://mus-7du3.onrender.com",
+    "http://accounts.spotify.com",
 
     # "https://your-production-domain.com",  # Replace with your production domain
 ]

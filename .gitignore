@@ -6,6 +6,8 @@ __pycache__
 ./backend/backend/__pycache__
 *.py[cod]
 .cache
+.pyc
+/__pycache__
 
 # dependencies
 /node_modules
@@ -34,6 +36,7 @@ env/
 venv/
 .venv
 .env
+/env
 
 # Django stuff:
 *.log
