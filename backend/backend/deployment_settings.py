@@ -2,6 +2,11 @@ import os
 import dj_database_url
 from .settings import *
 from .settings import BASE_DIR
+import environ
+
+# Initialize environment variables
+env = environ.Env()
+
 
 ALLOWED_HOSTS = [
     "localhost",
