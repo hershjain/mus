@@ -1,0 +1,22 @@
+databases:
+  - name: mus_db
+    plan: free
+    databaseName: mus_db
+    user: mus_db_user
+
+services:
+  - type: web
+    plan: free
+    name: mus
+    runtime: python
+    buildCommand: "./backend/build.sh"
+    startCommand: "python -m gunicorn backend.asgi:application -k uvicorn.workers.UvicornWorker"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mus_db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
