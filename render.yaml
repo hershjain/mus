@@ -1,8 +1,15 @@
 databases:
-  - name: mus_db
-    plan: free
-    databaseName: mus_db
-    user: mus_db_user
+- name: mus-db
+  databaseName: mus_db
+  user: mus_db_user
+  plan: free
+  region: oregon
+  ipAllowList:
+  - source: 0.0.0.0/0
+    description: everywhere
+  postgresMajorVersion: "16"
+version: "1"
+
 
 services:
   - type: web
