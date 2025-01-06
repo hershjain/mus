@@ -1,7 +1,7 @@
 databases:
-  - name: musdb
+  - name: mus_db
     plan: free
-    databaseName: musdb
+    databaseName: mus_db
     user: musdb-user
 
 
