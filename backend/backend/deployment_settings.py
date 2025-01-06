@@ -15,7 +15,7 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = ['https://mus-7du3.onrender.com']
 
 DEBUG = False
-SECRET_KEY = os.environ.get['SECRET_KEY']
+SECRET_KEY = env('SECRET_KEY')
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
