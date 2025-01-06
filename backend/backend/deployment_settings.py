@@ -34,12 +34,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",  
-#     "http://localhost:8000",
-#     "https://musplays.netlify.app",
-#     "https://accounts.spotify.com",
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  
+    "http://localhost:8000",
+    "https://musplays.netlify.app",
+    "https://accounts.spotify.com",
+]
 
 STORAGES = {
     "default":{
@@ -50,6 +50,12 @@ STORAGES = {
     },
        
 }
+
+print("POSTGRES_DB:", env('POSTGRES_DB'))
+print("POSTGRES_USER:", env('POSTGRES_USER'))
+print("POSTGRES_PASSWORD:", env('POSTGRES_PASSWORD'))
+print("POSTGRES_HOST:", env('POSTGRES_HOST'))
+print("POSTGRES_PORT:", env('POSTGRES_PORT'))
 
 DATABASES = {
     'default': {
