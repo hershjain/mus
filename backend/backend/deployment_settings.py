@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     # Your custom app
-    'spotify',
+    'backend.spotify',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
