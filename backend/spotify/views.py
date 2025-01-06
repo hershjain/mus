@@ -29,8 +29,15 @@ def user_profile(request):
     #serializer = ProfileSerializer(profile)
     return JsonResponse(profile_data, safe=False)
 
-@api_view(['POST'])
+@api_view(['OPTIONS', 'POST'])
 def pub_user_profile(request, username):
+    if request.method == 'OPTIONS':
+        response = Response()
+        response["Access-Control-Allow-Origin"] = "https://musplays.netlify.app"
+        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        return response
+    
     try:
         user = request.user
         profile = get_object_or_404(Profile, user__username=username)
@@ -58,9 +65,16 @@ def pub_user_profile(request, username):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-@api_view(['POST'])
+@api_view(['OPTIONS', 'POST'])
 @permission_classes([IsAuthenticated])
 def set_username(request):
+    if request.method == 'OPTIONS':
+        response = Response()
+        response["Access-Control-Allow-Origin"] = "https://musplays.netlify.app"
+        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        return response
+     
     try:
         new_username = request.data.get("username")
         if not new_username:
@@ -75,9 +89,17 @@ def set_username(request):
     except Exception as e:
         return Response({"error": str(e)}, status=500)
 
-@api_view(['POST'])
+@api_view(['OPTIONS', 'POST'])
 @permission_classes([IsAuthenticated])
 def set_bio(request):
+    if request.method == 'OPTIONS':
+        response = Response()
+        response["Access-Control-Allow-Origin"] = "https://musplays.netlify.app"
+        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        return response
+
+
     try:
         new_bio = request.data.get("bio")
         if not new_bio:
@@ -94,9 +116,17 @@ def set_bio(request):
     except Exception as e:
         return Response({"error": str(e)}, status=500)
 
-@api_view(['POST'])
+@api_view(['OPTIONS', 'POST'])
 @permission_classes([AllowAny])  # Allow access without authentication
 def login_view(request):
+    if request.method == 'OPTIONS':
+        response = Response()
+        response["Access-Control-Allow-Origin"] = "https://musplays.netlify.app"
+        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        return response
+
+
     # Get username and password from the request
     username = request.data.get('username')
     password = request.data.get('password')
@@ -158,9 +188,17 @@ def pullpfs(request):
     except Exception as e:
         return Response({"error": str(e)}, status=500)
     
-@api_view(['POST'])
+@api_view(['OPTIONS', 'POST'])
 @login_required
 def follow_user(request, username):
+    if request.method == 'OPTIONS':
+        response = Response()
+        response["Access-Control-Allow-Origin"] = "https://musplays.netlify.app"
+        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        return response
+
+
     target_user = get_object_or_404(User, username=username)
     target_profile = get_object_or_404(Profile, user=target_user)
     current_profile = request.user.profile
@@ -181,8 +219,15 @@ def follow_user(request, username):
 
     return JsonResponse({'message': message, 'following_count': current_profile.following.count()})
 
-@api_view(['POST'])
+@api_view(['OPTIONS', 'POST'])
 def set_toppl(request):
+    if request.method == 'OPTIONS':
+        response = Response()
+        response["Access-Control-Allow-Origin"] = "https://musplays.netlify.app"
+        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        return response
+
     try:
         toppl = request.data
         user = request.user
@@ -197,8 +242,15 @@ def set_toppl(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-@api_view(['POST'])
+@api_view(['OPTIONS', 'POST'])
 def rem_toppl(request):
+    if request.method == 'OPTIONS':
+        response = Response()
+        response["Access-Control-Allow-Origin"] = "https://musplays.netlify.app"
+        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        return response
+
     try:
         user = request.user
         #print("this is request.user: "+str(user))
@@ -208,8 +260,15 @@ def rem_toppl(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-@api_view(['POST'])
+@api_view(['OPTIONS', 'POST'])
 def set_pub(request):
+    if request.method == 'OPTIONS':
+        response = Response()
+        response["Access-Control-Allow-Origin"] = "https://musplays.netlify.app"
+        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        return response
+
     try:
         pl = Playlist.objects.filter(spotify_playlist_id=spid)
         pl.update(public=True)
@@ -218,8 +277,16 @@ def set_pub(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-@api_view(['POST'])
+@api_view(['OPTIONS', 'POST'])
 def set_pri(request):
+    if request.method == 'OPTIONS':
+        response = Response()
+        response["Access-Control-Allow-Origin"] = "https://musplays.netlify.app"
+        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        return response
+
+
     try:
         pl = Playlist.objects.filter(spotify_playlist_id=spid)
         pl.update(public=False)

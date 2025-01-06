@@ -81,7 +81,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = [
-    "http://musplays.netlify.app",
+    "https://musplays.netlify.app",
 ]
 
 CORS_ALLOWED_ORIGINS = [
