@@ -58,14 +58,18 @@ print("POSTGRES_HOST:", env('POSTGRES_HOST'))
 print("POSTGRES_PORT:", env('POSTGRES_PORT'))
 
 DATABASES = {
-    'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': env('POSTGRES_DB'),
-            'USER': env('POSTGRES_USER'),
-            'PASSWORD': env('POSTGRES_PASSWORD'),
-            'HOST': env('POSTGRES_HOST'),
-            'PORT': env('POSTGRES_PORT', default='5432'),  # Default PostgreSQL port
-        }
+    'default' : dj_database_url.config(
+        default=os.environ['DATABASE_URL'],
+        conn_max_age=600
+    )
+    # 'default': {
+    #         'ENGINE': 'django.db.backends.postgresql',
+    #         'NAME': env('POSTGRES_DB'),
+    #         'USER': env('POSTGRES_USER'),
+    #         'PASSWORD': env('POSTGRES_PASSWORD'),
+    #         'HOST': env('POSTGRES_HOST'),
+    #         'PORT': env('POSTGRES_PORT', default='5432'),  # Default PostgreSQL port
+    #     }
 }
 
 BASE_DIR = Path(__file__).resolve().parent.parent
