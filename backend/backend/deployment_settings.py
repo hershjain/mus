@@ -3,7 +3,15 @@ import dj_database_url
 from .settings import *
 from .settings import BASE_DIR
 
-ALLOWED_HOSTS = [os.environ.get['POSTGRES_HOST']]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    # ***** NEED TO ADD OUR URL HERE ***** #
+    "http://mus-7du3.onrender.com",
+    "http://musplays.netlify.app",
+    "mus-7du3.onrender.com",
+]
+
 CSRF_TRUSTED_ORIGINS = ['https://'+os.environ.get['POSTGRES_HOST']]
 
 DEBUG = False
