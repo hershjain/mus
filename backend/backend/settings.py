@@ -83,21 +83,31 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = [
-    "http://musplays.netlify.app",
+    "https://musplays.netlify.app",
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React frontend during development
     "http://localhost:8000",
-    "http://musplays.netlify.app",
-    "http://mus-7du3.onrender.com",
-    "http://accounts.spotify.com",
+    "https://musplays.netlify.app",
+    "https://mus-7du3.onrender.com",
+    "https://accounts.spotify.com",
 
     # "https://your-production-domain.com",  # Replace with your production domain
 ]
 
 # If we use cookies/authentication headers in the frontend
 CORS_ALLOW_CREDENTIALS = True
+
+# Allow specific methods for preflight
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
+]
 
 # If headers are needed
 CORS_ALLOW_HEADERS = [
