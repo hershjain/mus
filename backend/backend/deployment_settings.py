@@ -67,14 +67,10 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     # Your custom app
-    'spotify',
+    'spotify_app',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
-
-CORS_ORIGIN_WHITELIST = [
-    "https://musplays.netlify.app",
-]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React frontend during development
