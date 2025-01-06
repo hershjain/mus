@@ -12,7 +12,7 @@ ALLOWED_HOSTS = [
     "mus-7du3.onrender.com",
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://'+os.environ.get['POSTGRES_HOST']]
+CSRF_TRUSTED_ORIGINS = ['https://mus-7du3.onrender.com']
 
 DEBUG = False
 SECRET_KEY = os.environ.get['SECRET_KEY']
