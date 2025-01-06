@@ -28,4 +28,4 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 EXPOSE 8000 80
 
 # Command to run both Gunicorn (Django) and Nginx
-CMD service nginx start && gunicorn backend.wsgi:application --bind 0.0.0.0:8000
+CMD service nginx start && gunicorn  backend.backend.wsgi:application --bind 0.0.0.0:8000
