@@ -175,6 +175,8 @@ LOGGING = {
     },
 }
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 #token session settings for tokens to be stored and accessed:
 
 SESSION_COOKIE_AGE = 3600  # The session will persist for 1 hour (in seconds)
